@@ -1,0 +1,172 @@
+[
+  {
+    "id": "s00",
+    "name": "Giza / Great Pyramid",
+    "region": "Egypt",
+    "lat": 29.9,
+    "lon": 31.1,
+    "riftline_edge": [7, 8],
+    "img": "images/nodes/giza.jpg",
+    "desc": "Positioned on the riftline between the Algerian vortex and the Indus Valley node — on the natural icosahedral edge between two Earth Pillars. The pyramidal shape is a three-dimensional tine, every face a pointing geometry converging at an apex. The King's Chamber sits at the precise point of maximum energy concentration within the focusing geometry. The pyramid builders chose this location because maximum chronon flow was already present. The pyramidal shape then amplified and focused what the location already provided."
+  },
+  {
+    "id": "s01",
+    "name": "Stonehenge",
+    "region": "England, UK",
+    "lat": 51.2,
+    "lon": -1.8,
+    "riftline_edge": [0, 7],
+    "img": "images/nodes/stonehenge.jpg",
+    "desc": "Stone circle — a distributed tine array arranged in a closed curve. Each standing stone is a vertical tine focusing and discharging upward. The circular arrangement creates a standing-wave resonance field within the enclosed space. Stonehenge produces measurable acoustic standing waves inside the circle at frequencies associated with altered states of consciousness. The acoustic geometry and the chronon geometry are the same geometry working on different aspects of the same phenomenon."
+  },
+  {
+    "id": "s02",
+    "name": "Teotihuacan",
+    "region": "Mexico",
+    "lat": 19.7,
+    "lon": -98.8,
+    "riftline_edge": [0, 9],
+    "img": "images/nodes/teotihuacan.jpg",
+    "desc": "Pyramid complex on the riftline corridor between the Bermuda Triangle and Hawaiian vortex nodes. The Avenue of the Dead and the aligned pyramids of the Sun and Moon constitute a large-scale tine array — chronon focusing architecture at a riftline-adjacent location. The civilisation that built it remains poorly understood, consistent with proximity to an active Earth Pillar node."
+  },
+  {
+    "id": "s03",
+    "name": "Machu Picchu",
+    "region": "Peru",
+    "lat": -13.2,
+    "lon": -72.5,
+    "riftline_edge": [2, 6],
+    "img": "images/nodes/machu-picchu.jpg",
+    "desc": "Inca sacred site on the Andean riftline corridor between the South Atlantic vortex and Easter Island nodes. Positioned at high altitude where the atmosphere is thinner and chronon permeability is naturally higher. The Intihuatana stone — a carved granite tine — functions as a precise solar and chronon focusing instrument. The site's abandonment and deliberate concealment from Spanish colonisers preserved its resonance function."
+  },
+  {
+    "id": "s04",
+    "name": "Angkor Wat",
+    "region": "Cambodia",
+    "lat": 13.4,
+    "lon": 103.9,
+    "riftline_edge": [4, 8],
+    "img": "images/nodes/angkor-wat.jpg",
+    "desc": "Largest religious monument on Earth, on the riftline corridor between the Wharton Basin and Indus Valley nodes. The five towers mirror the Pleiades star cluster — encoding celestial chronon geometry in stone. The moat surrounding the complex creates a reflective boundary that amplifies the resonance of the tine array within. A significant sacred site even where riftline adjacency is less direct than other nodes."
+  },
+  {
+    "id": "s05",
+    "name": "Uluru / Ayers Rock",
+    "region": "Central Australia",
+    "lat": -25.3,
+    "lon": 131.0,
+    "riftline_edge": [4, 5],
+    "img": "images/nodes/uluru.jpg",
+    "desc": "Sacred site at the convergence of multiple Aboriginal songline paths running between the Wharton Basin and Loyalty Islands nodes. The songlines here are not metaphor — they are a living resonance maintenance practice 65,000 years old, predating the catastrophe. Uluru itself is a massive sandstone formation whose iron oxide surface conducts and focuses the chronon flow the songlines maintain. The Aboriginal tradition of singing while walking the lines is the oldest documented riftline maintenance technology on Earth."
+  },
+  {
+    "id": "s06",
+    "name": "Tassili n'Ajjer",
+    "region": "Algeria",
+    "lat": 25.5,
+    "lon": 8.3,
+    "riftline_edge": [7, 8],
+    "img": "images/nodes/tassili.jpg",
+    "desc": "Cave painting complex adjacent to the Algerian vortex node, including the famous mushroom shaman figures — among the earliest records of psychedelic gnosis induction on Earth (~9000 BCE). The painters were working at a location of natural chronon thinness and encoding in image what they experienced in gnosis states. The shaman figures with mushrooms growing from their bodies are not symbolic — they are accurate depictions of the mechanism of histon wave access available at this location."
+  },
+  {
+    "id": "s07",
+    "name": "Göbekli Tepe",
+    "region": "Turkey",
+    "lat": 37.2,
+    "lon": 38.9,
+    "riftline_edge": [7, 8],
+    "img": "images/nodes/gobekli-tepe.jpg",
+    "desc": "Oldest known monumental architecture on Earth (11,600 BCE) — predating agriculture. The circular enclosures with T-shaped limestone pillars constitute an early distributed tine array. Built at a riftline-adjacent location on the corridor between the Algerian and Indus Valley nodes. Its deliberate burial (~8000 BCE) suggests the builders understood they were sealing something — possibly a response to the early effects of the phase-lock beginning to close. Chronon focusing architecture that predates every civilisation we conventionally recognise."
+  },
+  {
+    "id": "s08",
+    "name": "Mt. Kailash",
+    "region": "Tibet",
+    "lat": 31.1,
+    "lon": 81.3,
+    "riftline_edge": [8, 3],
+    "img": "images/nodes/kailash.jpg",
+    "desc": "Centre of the Shamanic Spine riftline corridor. Called the 'centre of the world' by Hindu, Buddhist, Jain, and Bön traditions simultaneously — one of many such designations that cluster along active riftline corridors rather than at arbitrary locations. Roerich's Central Asian expedition traversed this corridor seeking Shambhala. Kailash is a significant secondary node amplifying the riftline between the Indus Valley and Zimbabwe vortex nodes, but is not itself a primary icosahedral vertex. The kora — the ritual circumambulation of the mountain — is a walking resonance practice maintaining the node's chronon permeability."
+  },
+  {
+    "id": "s09",
+    "name": "Chichen Itza",
+    "region": "Mexico / Yucatan",
+    "lat": 20.7,
+    "lon": -88.6,
+    "riftline_edge": [0, 9],
+    "img": "images/nodes/chichen-itza.jpg",
+    "desc": "Mayan ceremonial centre on the riftline corridor between the Bermuda Triangle and Hawaiian vortex nodes. The El Castillo pyramid's shadow-serpent effect at equinox encodes chronon tidal timing in architectural geometry — the builders understood the relationship between astronomical cycles and chronon permeability. The Tzolkin calendar, central to the Mayan Factor and the Crystal Path correspondence system, was actively maintained at this site."
+  },
+  {
+    "id": "s10",
+    "name": "Dogon / Bandiagara Escarpment",
+    "region": "Mali, West Africa",
+    "lat": 14.4,
+    "lon": -3.5,
+    "riftline_edge": [7, 2],
+    "img": "images/nodes/dogon.jpg",
+    "desc": "The Dogon people of the Bandiagara Escarpment possess precise astronomical knowledge of the Sirius system — including Sirius B (a white dwarf invisible to the naked eye) and its 50-year orbital period — transmitted through oral tradition predating Western telescopic confirmation by centuries. In the system's framework, Sirius is a galactic levogyre source: its torsion field output feeds into the planetary chronon cascade. The Dogon riftline corridor gave their ancestors direct perceptual access to this information through chronon permeability rather than optical observation. Their cliff-side dwellings are positioned along the riftline between the Algerian vortex and the South Atlantic node."
+  },
+  {
+    "id": "s11",
+    "name": "Cleopatra's Needle",
+    "region": "Central Park, New York",
+    "lat": 40.78,
+    "lon": -73.97,
+    "riftline_edge": [0, 7],
+    "img": "images/nodes/cleopatras-needle-nyc.jpg",
+    "desc": "Ancient Egyptian obelisk relocated to Central Park in 1881 — pure tine geometry, a single pointed vertical shaft concentrating and discharging chronon energy at its tip. Its sister obelisk stands on the Thames Embankment in London. The Central Park needle has weathered significantly faster than its London counterpart despite being younger in its current location and in a less corrosive environment. In the system's framework this differential aging is a testable observation: a riftline running through this Manhattan location accelerates temporal processes in the stone — more chronon interactions per unit of clock time means faster molecular decay. The obelisk is aging faster because time moves faster through it."
+  },
+  {
+    "id": "s12",
+    "name": "Newgrange",
+    "region": "County Meath, Ireland",
+    "lat": 53.69,
+    "lon": -6.47,
+    "riftline_edge": [0, 7],
+    "img": "images/nodes/newgrange.jpg",
+    "desc": "Neolithic passage tomb (3200 BCE) older than Stonehenge and the pyramids — built so that at winter solstice sunrise, a beam of light penetrates the 19-metre passage and illuminates the inner chamber for precisely 17 minutes. The roof-box alignment is accurate to within a minute of arc. This is chronon tidal timing encoded in megalithic architecture: the builders understood the solstice as a moment of maximum chronon permeability and designed the structure to focus that moment into its interior. A tine array and resonance chamber on the northern Atlantic riftline corridor."
+  },
+  {
+    "id": "s13",
+    "name": "Chartres Cathedral",
+    "region": "France",
+    "lat": 48.45,
+    "lon": 1.49,
+    "riftline_edge": [0, 7],
+    "img": "images/nodes/chartres.jpg",
+    "desc": "Gothic cathedral whose sudden architectural emergence in the 12th century — the pointed arch, the flying buttress, the spire — represents a rediscovery through esoteric transmission of the principle that pointed shapes focus and discharge chronon energy upward. Built on a site of pre-Christian sacred use, the cathedral sits on a riftline corridor and amplifies existing chronon flow through its architectural geometry. The labyrinth on the nave floor is a walking chronon navigation practice — consciousness following the shape's energy-guiding geometry."
+  },
+  {
+    "id": "s14",
+    "name": "Ulaanbaatar region",
+    "region": "Mongolia",
+    "lat": 47.9,
+    "lon": 106.9,
+    "riftline_edge": [1, 8],
+    "img": "images/nodes/mongolia.jpg",
+    "desc": "A significant waypoint on Roerich's Central Asian expedition (1924-1928), traversing the Shamanic Spine riftline corridor in an explicit search for Shambhala. The Mongolian steppe sits on the corridor between the Devil's Sea and Indus Valley nodes. Shamanic practice in this region — among the oldest continuous shamanic traditions on Earth — represents indigenous maintenance of chronon permeability along this riftline, parallel to the Aboriginal songline tradition in Australia."
+  },
+  {
+    "id": "s15",
+    "name": "Khotan / Hotan",
+    "region": "Xinjiang, China",
+    "lat": 37.1,
+    "lon": 79.9,
+    "riftline_edge": [8, 1],
+    "img": "images/nodes/khotan.jpg",
+    "desc": "Ancient Silk Road oasis city traversed by Roerich's expedition on the corridor between the Indus Valley and Devil's Sea nodes. Khotan was a major transmission point for Buddhist art and practice moving east — a cultural riftline along the geographic riftline. The Taklamakan Desert surrounding it contains some of the most anomalous archaeological finds on Earth, including the Tarim mummies — a non-Chinese, non-Mongoloid population in the deep interior of Asia whose presence remains inadequately explained by conventional migration theory."
+  },
+  {
+    "id": "s16",
+    "name": "Darjeeling",
+    "region": "West Bengal, India",
+    "lat": 27.0,
+    "lon": 88.3,
+    "riftline_edge": [8, 3],
+    "img": "images/nodes/darjeeling.jpg",
+    "desc": "Base of operations for Roerich's Himalayan approach, sitting on the riftline between the Indus Valley node and the Zimbabwe vortex — the same corridor as Kailash. The Himalayan range as a whole functions as a chronon-amplifying ridge: the altitude, the geology, and the icosahedral geometry combine to make this the most chronon-permeable mountain range on Earth. Roerich's paintings from this region encode that permeability as pigment — visual songlines made by someone whose personal chronon field had expanded through sustained exposure to the corridor."
+  }
+]
