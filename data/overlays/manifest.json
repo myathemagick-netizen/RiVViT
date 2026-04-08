@@ -4,7 +4,7 @@
     "name": "Australian Songlines",
     "file": "data/overlays/songlines-australia.png",
     "type": "image-drape",
-    "lat_min": -36,
+    "lat_min": -30,
     "lat_max": -14,
     "lon_min": 114,
     "lon_max": 154,
