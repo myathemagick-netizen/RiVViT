@@ -5,7 +5,7 @@
     "file": "data/overlays/songlines-australia.png",
     "type": "image-drape",
     "lat_min": -40,
-    "lat_max": -12,
+    "lat_max": -13,
     "lon_min": 114,
     "lon_max": 154,
     "opacity": 0.85,
