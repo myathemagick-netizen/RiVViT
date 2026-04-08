@@ -1720,7 +1720,7 @@ function updateVrMenuButton() {
   if (!src || !src.gamepad) return;
   const gp = src.gamepad;
   // Y button = index 4 on Quest left controller
-  const yPressed = gp.buttons[4] && gp.buttons[4].pressed;
+  const yPressed = gp.buttons[5] && gp.buttons[5].pressed;
   if (yPressed && !yButtonWasPressed) {
     // Toggle menu
     if (vrMenuMesh.visible) {
