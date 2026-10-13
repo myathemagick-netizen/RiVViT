@@ -2,6 +2,13 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Riftline route images (preview build 2026-10-13.1)
+
+- Added an original schematic globe card for each of the 30 corridors, generated from the existing node coordinates and procedural coast outlines.
+- Riftline metadata now supplies image paths to the shared web and Quest panel/lightbox flow.
+- Cards show the corridor number/name, actual geometric arc, endpoint codes, and endpoint names. They are route diagrams, not site photographs or precise local corridor boundaries.
+- Verified all 30 images and metadata paths, inspected representative polar/Atlantic/Pacific cards, and checked desktop panel/lightbox loading without captured console errors. Quest image checks remain pending.
+
 ## 2026-10-12 — Movable Quest timeline (preview build 2026-10-12.6)
 
 - User confirmed timeline scrubbing works on Quest and reported overlap with the globe and information panels.

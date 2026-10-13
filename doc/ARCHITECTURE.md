@@ -79,3 +79,7 @@ Serve the app over HTTP on localhost for desktop development. To test immersive 
 ## Temporal model
 
 `lib/novelty-wave.mjs` supplies pure bounded date and phase calculations shared by HTML controls and a Quest canvas-texture panel. `data/novelty-events.json` holds independent year-only historical markers. `tests/novelty-wave.test.mjs` tests calculation invariants with Node built-ins. The main HTML still owns view state and interaction; this module is the first step toward separating astronomy, models, and rendering.
+
+## Corridor image cards
+
+`images/riftlines/route-01.jpg` through `route-30.jpg` are original 900×900 schematic route cards. `tools/build-riftline-images.py` regenerates them from the current primary node coordinates, the inline procedural coast outlines, and corridor endpoint metadata. Each JSON record stores its image path. These are deterministic geometric diagrams rather than illustrative photographs. They use the existing web/VR image and lightbox handlers.

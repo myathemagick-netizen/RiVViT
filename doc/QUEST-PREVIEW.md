@@ -6,7 +6,9 @@ Stable site: https://myathemagick-netizen.github.io/RiVViT/
 
 The preview is deployed independently from the modernization branch to the `RiVViT-preview` repository's `main` branch. It does not deploy the stable repository's `main` branch. The header displays a preview build identifier; check it after reloading to confirm the version under test.
 
-## Current build 2026-10-12.6
+## Current build 2026-10-13.1
+
+New: all 30 riftline plaques have route-map images. Select a corridor, trigger its image to open the VR lightbox, close it, and select another corridor. Verify the image matches the corridor name and endpoint labels.
 
 New: hold trigger on the timeline header to move/rotate the panel, release to place it, or select Reset position. Test it beside and below the globe, with close zoom, and overlapping the information plaque. The nearest panel under the pointer should receive the trigger. Close the timeline or exit VR while holding it to verify grab cleanup.
 
