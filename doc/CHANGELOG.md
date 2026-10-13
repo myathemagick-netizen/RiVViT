@@ -2,6 +2,11 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Project README (branch preview)
+
+- Expanded the root README with purpose, controls, Quest requirements, development instructions, current branch status, and documentation links.
+- Linked the public Myathe Magick Atlas as the reference for named riftline corridors; recorded that future corridor metadata must match endpoint pairs rather than array positions.
+
 ## 2026-10-12 — Three.js and Quest modernization (branch preview)
 
 - Upgraded r128 to pinned Three.js 0.186.1 ES modules, with explicit sRGB texture handling.
