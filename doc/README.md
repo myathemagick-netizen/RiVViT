@@ -1,7 +1,7 @@
 # RiVViT Documentation
 
 **RiVViT — Riftline Virtual Visualization Tool**
-A WebXR globe that maps the Myathe Magick System's icosahedral Earth geometry: vortex nodes, riftlines, sacred sites, and (soon) the Novelty Wave in time.
+A WebXR globe that maps the Myathe Magick System's icosahedral Earth geometry: vortex nodes, riftlines, sacred sites, and the Novelty Wave in time.
 
 Live: https://myathemagick-netizen.github.io/RiVViT/
 
@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [SATURN-WAVE-OBSERVATIONS.md](SATURN-WAVE-OBSERVATIONS.md) | Crest offsets, distance variation, user hypotheses, and reproducible calculations |
 | [SATURN.md](SATURN.md) | Calculated Saturn position, pole geometry, and model boundaries |
 | [NOVELTY-WAVE.md](NOVELTY-WAVE.md) | Timeline model, controls, precision, and calibration |
 | [QUEST-PREVIEW.md](QUEST-PREVIEW.md) | Preview deployment and Quest test checklist |

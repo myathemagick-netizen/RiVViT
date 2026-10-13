@@ -2,6 +2,13 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Crest offset and distance research notes
+
+- Documented the user’s proposed chronon-pressure travel/response interpretation and the possible contribution of Earth–Saturn distance variation.
+- Recorded the current fixed-wave mean offset (728.23 days / 1.994 years), separate named-year midpoint result, and the seven-cycle distance table.
+- Included calibration/calendar limitations, descriptive correlations, and a proposed moving-target test.
+- Added the reproducible calculation script and full JSON record. No runtime or astronomical/MMS model changes.
+
 ## 2026-10-13 — Observatory validated for stable release
 
 - User confirmed the complete wave/Saturn comparison works on both web and Quest, and explicitly authorized merging PR #2 to stable.
