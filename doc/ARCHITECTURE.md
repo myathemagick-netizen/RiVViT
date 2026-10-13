@@ -21,7 +21,7 @@ Planned additions: `data/nodes/vortex_nodes.json` (the 12 primaries + 30 edges) 
 
 ## Libraries
 
-- **three.js r128** from cdnjs, for the globe, WebXR and controllers.
+- **three.js 0.186.1 (r186)** via a pinned jsDelivr ES module and import map, for the globe, WebXR and controllers.
 - **Google Fonts**: Inter (body), Cinzel (headings).
 - Earth texture fetched as a blob from a list of mirrors (`TEX_URLS`), falling back to a drawn map.
 
@@ -63,3 +63,15 @@ The Crystal Grid layers follow exactly this pattern.
 ## Preview builds
 
 `rivvit-crystal-lite.html` is a standalone 2D canvas version with no external scripts, for checking geometry on a phone where three.js can't load. It reuses the same node, edge, secondary and coastline data. It is a preview tool, not a replacement: no VR, no textures, no photos.
+
+## Modernization preview
+
+The renderer uses WebGL2, explicit sRGB color textures, and a local-floor WebXR reference space. Quest controller sources are captured both at session start and on connection changes. Session setup is awaited; exit clears input and cursors. Thumbstick movement uses frame time. Hand tracking is not enabled because this UI currently expects Touch controllers.
+
+Crystal Grid layers are built from the existing topology in `index.html`, default off, with web and VR toggles. The ideal orientation is constructed from the documented belt latitude and longitude offset. Primary geometry remains unchanged.
+
+Serve the app over HTTP on localhost for desktop development. To test immersive VR on Quest, use an HTTPS origin accessible from the headset; an HTTP computer LAN address is not a secure context.
+
+## Named riftline selection
+
+`data/riftlines.json` contains all 30 corridor names, MMS-attributed summaries, endpoint codes, primary node IDs, and public Atlas chapter URLs. Metadata is matched by unordered endpoint pair rather than array order. Invisible narrow tube meshes provide pick targets; separate gold tubes supply hover feedback without bloom. Shared picking supports web/touch and Quest triggers, gives point markers priority, excludes hidden groups, and rejects far-side hits behind the globe. Web corridor panels offer an Atlas link; VR plaques present the same summary and endpoints. Long VR titles scale down to fit. If metadata cannot load, generic endpoint descriptions remain selectable.

@@ -105,9 +105,11 @@ canvas { display:block; }
   position:absolute; top:18px; right:18px; pointer-events:none;
   display:flex; flex-direction:column; gap:7px;
 }
-.leg { display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:1px; color:#333; }
+.leg { display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:1px; color:#8b929e; }
 .lg-c { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
 .lg-d { width:7px; height:7px; flex-shrink:0; transform:rotate(45deg); }
+.lg-line { width:20px; height:0; border-top:2px solid; flex-shrink:0; }
+.lg-map { width:18px; height:9px; border:1px solid #c8a96e; background:rgba(200,169,110,.2); flex-shrink:0; }
 
 /* ── Info panel ── */
 #info {
@@ -274,6 +276,13 @@ canvas { display:block; }
       </div>
     </div>
 
+    <div class="msection">
+      <div class="msection-head open" data-sec="crystal">Crystal Grid <span class="arrow">›</span></div>
+      <div class="msection-body open">
+        <div class="mrow" data-l="dodeca"><div class="check"></div><span class="mlabel">Dodeca · Site-pinned</span></div>
+        <div class="mrow" data-l="russian"><div class="check"></div><span class="mlabel">Russian Crystal · Ideal</span></div>
+      </div>
+    </div>
     <!-- CHRONON FLOW -->
     <div class="msection">
       <div class="msection-head open" data-sec="chronon">Chronon Flow <span class="arrow">›</span></div>
@@ -316,7 +325,11 @@ canvas { display:block; }
     <div class="leg"><div class="lg-c" style="background:#50c890;box-shadow:0 0 5px #50c890;"></div>Vortex Node</div>
     <div class="leg"><div class="lg-d" style="background:#c8a96e;box-shadow:0 0 3px #c8a96e;"></div>Secondary Node</div>
     <div class="leg" style="margin-top:4px;"><div style="width:20px;height:1px;background:linear-gradient(90deg,#30a060,#80ffcc);"></div>Riftline</div>
-    <div class="leg"><div style="width:20px;height:1px;background:#0d2840;"></div>Interior Edge</div>
+    <div class="leg"><div style="width:20px;height:1px;background:#365b7a;"></div>Interior Edge</div>
+    <div class="leg"><div class="lg-line" style="border-color:#b58aff"></div>Dodeca · Site-pinned</div>
+    <div class="leg"><div class="lg-line" style="border-color:#ff927f;border-top-style:dashed"></div>Russian Crystal · Ideal</div>
+    <div class="leg"><div class="lg-line" style="border-color:#ffd080;box-shadow:0 0 5px #ffd08066"></div>Riftline hover</div>
+    <div id="overlay-legend"></div>
   </div>
 
   <!-- Info panel -->
@@ -334,6 +347,7 @@ canvas { display:block; }
     </div>
     <div id="info-desc-wrap">
       <p id="ip-desc">—</p>
+      <a id="ip-atlas" href="https://myathemagick.com/system/atlas/" target="_blank" rel="noopener noreferrer" hidden style="color:#c8a96e;font-size:12px;margin-top:10px">Read corridor in the Atlas ↗</a>
     </div>
     <div class="coords" id="ip-coords">—</div>
   </div>
@@ -357,8 +371,16 @@ canvas { display:block; }
   <button id="vrbtn">⬡ Enter VR</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
+  document.title = 'RiVViT Preview — Earth Pillar Network';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.4';
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // VORTEX NODES — Sanderson's 12 vile vortices, the true icosahedron vertices
@@ -423,7 +445,10 @@ const renderer = new THREE.WebGLRenderer({ antialias:true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 renderer.setSize(window.innerWidth,window.innerHeight);
 renderer.setClearColor(0x000206);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.xr.enabled = true;
+renderer.xr.setReferenceSpaceType('local-floor');
+renderer.xr.setFramebufferScaleFactor(1);
 document.body.appendChild(renderer.domElement);
 
 const scene  = new THREE.Scene();
@@ -530,6 +555,7 @@ function hideLoading(){
 }
 
 function applyTexture(tex){
+  tex.colorSpace = THREE.SRGBColorSpace;
   globeMat.map = tex;
   globeMat.needsUpdate = true;
   if(fillEl) fillEl.style.width='100%';
@@ -754,6 +780,7 @@ function makeProcedural(){
   }
 
   globeMat.map = new THREE.CanvasTexture(cv);
+  globeMat.map.colorSpace = THREE.SRGBColorSpace;
   globeMat.opacity = 0.82;
   globeMat.needsUpdate = true;
 }
@@ -799,6 +826,11 @@ const facesGrp = new THREE.Group(); G.add(facesGrp);
 // ═══════════════════════════════════════════════════════════════════════════
 // RIFTLINES — great-circle arcs on surface + animated glow
 // ═══════════════════════════════════════════════════════════════════════════
+const RIFTLINE_DATA = await fetch('./data/riftlines.json')
+  .then(response=>{if(!response.ok) throw new Error('Riftline data '+response.status); return response.json();})
+  .catch(error=>{console.warn(error); return [];});
+const riftlineByPair = new Map(RIFTLINE_DATA.map(record=>[record.app_node_ids.slice().sort((a,b)=>a-b).join('-'),record]));
+const riftlineTargets=[];
 const surfaceGrp = new THREE.Group(); G.add(surfaceGrp);
 const riftAnim=[];
 const SURF_R=R*1.003;
@@ -812,6 +844,25 @@ EDGES.forEach(([a,b])=>{
   const glowMat=new THREE.LineBasicMaterial({color:0x40c880,transparent:true,opacity:0});
   surfaceGrp.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),glowMat));
   riftAnim.push({mat:glowMat,phase:Math.random()*Math.PI*2});
+  const record=riftlineByPair.get([a,b].sort((x,y)=>x-y).join('-'));
+  const endpointText=VORTEX_NODES[a].name+' ↔ '+VORTEX_NODES[b].name;
+  const riftlineNode={name:record?.name || endpointText,
+    region:record ? 'Riftline '+record.atlas_number+' · '+record.endpoint_codes.join('–') : 'Riftline',
+    coordsText:endpointText,
+    desc:(record?.summary || 'Geometric connection between these primary nodes.')+
+      '\n\nEndpoints: '+endpointText+'. The displayed arc is the geometric corridor framework; the MMS reading describes a wider landscape.',
+    atlasUrl:record?.atlas_url};
+  const curve=new THREE.CatmullRomCurve3(pts);
+  // Invisible tube gives the thin visual line a comfortable picking width in VR.
+  const target=new THREE.Mesh(new THREE.TubeGeometry(curve,70,.010,6,false),
+    new THREE.MeshBasicMaterial({visible:false}));
+  target.userData.riftlineNode=riftlineNode;
+  const hover=new THREE.Mesh(new THREE.TubeGeometry(curve,70,.004,6,false),
+    new THREE.MeshBasicMaterial({color:0xffd080,transparent:true,opacity:.65,
+      blending:THREE.AdditiveBlending,depthWrite:false}));
+  hover.visible=false;
+  target.userData.hoverGlow=hover;
+  surfaceGrp.add(target,hover); riftlineTargets.push(target);
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -999,6 +1050,7 @@ function buildImageDrape(overlay) {
       const url = URL.createObjectURL(blob);
       texLoader.load(url, tex => {
         URL.revokeObjectURL(url);
+        tex.colorSpace = THREE.SRGBColorSpace;
         mat.map = tex;
         mat.color.set(0xffffff);
         mat.needsUpdate = true;
@@ -1015,6 +1067,12 @@ function buildImageDrape(overlay) {
 }
 
 function addOverlayMenuItem(overlay) {
+  const legendRow=document.createElement('div');
+  legendRow.className='leg';
+  legendRow.style.marginTop='7px';
+  const swatch=document.createElement('div'); swatch.className='lg-map';
+  legendRow.append(swatch,document.createTextNode(overlay.name+' · map'));
+  document.getElementById('overlay-legend').appendChild(legendRow);
   const body = document.getElementById('overlays-body');
 
   // Remove the "no overlays" placeholder if present
@@ -1064,7 +1122,68 @@ function addAnn(ann){
 // LAYER MAP
 // ═══════════════════════════════════════════════════════════════════════════
 // ── Layer map ─────────────────────────────────────────────────────────────
-const layerMap = {globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
+// ═══════════════════════════════════════════════════════════════════════════
+// CRYSTAL GRID — shared topology, site-pinned and ideal comparison layers
+// ═══════════════════════════════════════════════════════════════════════════
+const crystalFaces = [];
+const edgeKeys = new Set(EDGES.map(([a,b])=>[a,b].sort((x,y)=>x-y).join('-')));
+for(let a=0;a<12;a++) for(let b=a+1;b<12;b++) for(let c=b+1;c<12;c++){
+  if([[a,b],[a,c],[b,c]].every(e=>edgeKeys.has(e.join('-')))) crystalFaces.push([a,b,c]);
+}
+const dualEdges = [];
+crystalFaces.forEach((a,i)=>crystalFaces.forEach((b,j)=>{
+  if(j>i && a.filter(v=>b.includes(v)).length===2) dualEdges.push([i,j]);
+}));
+if(crystalFaces.length!==20 || dualEdges.length!==30) throw new Error('Invalid crystal topology');
+const beltLat = Math.atan(0.5)*180/Math.PI;
+const idealCoords = [
+  [beltLat,-76.81],[beltLat,139.19],[-beltLat,-40.81],[-beltLat,31.19],
+  [-beltLat,103.19],[-beltLat,175.19],[-beltLat,-112.81],[beltLat,-4.81],
+  [beltLat,67.19],[beltLat,-148.81],[90,0],[-90,0]
+];
+const idealVertices = idealCoords.map(([lat,lon])=>ll2v(lat,lon,1));
+const pinnedVertices = VORTEX_NODES.map(n=>ll2v(n.lat,n.lon,1));
+function faceCentres(vertices){
+  return crystalFaces.map(face=>face.reduce((sum,i)=>sum.add(vertices[i]),new THREE.Vector3()).normalize());
+}
+const pinnedCentres = faceCentres(pinnedVertices);
+const idealCentres = faceCentres(idealVertices);
+function crystalNode(v,other,name,model){
+  const lat = Math.asin(v.y)*180/Math.PI;
+  const lon = ((Math.atan2(v.z,-v.x)*180/Math.PI-180+540)%360)-180;
+  const gap = 6371*Math.acos(THREE.MathUtils.clamp(v.dot(other),-1,1));
+  return {name,region:model,lat:Number(lat.toFixed(2)),lon:Number(lon.toFixed(2)),
+    desc:model+'. Counterpart distance: '+Math.round(gap)+' km'+(gap<=130?' — within 130 km comparison tolerance.':'. Outside 130 km comparison tolerance.')};
+}
+const dodecaGrp = new THREE.Group(); G.add(dodecaGrp); dodecaGrp.visible=false;
+const russianGrp = new THREE.Group(); G.add(russianGrp); russianGrp.visible=false;
+const crystalDots = [];
+function addCrystalPoints(group,vertices,others,color,model,isFace){
+  vertices.forEach((v,i)=>{
+    const name = isFace ? crystalFaces[i].map(j=>VORTEX_NODES[j].name).join(' / ') : VORTEX_NODES[i].name;
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.014,12,8),new THREE.MeshBasicMaterial({color}));
+    dot.position.copy(v).multiplyScalar(R*1.014);
+    dot.userData.crystalNode=crystalNode(v,others[i],name,model);
+    dot.userData.crystalGroup=group;
+    group.add(dot); crystalDots.push(dot);
+  });
+}
+function addCrystalLines(group,vertices,edges,color,dashed){
+  const material = dashed ? new THREE.LineDashedMaterial({color,dashSize:.025,gapSize:.018,transparent:true,opacity:.75}) : new THREE.LineBasicMaterial({color,transparent:true,opacity:.75});
+  edges.forEach(([a,b])=>{
+    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(surfaceArc(vertices[a],vertices[b],60,R*1.007)),material);
+    if(dashed) line.computeLineDistances();
+    group.add(line);
+  });
+}
+addCrystalPoints(dodecaGrp,pinnedCentres,idealCentres,0xb58aff,'Dodeca · Site-pinned',true);
+addCrystalLines(dodecaGrp,pinnedCentres,dualEdges,0xb58aff,false);
+addCrystalPoints(russianGrp,idealVertices,pinnedVertices,0xff927f,'Russian Crystal · Ideal',false);
+addCrystalPoints(russianGrp,idealCentres,pinnedCentres,0xff927f,'Russian Crystal · Ideal',true);
+addCrystalLines(russianGrp,idealVertices,EDGES,0xff927f,true);
+addCrystalLines(russianGrp,idealCentres,dualEdges,0xff927f,true);
+
+const layerMap = {dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
 
 // ── Menu open/close ──────────────────────────────────────────────────────
 const menuBtn  = document.getElementById('menu-btn');
@@ -1145,10 +1264,17 @@ function showInfo(node, set) {
   document.getElementById('ip-name').textContent = node.name   || '—';
   document.getElementById('ip-reg').textContent  = node.region || '—';
   document.getElementById('ip-desc').textContent = node.desc   || '—';
+  const atlasLink=document.getElementById('ip-atlas');
+  atlasLink.hidden=!node.atlasUrl;
+  if(node.atlasUrl) atlasLink.href=node.atlasUrl;
 
   const tag = document.getElementById('ip-tag');
   if (set === 'vortex') {
     tag.textContent = '⬡ VORTEX / EARTH PILLAR'; tag.className = 'tag vortex';
+  } else if (set === 'riftline') {
+    tag.textContent = '— RIFTLINE CORRIDOR'; tag.className = 'tag secondary';
+  } else if (set === 'crystal') {
+    tag.textContent = '◇ CRYSTAL GRID'; tag.className = 'tag secondary';
   } else if (set === 'secondary') {
     tag.textContent = '◇ SECONDARY NODE'; tag.className = 'tag secondary';
   } else {
@@ -1156,7 +1282,7 @@ function showInfo(node, set) {
   }
 
   document.getElementById('ip-coords').textContent =
-    node.lat !== undefined ? `LAT ${node.lat}°  /  LON ${node.lon}°` : '';
+    node.coordsText || (node.lat !== undefined ? `LAT ${node.lat}°  /  LON ${node.lon}°` : '');
 
   // Image — try jpg first, then png, hide gracefully if neither exists
   const imgBase = node.img ? node.img.replace(/\.(jpg|png|jpeg|webp)$/i, '') : null;
@@ -1202,6 +1328,61 @@ setTimeout(() => {
 }, 0);
 const ray=new THREE.Raycaster(), mp=new THREE.Vector2();
 
+// Shared selection and hover feedback for mouse and both Quest pointers.
+function visibleInScene(object){
+  for(let parent=object;parent;parent=parent.parent) if(!parent.visible) return false;
+  return true;
+}
+function selectableObjects(){
+  return [...vortexDots,...secondaryDots,...crystalDots,...riftlineTargets,
+    ...annGrp.children.filter(object=>object.userData.annotation)].filter(visibleInScene);
+}
+function selectableHit(raycaster){
+  const candidates=selectableObjects();
+  const globeHit=raycaster.intersectObject(hitSphere,false)[0];
+  const isUnblocked=hit=>!globeHit || hit.distance<=globeHit.distance+.006;
+  // Prefer point markers at intersections; broad corridor targets must not steal nodes.
+  const point=raycaster.intersectObjects(candidates.filter(object=>!object.userData.riftlineNode),false).find(isUnblocked);
+  if(point) return point;
+  return raycaster.intersectObjects(candidates.filter(object=>object.userData.riftlineNode),false).find(isUnblocked) || null;
+}
+function showSelectable(object){
+  if(object.userData.riftlineNode) showInfo(object.userData.riftlineNode,'riftline');
+  else if(object.userData.crystalNode) showInfo(object.userData.crystalNode,'crystal');
+  else if(vortexDots.includes(object)) showInfo(VORTEX_NODES[object.userData.nodeId],'vortex');
+  else if(secondaryDots.includes(object)) showInfo(SECONDARY_NODES[object.userData.nodeId],'secondary');
+  else if(object.userData.annotation) showInfo({name:'Annotation',region:'User-placed',desc:object.userData.text},'annotation');
+}
+const hoverCanvas=document.createElement('canvas'); hoverCanvas.width=hoverCanvas.height=64;
+const hoverContext=hoverCanvas.getContext('2d');
+const hoverGradient=hoverContext.createRadialGradient(32,32,3,32,32,32);
+hoverGradient.addColorStop(0,'rgba(255,255,255,0.75)');
+hoverGradient.addColorStop(.35,'rgba(255,255,255,0.35)');
+hoverGradient.addColorStop(1,'rgba(255,255,255,0)');
+hoverContext.fillStyle=hoverGradient; hoverContext.fillRect(0,0,64,64);
+const hoverTexture=new THREE.CanvasTexture(hoverCanvas);
+hoverTexture.colorSpace=THREE.SRGBColorSpace;
+const hoverGlows=new Map();
+const hoveredObjects=new Set();
+function updateHoverGlows(){
+  hoveredObjects.forEach(object=>{
+    if(!hoverGlows.has(object)){
+      if(object.userData.hoverGlow){ hoverGlows.set(object,object.userData.hoverGlow); return; }
+      const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:hoverTexture,
+        color:object.material.color,transparent:true,opacity:.8,
+        blending:THREE.AdditiveBlending,depthWrite:false}));
+      glow.scale.set(.10,.10,1); object.add(glow); hoverGlows.set(object,glow);
+    }
+  });
+  hoverGlows.forEach((glow,object)=>{glow.visible=hoveredObjects.has(object)&&visibleInScene(object);});
+}
+let mouseHover=null;
+renderer.domElement.addEventListener('pointermove',event=>{
+  if(event.pointerType==='touch') return;
+  mouseHover={x:event.clientX,y:event.clientY};
+});
+renderer.domElement.addEventListener('pointerleave',()=>{mouseHover=null;});
+
 function doClick(cx,cy){
   mp.x=(cx/window.innerWidth)*2-1; mp.y=-(cy/window.innerHeight)*2+1;
   ray.setFromCamera(mp,camera);
@@ -1217,13 +1398,8 @@ function doClick(cx,cy){
     }
     return;
   }
-  const vh=ray.intersectObjects(vortexDots);
-  if(vh.length){showInfo(VORTEX_NODES[vh[0].object.userData.nodeId],'vortex');return;}
-  const sh=ray.intersectObjects(secondaryDots);
-  if(sh.length){showInfo(SECONDARY_NODES[sh[0].object.userData.nodeId],'secondary');return;}
-  const ah=ray.intersectObjects(annGrp.children);
-  if(ah.length&&ah[0].object.userData.annotation)
-    showInfo({name:'Annotation',region:'User-placed',lat:undefined,desc:ah[0].object.userData.text},'annotation');
+  const hit=selectableHit(ray);
+  if(hit) showSelectable(hit.object);
 }
 
 renderer.domElement.addEventListener('mousedown',e=>{
@@ -1291,66 +1467,51 @@ function setVrStatus(msg, col){
   vrBtn.style.borderColor = col ? col+'44' : '#c8a96e33';
 }
 
-// Check XR support on load and style button accordingly
-(async ()=>{
-  if(!navigator.xr){
-    setVrStatus('VR — not available','#555');
-    vrBtn.title = 'WebXR not found. Open in Meta Quest Browser over HTTPS.';
-    return;
-  }
-  const supported = await navigator.xr.isSessionSupported('immersive-vr').catch(()=>false);
-  if(supported){
-    setVrStatus('⬡ Enter VR','#c8a96e');
-    vrBtn.style.opacity='1';
-  } else {
-    setVrStatus('VR — checking…','#c8a96e55');
-    vrBtn.title = 'Immersive VR session not supported in this context.';
-  }
-})();
+// WebXR requires HTTPS (localhost is only useful on the device running the server).
+let xrStarting = false;
+async function checkVrSupport(){
+  const supported = window.isSecureContext && navigator.xr &&
+    await navigator.xr.isSessionSupported('immersive-vr').catch(()=>false);
+  vrBtn.disabled = !supported;
+  setVrStatus(supported ? '⬡ Enter VR' : 'VR — not available', supported ? '#c8a96e' : '#555');
+  vrBtn.title = supported ? 'Enter immersive VR' : 'Open this page in Meta Quest Browser over HTTPS.';
+}
+checkVrSupport();
+
+function resetVrSession(){
+  xrSess = null;
+  gripSources.fill(null);
+  controllers.forEach(({cursor}) => { cursor.visible = false; });
+  G.position.set(0, 0, 0);
+  G.scale.setScalar(1);
+  setVrStatus('⬡ Enter VR', '#c8a96e');
+}
 
 vrBtn.addEventListener('click', async ()=>{
-  // Exit if already in session
-  if(xrSess){ xrSess.end(); return; }
-
-  if(!navigator.xr){
-    alert('WebXR not available.\n\nOn Meta Quest: open this page in the Meta Quest Browser.\nThe page must be served over HTTPS (not file://).\n\nQuick option: run  python3 -m http.server 8080  on your computer and open http://YOUR_IP:8080 in the Quest browser (same WiFi).');
-    return;
-  }
-
-  let supported = false;
-  try { supported = await navigator.xr.isSessionSupported('immersive-vr'); } catch(e){}
-
-  if(!supported){
-    alert('Immersive VR not supported in this browser/context.\n\nRequirements:\n• Meta Quest Browser (not Chrome/Firefox on desktop)\n• Page served over HTTPS or localhost\n• WebXR enabled in browser settings');
-    return;
-  }
-
+  if(xrStarting) return;
+  if(xrSess){ await xrSess.end(); return; }
+  xrStarting = true;
+  vrBtn.disabled = true;
   setVrStatus('Starting…','#c8b060');
-
+  let session;
   try {
-    xrSess = await navigator.xr.requestSession('immersive-vr', {
-      optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking']
+    session = await navigator.xr.requestSession('immersive-vr', {
+      optionalFeatures: ['local-floor', 'bounded-floor']
     });
+    session.addEventListener('end', resetVrSession, {once:true});
+    await renderer.xr.setSession(session);
+    xrSess = session;
+    setVrStatus('⬡ Exit VR', '#80ffcc');
+    G.position.set(0, 1.3, -2.2);
+    G.scale.setScalar(0.68);
   } catch(e) {
-    setVrStatus('⬡ Enter VR','#c8a96e');
+    if(session) await session.end().catch(()=>{});
+    resetVrSession();
     alert('Could not start VR session:\n' + e.message);
-    return;
+  } finally {
+    xrStarting = false;
+    vrBtn.disabled = false;
   }
-
-  renderer.xr.setSession(xrSess);
-  setVrStatus('⬡ Exit VR', '#80ffcc');
-
-  // Position globe comfortably in front of user in VR
-  // ~1.3m height, 2.2m forward, scaled down to 0.68m radius
-  G.position.set(0, 1.3, -2.2);
-  G.scale.setScalar(0.68);
-
-  xrSess.addEventListener('end', ()=>{
-    xrSess = null;
-    setVrStatus('⬡ Enter VR', '#c8a96e');
-    G.position.set(0, 0, 0);
-    G.scale.setScalar(1);
-  });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1392,6 +1553,10 @@ const controllers = [0, 1].map(i => {
 const gripSources = [null, null];
 renderer.xr.addEventListener('sessionstart', () => {
   const session = renderer.xr.getSession();
+  for(const src of session.inputSources){
+    if(src.handedness === 'left') gripSources[0] = src;
+    if(src.handedness === 'right') gripSources[1] = src;
+  }
   session.addEventListener('inputsourceschange', e => {
     e.added.forEach(src => {
       if (src.handedness === 'left')  gripSources[0] = src;
@@ -1441,14 +1606,8 @@ controllers.forEach(({ ctrl }) => {
       }
     }
 
-    // Raycast nodes
-    const vh = vrRay.intersectObjects(vortexDots);
-    if (vh.length) { showInfo(VORTEX_NODES[vh[0].object.userData.nodeId], 'vortex'); return; }
-    const sh = vrRay.intersectObjects(secondaryDots);
-    if (sh.length) { showInfo(SECONDARY_NODES[sh[0].object.userData.nodeId], 'secondary'); return; }
-    const ah = vrRay.intersectObjects(annGrp.children);
-    if (ah.length && ah[0].object.userData.annotation)
-      showInfo({ name:'Annotation', region:'User-placed', lat:undefined, desc:ah[0].object.userData.text }, 'annotation');
+    const hit=selectableHit(vrRay);
+    if(hit) showSelectable(hit.object);
   });
 });
 
@@ -1460,6 +1619,7 @@ const vrInfoCanvas = document.createElement('canvas');
 vrInfoCanvas.width = VR_W; vrInfoCanvas.height = VR_H;
 const vrInfoCtx = vrInfoCanvas.getContext('2d');
 const vrInfoTex = new THREE.CanvasTexture(vrInfoCanvas);
+vrInfoTex.colorSpace = THREE.SRGBColorSpace;
 const vrInfoMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(1.0, 0.5),
   new THREE.MeshBasicMaterial({
@@ -1479,6 +1639,7 @@ const vrLbCanvas = document.createElement('canvas');
 vrLbCanvas.width = 1024; vrLbCanvas.height = 1024;
 const vrLbCtx = vrLbCanvas.getContext('2d');
 const vrLbTex = new THREE.CanvasTexture(vrLbCanvas);
+vrLbTex.colorSpace = THREE.SRGBColorSpace;
 const vrLbMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(0.9, 0.9),
   new THREE.MeshBasicMaterial({
@@ -1510,13 +1671,14 @@ renderer.xr.addEventListener('sessionend', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 // VR MENU
 // ═══════════════════════════════════════════════════════════════════════════
-const VRM_W = 512, VRM_H = 768;
+const VRM_W = 512, VRM_H = 960;
 const vrMenuCanvas = document.createElement('canvas');
 vrMenuCanvas.width = VRM_W; vrMenuCanvas.height = VRM_H;
 const vrMenuCtx = vrMenuCanvas.getContext('2d');
 const vrMenuTex = new THREE.CanvasTexture(vrMenuCanvas);
+vrMenuTex.colorSpace = THREE.SRGBColorSpace;
 const vrMenuMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(0.38, 0.57),
+  new THREE.PlaneGeometry(0.38, 0.7125),
   new THREE.MeshBasicMaterial({
     map: vrMenuTex, transparent: true,
     side: THREE.DoubleSide, depthWrite: false, depthTest: false
@@ -1538,6 +1700,10 @@ const VR_MENU_ITEMS = [
   { type:'toggle',  label:'Globe / Map',       key:'globe' },
   { type:'toggle',  label:'Icosahedron',        key:'ico' },
   { type:'toggle',  label:'Faces',              key:'faces' },
+  { type:'divider' },
+  { type:'header', label:'CRYSTAL GRID' },
+  { type:'toggle', label:'Dodeca · Site-pinned', key:'dodeca' },
+  { type:'toggle', label:'Russian Crystal · Ideal', key:'russian' },
   { type:'divider' },
   { type:'header',  label:'CHRONON FLOW' },
   { type:'toggle',  label:'Vortex Nodes',       key:'vortex' },
@@ -1825,8 +1991,12 @@ function drawVrPanel(node, img) {
   // Right text column
   // Name
   c.fillStyle = '#f0d898';
-  c.font = 'bold 32px sans-serif';
-  c.fillText(node.name || '—', TEXT_X, 46);
+  let titleSize=32;
+  c.font = 'bold '+titleSize+'px sans-serif';
+  while(titleSize>18 && c.measureText(node.name || '—').width>TEXT_W){
+    titleSize--; c.font='bold '+titleSize+'px sans-serif';
+  }
+  c.fillText(node.name || '—', TEXT_X, 46, TEXT_W);
 
   // Region
   c.fillStyle = '#6a5a2a';
@@ -1984,13 +2154,19 @@ function roundRect(ctx, x, y, w, h, r) {
 // ═══════════════════════════════════════════════════════════════════════════
 // RENDER LOOP
 // ═══════════════════════════════════════════════════════════════════════════
-const clk = new THREE.Clock();
+let animationStart;
+let previousFrame;
 const _vrRaycasterDir = new THREE.Vector3();
 const _vrOrigin = new THREE.Vector3();
 
-renderer.setAnimationLoop(() => {
-  const t = clk.getElapsedTime();
+renderer.setAnimationLoop((time) => {
+  animationStart ??= time;
+  const t = (time - animationStart) / 1000;
+  const frameScale = previousFrame === undefined ? 1 : Math.min((time - previousFrame) / (1000 / 60), 3);
+  previousFrame = time;
   const inVR = renderer.xr.isPresenting;
+  hoveredObjects.clear();
+  scene.updateMatrixWorld(true);
 
   // ── Thumbstick globe rotation (VR only) ──────────────────────────────
   if (inVR) {
@@ -2004,8 +2180,8 @@ renderer.setAnimationLoop(() => {
       // Right hand: thumbstick axes 2,3 → rotate globe
       if (hi === 1 && gp.axes.length >= 4) {
         const ax = gp.axes[2], ay = gp.axes[3];
-        if (Math.abs(ax) > 0.12) rotV.y += ax * 0.008;
-        if (Math.abs(ay) > 0.12) rotV.x += ay * 0.008;
+        if (Math.abs(ax) > 0.12) rotV.y += ax * 0.008 * frameScale;
+        if (Math.abs(ay) > 0.12) rotV.x += ay * 0.008 * frameScale;
       }
 
       // Left hand: thumbstick Y → scroll plaque text if open, else zoom
@@ -2014,12 +2190,12 @@ renderer.setAnimationLoop(() => {
         if (Math.abs(ay) > 0.15) {
           if (vrInfoMesh.visible && vrScrollMax > 0) {
             // Scroll text
-            vrScrollOffset = Math.max(0, Math.min(vrScrollMax, vrScrollOffset + ay * 0.12));
+            vrScrollOffset = Math.max(0, Math.min(vrScrollMax, vrScrollOffset + ay * 0.12 * frameScale));
             if (vrCurrentNode) drawVrPanel(vrCurrentNode, vrImgElement);
           } else {
             // Zoom globe
             const s = G.scale.x;
-            const ns = Math.max(0.3, Math.min(1.4, s - ay * 0.02));
+            const ns = Math.max(0.3, Math.min(1.4, s - ay * 0.02 * frameScale));
             G.scale.setScalar(ns);
           }
         }
@@ -2032,6 +2208,7 @@ renderer.setAnimationLoop(() => {
   // ── Controller laser pointers ─────────────────────────────────────────
   if (inVR) {
     controllers.forEach(({ ctrl, ray, rayMat, cursor, cursorMat }) => {
+      if(!ctrl.visible){ cursor.visible=false; return; }
       ctrl.getWorldPosition(_vrOrigin);
       ctrl.getWorldDirection(_vrRaycasterDir).negate();
       vrRay.set(_vrOrigin, _vrRaycasterDir);
@@ -2039,7 +2216,11 @@ renderer.setAnimationLoop(() => {
       // Check VR menu first
       const hitsMenu = updateVrMenuRaycast(_vrOrigin, _vrRaycasterDir);
 
-      const hits = vrRay.intersectObjects([...vortexDots, ...secondaryDots, hitSphere], true);
+      const blocked=hitsMenu || vrLbMesh.visible ||
+        (vrInfoMesh.visible && vrRay.intersectObject(vrInfoMesh).length>0);
+      const target=blocked ? null : selectableHit(vrRay);
+      if(target) hoveredObjects.add(target.object);
+      const hits = target ? [target] : (blocked ? [] : vrRay.intersectObject(hitSphere));
       if (hits.length) {
         const pt = hits[0].point;
         // Shorten ray to hit point
@@ -2051,7 +2232,7 @@ renderer.setAnimationLoop(() => {
         cursor.visible = true;
 
         // Highlight if over a node
-        const isNode = hits[0].object.userData.nodeId !== undefined;
+        const isNode = hits[0].object.userData.nodeId !== undefined || hits[0].object.userData.crystalNode !== undefined || hits[0].object.userData.riftlineNode !== undefined || hits[0].object.userData.annotation;
         rayMat.color.setHex(isNode ? 0xc8a96e : 0x80ffcc);
         rayMat.opacity = isNode ? 0.8 : 0.4;
         cursorMat.color.setHex(isNode ? 0xffd080 : 0xc8a96e);
@@ -2070,10 +2251,10 @@ renderer.setAnimationLoop(() => {
     camera.position.z += (targetZ - camera.position.z) * 0.08;
   }
 
-  G.rotation.y += rotV.y; G.rotation.x += rotV.x;
-  rotV.x *= 0.91; rotV.y *= 0.91;
+  G.rotation.y += rotV.y * frameScale; G.rotation.x += rotV.x * frameScale;
+  rotV.x *= Math.pow(0.91, frameScale); rotV.y *= Math.pow(0.91, frameScale);
   G.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, G.rotation.x));
-  if (autoRotate && Math.abs(rotV.y) < 0.0008 && Math.abs(rotV.x) < 0.0008) G.rotation.y += 0.0005;
+  if (autoRotate && Math.abs(rotV.y) < 0.0008 && Math.abs(rotV.x) < 0.0008) G.rotation.y += 0.0005 * frameScale;
 
   // ── Animations ───────────────────────────────────────────────────────
   riftAnim.forEach(r => {
@@ -2098,6 +2279,14 @@ renderer.setAnimationLoop(() => {
 
   annGrp.children.forEach(c => { if(c.userData.annotation) c.rotation.y = t*.8; });
 
+  if(!inVR && mouseHover && !annMode){
+    mp.set(mouseHover.x/window.innerWidth*2-1,1-mouseHover.y/window.innerHeight*2);
+    ray.setFromCamera(mp,camera);
+    const hit=selectableHit(ray);
+    if(hit) hoveredObjects.add(hit.object);
+  }
+  renderer.domElement.style.cursor = !inVR && hoveredObjects.size ? 'pointer' : '';
+  updateHoverGlows();
   renderer.render(scene, camera);
 });
 
