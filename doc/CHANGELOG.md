@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Sirius timeline preview
+
+- Recorded the author’s pattern-seeking purpose, dextrogyre interpretation, historical-layer goals, and reason for the 200-year boundary.
+- Added an optional Sirius timeline on web and Quest: approximate catalogue distance/coordinates, Kepler A/B separation curve, and static travel-scale scenario at the fitted Saturn speed.
+- Intensity and a different Sirius force remain open; MMS calibration is unchanged. Quest validation pending.
+
 ## 2026-10-13 — Moving-target research experiment
 
 - Added a barycentric straight-path, constant-speed arrival solver and Earth radial/separation-rate calculations.

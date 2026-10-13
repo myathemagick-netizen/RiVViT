@@ -9,6 +9,8 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [PATAPHYSICAL-RESEARCH.md](PATAPHYSICAL-RESEARCH.md) | Author's pattern-seeking purpose, historical layers, and 200-year data boundary |
+| [SIRIUS.md](SIRIUS.md) | Sirius catalogue track, binary cycle, and hypothetical travel-scale comparison |
 | [MOVING-TARGET-EXPERIMENT.md](MOVING-TARGET-EXPERIMENT.md) | Hypothetical moving-target fit and time-resolved intervening-body geometry |
 | [SATURN-WAVE-OBSERVATIONS.md](SATURN-WAVE-OBSERVATIONS.md) | Crest offsets, distance variation, user hypotheses, and reproducible calculations |
 | [SATURN.md](SATURN.md) | Calculated Saturn position, pole geometry, and model boundaries |
