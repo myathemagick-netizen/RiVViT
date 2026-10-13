@@ -75,3 +75,7 @@ Serve the app over HTTP on localhost for desktop development. To test immersive 
 ## Named riftline selection
 
 `data/riftlines.json` contains all 30 corridor names, MMS-attributed summaries, endpoint codes, primary node IDs, and public Atlas chapter URLs. Metadata is matched by unordered endpoint pair rather than array order. Invisible narrow tube meshes provide pick targets; separate gold tubes supply hover feedback without bloom. Shared picking supports web/touch and Quest triggers, gives point markers priority, excludes hidden groups, and rejects far-side hits behind the globe. Web corridor panels offer an Atlas link; VR plaques present the same summary and endpoints. Long VR titles scale down to fit. If metadata cannot load, generic endpoint descriptions remain selectable.
+
+## Temporal model
+
+`lib/novelty-wave.mjs` supplies pure bounded date and phase calculations shared by HTML controls and a Quest canvas-texture panel. `data/novelty-events.json` holds independent year-only historical markers. `tests/novelty-wave.test.mjs` tests calculation invariants with Node built-ins. The main HTML still owns view state and interaction; this module is the first step toward separating astronomy, models, and rendering.

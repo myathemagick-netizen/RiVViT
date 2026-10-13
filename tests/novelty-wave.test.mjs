@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from '../lib/novelty-wave.mjs';
+const anchor=dateMs(DEFAULT_ANCHOR), period=PERIOD_DAYS*DAY_MS;
+assert.ok(Math.abs(waveAt(anchor).value-1)<1e-12);
+assert.ok(Math.abs(waveAt(anchor+period/2).value+1)<1e-12);
+assert.ok(Math.abs(waveAt(anchor+period).value-1)<1e-12);
+assert.ok(Math.abs(waveAt(anchor-period).value-1)<1e-12);
+assert.equal(waveAt(anchor+period*.125).name,'Waning');
+assert.equal(waveAt(anchor+period*.375).name,'Collapse');
+assert.equal(waveAt(anchor+period*.625).name,'Renewal');
+assert.equal(waveAt(anchor+period*.875).name,'Ascent');
+assert.equal(timeAtFraction(-1),dateMs(MIN_DATE));
+assert.equal(timeAtFraction(2),dateMs(MAX_DATE));
+assert.equal(clampTime(dateMs('1800-01-01')),dateMs(MIN_DATE));
+assert.equal(isoDate(timeAtFraction(1)),MAX_DATE);
+assert.ok(Math.abs(fractionAtTime(timeAtFraction(.37))-.37)<1e-12);
+assert.ok(Math.abs(waveAt(anchor+period/2,anchor+period/2).value-1)<1e-12);
+console.log('PASS: period, crest/trough, negative-time wrapping, phases, bounds, shared scrub mapping, and adjustable anchor.');

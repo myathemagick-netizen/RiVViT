@@ -242,6 +242,20 @@ canvas { display:block; }
 #loading p { font-size:10px; letter-spacing:4px; color:#c8a96e33; text-transform:uppercase; font-family:'Inter',sans-serif; }
 #loadbar { width:200px; height:1px; background:#111; }
 #loadfill { height:100%; background:#c8a96e44; width:0%; transition:width .3s; }
+#wave-panel { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); width:min(960px,calc(100vw - 32px)); background:rgba(4,9,18,.97); border:1px solid #c8a96e66; padding:12px 16px; color:#cbd0d9; pointer-events:all; z-index:15; font-size:12px; }
+#wave-panel[hidden] {display:none}
+.wave-head,.wave-controls {display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wave-head strong {color:#e1bf83;letter-spacing:2px;font-size:12px}
+#wave-status {flex:1;color:#bab6cb}
+#wave-plot {width:100%;height:130px}
+#wave-range {width:100%;accent-color:#dabb7c;margin:4px 0 10px}
+#wave-panel button,#wave-panel input,#wave-panel select {background:#111b28;border:1px solid #526071;color:#eee;padding:5px;color-scheme:dark}
+#wave-panel button {cursor:pointer}
+#wave-event-detail {margin-top:8px;color:#b9c3d2;line-height:1.5}
+#wave-panel details {margin-top:8px;color:#abb6c6;font-size:11px}
+#wave-panel summary {cursor:pointer;color:#cfb58a}
+#wave-panel details span {display:block;margin-top:6px}
+@media(max-width:600px){#wave-panel {bottom:6px;padding:10px} #wave-plot{height:100px} .wave-controls{gap:6px} #wave-event{max-width:190px} #hint{display:none} }
 </style>
 </head>
 <body>
@@ -305,7 +319,7 @@ canvas { display:block; }
     <div class="msection">
       <div class="msection-head" data-sec="events">Events <span class="arrow">›</span></div>
       <div class="msection-body">
-        <div style="padding:8px 16px;font-size:10px;color:#2a2a2a;font-style:italic;">Timeline not yet built</div>
+        <div class="mrow" data-l="wave"><div class="check"></div><span class="mlabel">Novelty Wave · 1830–2026</span></div>
       </div>
     </div>
 
@@ -367,6 +381,14 @@ canvas { display:block; }
 
   <div id="modeind">OBSERVE</div>
   <div class="xhair" id="xhair"></div>
+  <section id="wave-panel" hidden aria-label="Novelty Wave timeline">
+    <div class="wave-head"><strong>NOVELTY WAVE</strong><span id="wave-status"></span><button id="wave-close" aria-label="Close timeline">×</button></div>
+    <canvas id="wave-plot" width="1200" height="160" aria-label="Calculated novelty and tradition wave with historical year markers"></canvas>
+    <input id="wave-range" type="range" min="0" step="1" aria-label="Selected timeline date">
+    <div class="wave-controls"><label>Date <input id="wave-date" type="date"></label><button id="wave-now">Now</button><label>Epoch <select id="wave-event"><option value="">Choose historical marker</option></select></label></div>
+    <div id="wave-event-detail">Historical markers are year-only; the curve is the MMS model.</div>
+    <details><summary>Model: 29.5 years · provisional crest reference</summary><label>Crest reference <input id="wave-anchor" type="date" value="1931-07-01"></label><span>Editable calibration, not an asserted painting date. Saturn ephemerides are not connected yet.</span></details>
+  </section>
   <div id="hint">DRAG — rotate<br>SCROLL — zoom<br>CLICK — select<br>VR — headset</div>
   <button id="vrbtn">⬡ Enter VR</button>
 </div>
@@ -376,10 +398,12 @@ canvas { display:block; }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from './lib/novelty-wave.mjs';
+const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok) throw new Error('Timeline data unavailable');return r.json();}).catch(error=>{console.warn(error);return [];});
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.4';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.5';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1183,7 +1207,8 @@ addCrystalPoints(russianGrp,idealCentres,pinnedCentres,0xff927f,'Russian Crystal
 addCrystalLines(russianGrp,idealVertices,EDGES,0xff927f,true);
 addCrystalLines(russianGrp,idealCentres,dualEdges,0xff927f,true);
 
-const layerMap = {dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
+const waveGrp=new THREE.Group(); scene.add(waveGrp); waveGrp.visible=false;
+const layerMap = {wave:waveGrp, dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
 
 // ── Menu open/close ──────────────────────────────────────────────────────
 const menuBtn  = document.getElementById('menu-btn');
@@ -1574,6 +1599,7 @@ const vrRay = new THREE.Raycaster();
 let lastSelectTime = 0;
 
 controllers.forEach(({ ctrl }) => {
+  ctrl.addEventListener('selectend',()=>{ctrl.userData.waveDragging=false;});
   ctrl.addEventListener('selectstart', () => {
     const now = performance.now();
     if (now - lastSelectTime < 300) return;
@@ -1590,6 +1616,8 @@ controllers.forEach(({ ctrl }) => {
 
     // VR menu open — trigger toggles hovered row
     if (triggerVrMenuRow()) return;
+
+    if(triggerWave(ctrl,vrRay)) return;
 
     // Plaque open — check if pointing at image or text area
     if (vrInfoMesh.visible) {
@@ -1671,14 +1699,14 @@ renderer.xr.addEventListener('sessionend', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 // VR MENU
 // ═══════════════════════════════════════════════════════════════════════════
-const VRM_W = 512, VRM_H = 960;
+const VRM_W = 512, VRM_H = 1088;
 const vrMenuCanvas = document.createElement('canvas');
 vrMenuCanvas.width = VRM_W; vrMenuCanvas.height = VRM_H;
 const vrMenuCtx = vrMenuCanvas.getContext('2d');
 const vrMenuTex = new THREE.CanvasTexture(vrMenuCanvas);
 vrMenuTex.colorSpace = THREE.SRGBColorSpace;
 const vrMenuMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(0.38, 0.7125),
+  new THREE.PlaneGeometry(0.38, 0.8075),
   new THREE.MeshBasicMaterial({
     map: vrMenuTex, transparent: true,
     side: THREE.DoubleSide, depthWrite: false, depthTest: false
@@ -1712,6 +1740,9 @@ const VR_MENU_ITEMS = [
   { type:'divider' },
   { type:'header',  label:'OVERLAYS' },
   // Overlay items added dynamically after manifest loads
+  { type:'divider' },
+  { type:'header', label:'TIME' },
+  { type:'toggle', label:'Novelty Wave', key:'wave' },
   { type:'divider' },
   { type:'header',  label:'TOOLS' },
   { type:'action',  label:'Auto-rotate',        key:'autorotate' },
@@ -2154,6 +2185,131 @@ function roundRect(ctx, x, y, w, h, r) {
 // ═══════════════════════════════════════════════════════════════════════════
 // RENDER LOOP
 // ═══════════════════════════════════════════════════════════════════════════
+// Novelty Wave: one selected date and one model shared by web and Quest.
+const wavePanel=document.getElementById('wave-panel');
+const wavePlot=document.getElementById('wave-plot');
+const waveRange=document.getElementById('wave-range');
+const waveDate=document.getElementById('wave-date');
+const waveAnchor=document.getElementById('wave-anchor');
+const waveEvent=document.getElementById('wave-event');
+let selectedTime=dateMs(DEFAULT_ANCHOR);
+let crestReference=dateMs(DEFAULT_ANCHOR);
+let selectedEvent=null;
+waveRange.max=Math.round((dateMs(MAX_DATE)-dateMs(MIN_DATE))/DAY_MS);
+waveDate.min=waveAnchor.min=MIN_DATE; waveDate.max=waveAnchor.max=MAX_DATE;
+NOVELTY_EVENTS.forEach((event,index)=>{
+  const option=document.createElement('option');option.value=String(index);
+  option.textContent=event.year+' · '+event.name;waveEvent.appendChild(option);
+});
+const vrWaveCanvas=document.createElement('canvas');vrWaveCanvas.width=1200;vrWaveCanvas.height=420;
+const vrWaveTexture=new THREE.CanvasTexture(vrWaveCanvas);vrWaveTexture.colorSpace=THREE.SRGBColorSpace;
+const vrWaveMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.35,.4725),
+  new THREE.MeshBasicMaterial({map:vrWaveTexture,side:THREE.DoubleSide,depthWrite:false}));
+vrWaveMesh.position.set(0,.72,-1.35);vrWaveMesh.rotation.x=-.3;waveGrp.add(vrWaveMesh);
+const vrWaveHover=new THREE.Mesh(new THREE.PlaneGeometry(1.37,.49),
+  new THREE.MeshBasicMaterial({color:0xc8a96e,transparent:true,opacity:.18,depthWrite:false}));
+vrWaveHover.position.z=-.002;vrWaveMesh.add(vrWaveHover);vrWaveHover.visible=false;
+function drawWavePlot(ctx,width,height,top=0){
+  const left=64,right=width-32,mid=top+height*.48,amp=height*.27;
+  ctx.fillStyle='#070f1b';ctx.fillRect(0,top,width,height);
+  ctx.strokeStyle='#465263';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,mid);ctx.lineTo(right,mid);ctx.stroke();
+  ctx.font='14px sans-serif';ctx.fillStyle='#e1bf83';ctx.fillText('NOVELTY',8,top+20);
+  ctx.fillStyle='#b58aff';ctx.fillText('TRADITION',8,top+height-12);
+  for(let year=1840;year<=2020;year+=20){
+    const x=left+fractionAtTime(dateMs(year+'-01-01'))*(right-left);
+    ctx.strokeStyle='#1e2c3b';ctx.beginPath();ctx.moveTo(x,top+20);ctx.lineTo(x,top+height-25);ctx.stroke();
+    ctx.fillStyle='#a1abb9';ctx.fillText(String(year),x-17,top+height-6);
+  }
+  for(let i=0;i<600;i++){
+    const f=i/600,g=(i+1)/600;
+    const v=waveAt(timeAtFraction(f),crestReference).value,w=waveAt(timeAtFraction(g),crestReference).value;
+    ctx.strokeStyle=v>=0?'#e3bd75':'#b58aff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(left+f*(right-left),mid-v*amp);ctx.lineTo(left+g*(right-left),mid-w*amp);ctx.stroke();
+  }
+  NOVELTY_EVENTS.forEach(event=>{
+    // A year-only marker sits at that year's midpoint, not an asserted event date.
+    const x=left+fractionAtTime(dateMs(event.year+'-07-01'))*(right-left);
+    const y=top+height-30;
+    ctx.fillStyle=event.kind==='crest'?'#e3bd75':'#b58aff';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+  });
+  const x=left+fractionAtTime(selectedTime)*(right-left);
+  ctx.strokeStyle='#fff1cc';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,top+18);ctx.lineTo(x,top+height-28);ctx.stroke();
+  ctx.fillStyle='#fff1cc';ctx.beginPath();ctx.arc(x,mid-waveAt(selectedTime,crestReference).value*amp,5,0,Math.PI*2);ctx.fill();
+}
+function drawVrWave(){
+  const ctx=vrWaveCanvas.getContext('2d');const phase=waveAt(selectedTime,crestReference);
+  ctx.fillStyle='#050b14';ctx.fillRect(0,0,1200,420);
+  ctx.strokeStyle='#c8a96e';ctx.lineWidth=3;ctx.strokeRect(2,2,1196,416);
+  ctx.fillStyle='#e3bd75';ctx.font='bold 28px sans-serif';ctx.fillText('NOVELTY WAVE · 1830–2026',28,40);
+  ctx.fillStyle='#dce1e9';ctx.font='24px sans-serif';ctx.fillText(isoDate(selectedTime)+'  ·  '+phase.name,760,40,410);
+  drawWavePlot(ctx,1200,185,55);
+  ctx.font='20px sans-serif';ctx.fillStyle='#c5cedb';
+  const detail=selectedEvent?selectedEvent.year+' · '+selectedEvent.name+' · year only':'Aim at the wave; hold trigger to scrub.';
+  ctx.fillText(detail,28,273,1140);
+  ctx.fillStyle='#9caabb';ctx.font='18px sans-serif';ctx.fillText('Ascent → Waning → Collapse → Renewal · 29.5 years · MMS interpretation',28,302);
+  const labels=['−1 year','+1 year','Now','Previous epoch','Next epoch'];
+  labels.forEach((label,i)=>{ctx.fillStyle='#172537';ctx.fillRect(20+i*236,324,220,48);ctx.fillStyle='#ead4a6';ctx.font='20px sans-serif';ctx.fillText(label,34+i*236,355);});
+  ctx.fillStyle='#9eacbf';ctx.font='17px sans-serif';ctx.fillText('Provisional crest reference: '+isoDate(crestReference)+' · editable on web · no Saturn ephemerides yet',28,401);
+  vrWaveTexture.needsUpdate=true;
+}
+function setWaveTime(time,event=null){
+  if(!Number.isFinite(time)) return;
+  selectedTime=dateMs(isoDate(time));selectedEvent=event;
+  waveRange.value=String(Math.round((selectedTime-dateMs(MIN_DATE))/DAY_MS));
+  waveDate.value=isoDate(selectedTime);
+  const phase=waveAt(selectedTime,crestReference);
+  document.getElementById('wave-status').textContent=isoDate(selectedTime)+' · '+phase.name+' · MMS model';
+  document.getElementById('wave-event-detail').textContent=event?
+    event.year+' · '+event.name+' — '+event.detail+' Year-only marker; cursor placed at mid-year.':
+    'Historical markers are year-only. Ascent → Waning → Collapse → Renewal. The curve is the MMS model.';
+  waveEvent.value=event?String(NOVELTY_EVENTS.indexOf(event)):'';
+  drawWavePlot(wavePlot.getContext('2d'),1200,160);drawVrWave();
+}
+function selectWaveEvent(index){
+  const event=NOVELTY_EVENTS[index];if(event) setWaveTime(dateMs(event.year+'-07-01'),event);
+}
+function moveWaveEpoch(direction){
+  const index=NOVELTY_EVENTS.indexOf(selectedEvent);
+  if(index>=0){selectWaveEvent(Math.max(0,Math.min(NOVELTY_EVENTS.length-1,index+direction)));return;}
+  const sorted=NOVELTY_EVENTS.map((e,i)=>({time:dateMs(e.year+'-07-01'),i}));
+  const target=direction>0?sorted.find(e=>e.time>selectedTime):sorted.reverse().find(e=>e.time<selectedTime);
+  if(target) selectWaveEvent(target.i);
+}
+waveRange.addEventListener('input',()=>setWaveTime(dateMs(MIN_DATE)+Number(waveRange.value)*DAY_MS));
+waveDate.addEventListener('change',()=>{if(waveDate.value) setWaveTime(dateMs(waveDate.value));});
+waveAnchor.addEventListener('change',()=>{if(waveAnchor.value){crestReference=clampTime(dateMs(waveAnchor.value));setWaveTime(selectedTime,selectedEvent);}});
+waveEvent.addEventListener('change',()=>{if(waveEvent.value!=='') selectWaveEvent(Number(waveEvent.value));});
+document.getElementById('wave-now').addEventListener('click',()=>setWaveTime(Date.now()));
+document.getElementById('wave-close').addEventListener('click',()=>{waveGrp.visible=false;document.querySelector('[data-l="wave"]').classList.remove('on');});
+wavePlot.addEventListener('click',event=>{
+  const bounds=wavePlot.getBoundingClientRect();const x=(event.clientX-bounds.left)/bounds.width*1200;
+  const fraction=Math.max(0,Math.min(1,(x-64)/(1200-32-64)));
+  const time=timeAtFraction(fraction);
+  const nearest=NOVELTY_EVENTS.map((e,i)=>({i,dist:Math.abs(fractionAtTime(dateMs(e.year+'-07-01'))-fraction)})).sort((a,b)=>a.dist-b.dist)[0];
+  if(nearest && nearest.dist<.008) selectWaveEvent(nearest.i);else setWaveTime(time);
+});
+function scrubWaveUv(uv){
+  if(!uv) return;
+  const y=(1-uv.y)*420;if(y<55 || y>240) return;
+  const next=dateMs(isoDate(timeAtFraction((uv.x*1200-64)/(1200-32-64))));
+  if(next!==selectedTime || selectedEvent) setWaveTime(next);
+}
+function triggerWave(ctrl,raycaster){
+  if(!waveGrp.visible) return false;
+  const hit=raycaster.intersectObject(vrWaveMesh,false)[0];if(!hit?.uv) return false;
+  const y=(1-hit.uv.y)*420;
+  if(y>=55 && y<=240){ctrl.userData.waveDragging=true;scrubWaveUv(hit.uv);}
+  else if(y>=324 && y<=372){
+    const index=Math.floor((hit.uv.x*1200-20)/236);
+    if(index===0 || index===1) setWaveTime(selectedTime+(index===0?-1:1)*365.2425*DAY_MS);
+    else if(index===2) setWaveTime(Date.now());else if(index===3) moveWaveEpoch(-1);else if(index===4) moveWaveEpoch(1);
+  }
+  return true;
+}
+renderer.xr.addEventListener('sessionend',()=>{controllers.forEach(({ctrl})=>{ctrl.userData.waveDragging=false;});vrWaveHover.visible=false;});
+setWaveTime(selectedTime,NOVELTY_EVENTS.find(event=>event.year===1931));
+
+
 let animationStart;
 let previousFrame;
 const _vrRaycasterDir = new THREE.Vector3();
@@ -2166,6 +2322,7 @@ renderer.setAnimationLoop((time) => {
   previousFrame = time;
   const inVR = renderer.xr.isPresenting;
   hoveredObjects.clear();
+  vrWaveHover.visible=false;
   scene.updateMatrixWorld(true);
 
   // ── Thumbstick globe rotation (VR only) ──────────────────────────────
@@ -2216,7 +2373,10 @@ renderer.setAnimationLoop((time) => {
       // Check VR menu first
       const hitsMenu = updateVrMenuRaycast(_vrOrigin, _vrRaycasterDir);
 
-      const blocked=hitsMenu || vrLbMesh.visible ||
+      const hitsWave=waveGrp.visible ? vrRay.intersectObject(vrWaveMesh,false) : [];
+      if(hitsWave.length && !hitsMenu && !vrLbMesh.visible) vrWaveHover.visible=true;
+      if(ctrl.userData.waveDragging && hitsWave.length && !hitsMenu && !vrLbMesh.visible) scrubWaveUv(hitsWave[0].uv);
+      const blocked=hitsMenu || hitsWave.length>0 || vrLbMesh.visible ||
         (vrInfoMesh.visible && vrRay.intersectObject(vrInfoMesh).length>0);
       const target=blocked ? null : selectableHit(vrRay);
       if(target) hoveredObjects.add(target.object);
@@ -2286,6 +2446,8 @@ renderer.setAnimationLoop((time) => {
     if(hit) hoveredObjects.add(hit.object);
   }
   renderer.domElement.style.cursor = !inVR && hoveredObjects.size ? 'pointer' : '';
+  vrWaveMesh.visible=inVR;
+  wavePanel.hidden = !waveGrp.visible || inVR;
   updateHoverGlows();
   renderer.render(scene, camera);
 });

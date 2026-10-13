@@ -32,7 +32,7 @@ Phases are in rough order. Dates are recorded once something ships; planned item
 
 ## Runtime modernization 🟡
 
-Three.js 0.186.1 and Quest session fixes are implemented on the modernization branch. Desktop browser smoke check passes; phone and physical Quest 3 validation remain pending before deployment.
+Three.js 0.186.1, Quest session fixes, Crystal Grid, named riftlines, and hover feedback are merged to stable after user-confirmed Quest validation.
 
 ## Phase 3 — Crystal Grid 🟡 (current priority)
 
@@ -64,7 +64,7 @@ Adds the Russian (Goncharov / Morozov / Makarov) dodecahedral layer: 20 new vort
 
 | Status | Feature |
 |---|---|
-| ⚪ | Timeline / events layer with a temporal slider |
+| 🟡 | Novelty Wave slider and named year markers, 1830–2026, in web and Quest preview |
 | ⚪ | Levo / dextro event markers along the Novelty Wave |
 | ⚪ | Events placeholder in the menu becomes live |
 

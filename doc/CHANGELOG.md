@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Stable release and Novelty Wave preview
+
+- Merged PR #1 after the user confirmed the features work in Quest and explicitly authorized the stable release.
+- Added preview build 2026-10-12.5: a shared web/Quest Novelty Wave timeline, limited to 1830–2026, with date controls, historical year markers, and phase labels.
+- Defined a testable 29.5-year model with editable provisional crest reference. Year-only markers remain separate from the calculated curve.
+- Quest panel supports trigger scrubbing, yearly steps, Now, and previous/next epoch controls; the web adds date entry and calibration controls.
+- Model tests and desktop control/layout checks pass. Quest testing of the new slider remains pending. Saturn ephemerides are not connected yet.
+
 ## 2026-10-12 — Web legend (preview build 2026-10-12.4)
 
 - Added violet site-pinned and dashed coral Russian ideal line samples, plus the gold riftline hover sample.
