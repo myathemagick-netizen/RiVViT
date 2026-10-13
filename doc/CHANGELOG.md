@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Visual Saturn (preview build 2026-10-13.3)
+
+- Added a separate Saturn view toggle to web and Quest menus, off by default.
+- The visual planet, rings, and north-pole arrow use the selected date's Earth-facing tilt.
+- Added an Earth/Saturn heliocentric longitude diagram with explicit illustrative-scale labels.
+- Wide web layouts reserve room beside the timeline; the web model holds its apparent size during Earth zoom.
+- Geometry/mapping tests pass and desktop checks show north-facing and near-edge-on changes. Quest visual validation pending.
+
 ## 2026-10-13 — Saturn tracking (preview build 2026-10-13.2)
 
 - Added local date-driven Saturn astronomy using pinned Astronomy Engine 2.1.19 with its MIT license.

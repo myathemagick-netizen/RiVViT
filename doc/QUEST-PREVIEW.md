@@ -6,7 +6,9 @@ Stable site: https://myathemagick-netizen.github.io/RiVViT/
 
 The preview is deployed independently from the modernization branch to the `RiVViT-preview` repository's `main` branch. It does not deploy the stable repository's `main` branch. The header displays a preview build identifier; check it after reloading to confirm the version under test.
 
-## Current build 2026-10-13.2
+## Current build 2026-10-13.3
+
+New: TIME → Saturn view shows a visual planet, rings, north-pole arrow, and orbital-position diagram beside Earth. With Novelty Wave open, scrub 2000, 2017, and March 2025 to compare south-facing, north-facing, and edge-on rings. Check labels and diagram readability, Earth zoom, and opening/closing both views.
 
 New: Saturn astronomy below the wave. Scrub dates and confirm the values and ring icon update; try 2000 (south-facing), 2017 (north-facing), and March 2025 (near edge-on). Check grab/reset and buttons on the enlarged panel. See SATURN.md for quantities and assumptions.
 

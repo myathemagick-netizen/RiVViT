@@ -30,3 +30,9 @@ Additional checks cover the opposite pole in 2000, the near-edge-on configuratio
 ## MMS relationship
 
 Astronomy and the 29.5-year MMS wave remain separate calculations sharing a selected date. Saturn values do not automatically set a pressure score, refit the wave, or activate Earth corridors. Those relationships need explicit, versioned MMS rules. Site-specific altitude/azimuth, a 3D Saturn scene, and comparisons of pole opening against wave phase are follow-up work.
+
+## Visual Saturn view
+
+Enable Events → Saturn view on the web, or TIME → Saturn view in Quest. It defaults off and shares the selected Novelty Wave date. `lib/saturn-view.mjs` builds a low-complexity sphere, planar annular rings, a blue north-pole arrow, and a Sun-centered orbit diagram. The signed ring opening drives the pole orientation relative to the viewer. The diagram places Earth and Saturn at their calculated true-ecliptic-of-date heliocentric longitudes on illustrative circles; orbital distances and planet sizes are not to scale. Surface bands, ring subdivisions, sky roll, and lighting are illustrative. No hexagon imagery or chronon-pressure inference is shown.
+
+The web view stays at a consistent apparent size during Earth zoom and reserves a side column on wide screens. The Quest view sits beside the Earth and faces the viewer. Visual orientation tests and desktop north-facing/edge-on date checks pass; Quest layout and readability need device validation.

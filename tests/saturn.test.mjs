@@ -14,7 +14,7 @@ assert.equal(ref.motion,'Retrograde');assert.ok(ref.ringOpening>0);
 assert.ok(at('2000-01-01').ringOpening<0);
 assert.ok(Math.abs(at('2025-03-23').ringOpening)<.1);
 for(const date of ['1830-01-01','1931-07-01','2026-12-31']){
- const x=at(date);assert.ok(x.longitude>=0 && x.longitude<360);assert.ok(x.distanceAU>7 && x.distanceAU<12);assert.ok(Math.abs(x.ringOpening)<30);assert.ok(Number.isFinite(x.heliocentricLongitude));
+ const x=at(date);assert.ok(x.longitude>=0 && x.longitude<360);assert.ok(x.distanceAU>7 && x.distanceAU<12);assert.ok(Math.abs(x.ringOpening)<30);assert.ok(Number.isFinite(x.heliocentricLongitude));assert.ok(x.earthLongitude>=0 && x.earthLongitude<360);
 }
 assert.throws(()=>saturnAt(NaN));
 console.log('PASS: JPL reference position/distance/pole geometry, north/south sign, edge-on epoch, range endpoints, and invalid dates.');

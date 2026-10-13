@@ -256,6 +256,7 @@ canvas { display:block; }
 #wave-panel summary {cursor:pointer;color:#cfb58a}
 #wave-panel details span {display:block;margin-top:6px}
 @media(max-width:600px){#wave-panel {bottom:6px;padding:10px} #wave-plot{height:100px} .wave-controls{gap:6px} #wave-event{max-width:190px} #hint{display:none} }
+@media(min-width:1000px){body.saturn-visible #wave-panel{left:auto;right:18px;transform:none;width:calc(100vw - 440px);max-width:960px}}
 </style>
 </head>
 <body>
@@ -320,6 +321,7 @@ canvas { display:block; }
       <div class="msection-head" data-sec="events">Events <span class="arrow">›</span></div>
       <div class="msection-body">
         <div class="mrow" data-l="wave"><div class="check"></div><span class="mlabel">Novelty Wave · 1830–2026</span></div>
+        <div class="mrow" data-l="saturn"><div class="check"></div><span class="mlabel">Saturn view</span></div>
       </div>
     </div>
 
@@ -400,13 +402,14 @@ canvas { display:block; }
 <script type="module">
 import * as THREE from 'three';
 import {saturnAt} from './lib/saturn.mjs';
+import {createSaturnView} from './lib/saturn-view.mjs';
 import {nearestPanel} from './lib/vr-panel-picking.mjs';
 import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from './lib/novelty-wave.mjs';
 const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok) throw new Error('Timeline data unavailable');return r.json();}).catch(error=>{console.warn(error);return [];});
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.2';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.3';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1211,7 +1214,8 @@ addCrystalLines(russianGrp,idealVertices,EDGES,0xff927f,true);
 addCrystalLines(russianGrp,idealCentres,dualEdges,0xff927f,true);
 
 const waveGrp=new THREE.Group(); scene.add(waveGrp); waveGrp.visible=false;
-const layerMap = {wave:waveGrp, dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
+const saturnView=createSaturnView(THREE);scene.add(saturnView.group);
+const layerMap = {saturn:saturnView.group, wave:waveGrp, dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
 
 // ── Menu open/close ──────────────────────────────────────────────────────
 const menuBtn  = document.getElementById('menu-btn');
@@ -1704,14 +1708,14 @@ renderer.xr.addEventListener('sessionend', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 // VR MENU
 // ═══════════════════════════════════════════════════════════════════════════
-const VRM_W = 512, VRM_H = 1088;
+const VRM_W = 512, VRM_H = 1152;
 const vrMenuCanvas = document.createElement('canvas');
 vrMenuCanvas.width = VRM_W; vrMenuCanvas.height = VRM_H;
 const vrMenuCtx = vrMenuCanvas.getContext('2d');
 const vrMenuTex = new THREE.CanvasTexture(vrMenuCanvas);
 vrMenuTex.colorSpace = THREE.SRGBColorSpace;
 const vrMenuMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(0.38, 0.8075),
+  new THREE.PlaneGeometry(0.38, 0.855),
   new THREE.MeshBasicMaterial({
     map: vrMenuTex, transparent: true,
     side: THREE.DoubleSide, depthWrite: false, depthTest: false
@@ -1748,6 +1752,7 @@ const VR_MENU_ITEMS = [
   { type:'divider' },
   { type:'header', label:'TIME' },
   { type:'toggle', label:'Novelty Wave', key:'wave' },
+  { type:'toggle', label:'Saturn view', key:'saturn' },
   { type:'divider' },
   { type:'header',  label:'TOOLS' },
   { type:'action',  label:'Auto-rotate',        key:'autorotate' },
@@ -2292,6 +2297,7 @@ function setWaveTime(time,event=null){
   if(!Number.isFinite(time)) return;
   selectedTime=dateMs(isoDate(time));selectedEvent=event;
   saturnState=saturnAt(selectedTime);
+  saturnView.update(saturnState,isoDate(selectedTime));
   document.getElementById('saturn-readout').textContent='Saturn · calculated astronomy · 00:00 UTC | Earth sky longitude '+saturnState.longitude.toFixed(2)+'°, latitude '+saturnState.latitude.toFixed(2)+'° | '+saturnState.distanceAU.toFixed(3)+' AU · '+saturnState.motion+' | Ring opening '+saturnState.ringOpening.toFixed(2)+'° · '+saturnState.face+' | Sun-centered orbital longitude '+saturnState.heliocentricLongitude.toFixed(2)+'°';
   waveRange.value=String(Math.round((selectedTime-dateMs(MIN_DATE))/DAY_MS));
   waveDate.value=isoDate(selectedTime);
@@ -2490,6 +2496,8 @@ renderer.setAnimationLoop((time) => {
     if(hit) hoveredObjects.add(hit.object);
   }
   renderer.domElement.style.cursor = !inVR && hoveredObjects.size ? 'pointer' : '';
+  document.body.classList.toggle('saturn-visible',saturnView.group.visible && !inVR);
+  if(saturnView.group.visible) saturnView.layout(inVR,inVR?renderer.xr.getCamera(camera):camera);
   vrWaveMesh.visible=inVR && waveGrp.visible;
   wavePanel.hidden = !waveGrp.visible || inVR;
   updateHoverGlows();
