@@ -59,3 +59,7 @@ Define the hypothetical emission event explicitly, then use Saturn's position at
 Run `node tools/analyze-saturn-wave-offsets.mjs` from the repository. It regenerates [the full calculation record](data/saturn-wave-observations.json), including the fixed-wave rows, named-year midpoint rows, averages, distances, and correlations. Inputs are `lib/saturn.mjs`, the pinned Astronomy Engine 2.1.19 module, `lib/novelty-wave.mjs`, and `data/novelty-events.json`.
 
 Astronomy model sources and the existing JPL reference check are documented in [SATURN.md](SATURN.md). The wave calibration and marker precision are documented in [NOVELTY-WAVE.md](NOVELTY-WAVE.md).
+
+## Moving-target extension
+
+The user subsequently proposed accounting for Earth moving toward or away from the wave and for bodies between Earth and Saturn. [Moving-target propagation experiment](MOVING-TARGET-EXPERIMENT.md) records the implemented constant-speed experiment, comparison baselines, and the distinction between a path alignment and a same-time body encounter.

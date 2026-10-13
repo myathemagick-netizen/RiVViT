@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Moving-target research experiment
+
+- Added a barycentric straight-path, constant-speed arrival solver and Earth radial/separation-rate calculations.
+- Added time-resolved Sun/Moon/planet proximity scans, distinguishing segment alignments from same-time sphere-overlap candidates.
+- A single in-sample fitted speed yields 9.03-day RMS error against configured wave crests; constant-delay and stationary-distance baselines are documented separately.
+- No same-time sphere-overlap candidates found in the seven sampled fitted journeys. No physical propagation speed or obstruction effects are asserted.
+- Added reproducible report, assumptions, tests, and numerical limits. Runtime UI and stable app remain unchanged.
+
 ## 2026-10-13 — Crest offset and distance research notes
 
 - Documented the user’s proposed chronon-pressure travel/response interpretation and the possible contribution of Earth–Saturn distance variation.

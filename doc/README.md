@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [MOVING-TARGET-EXPERIMENT.md](MOVING-TARGET-EXPERIMENT.md) | Hypothetical moving-target fit and time-resolved intervening-body geometry |
 | [SATURN-WAVE-OBSERVATIONS.md](SATURN-WAVE-OBSERVATIONS.md) | Crest offsets, distance variation, user hypotheses, and reproducible calculations |
 | [SATURN.md](SATURN.md) | Calculated Saturn position, pole geometry, and model boundaries |
 | [NOVELTY-WAVE.md](NOVELTY-WAVE.md) | Timeline model, controls, precision, and calibration |

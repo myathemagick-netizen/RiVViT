@@ -1,0 +1,832 @@
+{
+  "hypothesis": "A freely expanding constant-speed spherical wave centered at Saturn departure, with the receiving ray directed to Earth at the earliest sampled arrival. Straight path in SSB/EQJ; no deflection, gravity, attenuation, or blockage effects.",
+  "frame": "Solar system barycenter, J2000 equatorial, simultaneous geometric ephemerides without light-time correction.",
+  "referenceCrests": "1931-07-01",
+  "departureDefinition": "Stored calendar-day north-facing maximum, 00:00 UTC; day-rounded seed, not an observed emission event.",
+  "speedSweep": {
+    "minKmSec": 20,
+    "maxKmSec": 35,
+    "stepKmSec": 0.25,
+    "best": {
+      "speedKmSec": 24.25,
+      "rmseDays": 9.033030163000017
+    },
+    "description": "In-sample exploratory fit to fixed-wave crests; not a measured speed and not fitted to independently dated events."
+  },
+  "baseline": {
+    "model": "One fitted constant delay",
+    "meanDays": 728.2857142857143,
+    "rmseDays": 76.37260968569872,
+    "stationaryDistanceModel": {
+      "speedKmSec": 24.84404842110158,
+      "rmseDays": 59.71482615424783,
+      "description": "Freeze Earth at its departure position; one analytically fitted speed."
+    }
+  },
+  "solver": {
+    "maxDays": 1826.2125,
+    "bracketStepDays": 0.25,
+    "rootRefinements": 55,
+    "limitation": "First sampled positive-to-nonpositive crossing; grazing/tangent arrivals can be missed."
+  },
+  "encounterSampling": {
+    "stepDays": 0.25,
+    "localMinRefinements": 40,
+    "bodies": "Sun, Moon, Mercury, Venus, Mars, Jupiter, Uranus, Neptune, Pluto; Earth/Saturn are endpoints.",
+    "radiiSource": "https://ssd.jpl.nasa.gov/planets/phys_par.html; Astronomy Engine Sun/Moon constants",
+    "limitations": "Spherical radii and finite sampling; not an exhaustive occultation certification. Asteroids, rings, other moons, atmospheres, fields and hypothetical wavefront width are excluded."
+  },
+  "rows": [
+    {
+      "departure": "1840-11-05",
+      "referenceWaveCrest": "1842-12-30",
+      "earthRadialKmSec": 17.6792330241958,
+      "relativeSeparationRateKmSec": 17.217243348239876,
+      "distanceAU": 10.84445473342396,
+      "requiredSpeedToReferenceKmSec": 24.308149406594218,
+      "predictedArrival": "1842-12-31T10:29:46.077Z",
+      "travelDays": 786.4373388514653,
+      "residualDays": 1.4373388514652958,
+      "pathAU": 11.01448506353367,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 38190920.58279269,
+          "closestSameTimeDate": "1842-10-24T16:00:47.642Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 38117370.17551404,
+          "closestSegmentDate": "1842-12-31T10:29:46.077Z",
+          "sameTimeKmAtSegmentAlignment": 147091304.45629752,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 305068.16640640487,
+          "closestSameTimeDate": "1842-12-31T08:57:28.145Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 834.6312157803096,
+          "closestSegmentDate": "1840-12-31T10:17:07.317Z",
+          "sameTimeKmAtSegmentAlignment": 1529418206.837293,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 10741051.693610547,
+          "closestSameTimeDate": "1842-11-14T17:33:36.723Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 3956721.973211465,
+          "closestSegmentDate": "1840-12-13T04:11:24.199Z",
+          "sameTimeKmAtSegmentAlignment": 1457164578.2829893,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 27997708.237295,
+          "closestSameTimeDate": "1842-12-24T01:18:00.391Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 2361411.6301249065,
+          "closestSegmentDate": "1842-12-30T09:30:37.383Z",
+          "sameTimeKmAtSegmentAlignment": 39457075.30374445,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 202340041.8072652,
+          "closestSameTimeDate": "1842-11-14T18:31:28.893Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 10195634.506944207,
+          "closestSegmentDate": "1841-07-18T02:56:37.319Z",
+          "sameTimeKmAtSegmentAlignment": 753069022.1245235,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 48619488.552557126,
+          "closestSameTimeDate": "1841-10-03T04:12:49.277Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 12836458.734306859,
+          "closestSegmentDate": "1841-08-27T04:01:23.279Z",
+          "sameTimeKmAtSegmentAlignment": 99851824.93495977,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 3039395167.007664,
+          "closestSameTimeDate": "1842-12-31T10:29:46.077Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 3032063073.2391214,
+          "closestSegmentDate": "1840-11-05T00:00:00.000Z",
+          "sameTimeKmAtSegmentAlignment": 3269072903.4274945,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 3740486740.2330976,
+          "closestSameTimeDate": "1840-11-05T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 7191799768.187869,
+          "closestSameTimeDate": "1842-12-31T10:29:46.077Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "1870-10-01",
+      "referenceWaveCrest": "1872-06-29",
+      "earthRadialKmSec": 28.65503456478066,
+      "relativeSeparationRateKmSec": 27.803939915075578,
+      "distanceAU": 10.257956984941165,
+      "requiredSpeedToReferenceKmSec": 24.596327214427628,
+      "predictedArrival": "1872-07-13T08:43:30.000Z",
+      "travelDays": 651.3635416576697,
+      "residualDays": 14.363541657669632,
+      "pathAU": 9.12270265676414,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 152061742.59754792,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 389476.4072951721,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 366579.3055897589,
+          "closestSegmentDate": "1872-07-13T08:43:30.000Z",
+          "sameTimeKmAtSegmentAlignment": 389476.4072951721,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 177099198.34325227,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 259512259.44792297,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 377768047.6098624,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6932052.819989369,
+          "closestSegmentDate": "1871-10-11T08:07:50.617Z",
+          "sameTimeKmAtSegmentAlignment": 513009938.54589987,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 938983398.2725945,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 2925566400.4440827,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 4472889160.176205,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 7433825788.882585,
+          "closestSameTimeDate": "1872-07-13T08:43:30.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "1899-10-30",
+      "referenceWaveCrest": "1901-12-30",
+      "earthRadialKmSec": 20.644254722679587,
+      "relativeSeparationRateKmSec": 20.081029840015706,
+      "distanceAU": 10.751006359890896,
+      "requiredSpeedToReferenceKmSec": 24.13277041230412,
+      "predictedArrival": "1901-12-26T21:08:20.198Z",
+      "travelDays": 787.8807893228658,
+      "residualDays": -3.119210677134196,
+      "pathAU": 11.03470137686438,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 22978312.81531162,
+          "closestSameTimeDate": "1901-10-18T13:16:11.635Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 22897361.313293736,
+          "closestSegmentDate": "1901-12-26T21:08:20.198Z",
+          "sameTimeKmAtSegmentAlignment": 147102108.48980314,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 366349.68481068837,
+          "closestSameTimeDate": "1901-12-26T21:08:20.198Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 19425.498588494782,
+          "closestSegmentDate": "1900-12-26T22:18:44.474Z",
+          "sameTimeKmAtSegmentAlignment": 764524384.7688739,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 10694729.792157259,
+          "closestSameTimeDate": "1901-09-21T09:25:45.962Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 3418761.276067689,
+          "closestSegmentDate": "1901-11-16T10:27:23.625Z",
+          "sameTimeKmAtSegmentAlignment": 19238267.570622984,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 18718267.234926376,
+          "closestSameTimeDate": "1901-09-05T15:01:23.692Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 1637626.2963046734,
+          "closestSegmentDate": "1901-06-05T23:49:19.947Z",
+          "sameTimeKmAtSegmentAlignment": 387007009.10779816,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 116670189.51739709,
+          "closestSameTimeDate": "1901-08-15T11:44:48.317Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 10474893.605299346,
+          "closestSegmentDate": "1899-11-15T01:41:57.688Z",
+          "sameTimeKmAtSegmentAlignment": 1252669011.554703,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 89029168.8909319,
+          "closestSameTimeDate": "1900-10-27T12:30:04.188Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 12663561.157842102,
+          "closestSegmentDate": "1901-01-06T11:43:25.807Z",
+          "sameTimeKmAtSegmentAlignment": 191413762.73065478,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 1463553983.4470062,
+          "closestSameTimeDate": "1899-10-30T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 4324148416.520708,
+          "closestSameTimeDate": "1901-12-26T21:08:20.198Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 6845027063.750571,
+          "closestSameTimeDate": "1901-12-26T21:08:20.198Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "1929-09-28",
+      "referenceWaveCrest": "1931-07-01",
+      "earthRadialKmSec": 29.2086241761739,
+      "relativeSeparationRateKmSec": 28.327847615259504,
+      "distanceAU": 10.168026891797659,
+      "requiredSpeedToReferenceKmSec": 24.421250605241323,
+      "predictedArrival": "1931-07-07T01:05:42.520Z",
+      "travelDays": 647.0456310172357,
+      "residualDays": 6.0456310172356496,
+      "pathAU": 9.062227956612992,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 152095864.4522207,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 225414.2854747312,
+          "closestSameTimeDate": "1931-07-06T22:12:21.136Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6420.028258720806,
+          "closestSegmentDate": "1931-07-06T21:07:51.084Z",
+          "sameTimeKmAtSegmentAlignment": 257724.64629508028,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 174236512.97034097,
+          "closestSameTimeDate": "1931-05-27T20:50:24.604Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 214806129.85305372,
+          "closestSameTimeDate": "1931-04-24T19:00:21.099Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 277326267.6237637,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6537872.014787783,
+          "closestSegmentDate": "1930-01-23T09:24:13.846Z",
+          "sameTimeKmAtSegmentAlignment": 1045949375.769852,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 933823161.904452,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 3001044424.976308,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 4609200923.529858,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 6280615198.642213,
+          "closestSameTimeDate": "1931-07-07T01:05:42.520Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "1958-10-24",
+      "referenceWaveCrest": "1960-12-29",
+      "earthRadialKmSec": 23.246520854211894,
+      "relativeSeparationRateKmSec": 22.589041850315596,
+      "distanceAU": 10.646792031629076,
+      "requiredSpeedToReferenceKmSec": 23.964818972431953,
+      "predictedArrival": "1960-12-20T17:49:51.426Z",
+      "travelDays": 788.7429563184484,
+      "residualDays": -8.257043681551615,
+      "pathAU": 11.046776497189898,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 6324685.081878789,
+          "closestSameTimeDate": "1960-10-11T13:59:36.465Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6244998.281644205,
+          "closestSegmentDate": "1960-12-20T17:49:51.426Z",
+          "sameTimeKmAtSegmentAlignment": 147160734.1905994,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 358211.8644626296,
+          "closestSameTimeDate": "1960-12-20T17:34:10.767Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 204599.98630457834,
+          "closestSegmentDate": "1960-12-20T17:49:51.426Z",
+          "sameTimeKmAtSegmentAlignment": 360041.60565015755,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 25303097.056456752,
+          "closestSameTimeDate": "1960-11-13T19:22:43.129Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 2248960.720039766,
+          "closestSegmentDate": "1960-11-15T10:14:57.774Z",
+          "sameTimeKmAtSegmentAlignment": 27357472.756530236,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 68105169.21705215,
+          "closestSameTimeDate": "1960-09-16T22:10:11.682Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 774015.4154102003,
+          "closestSegmentDate": "1960-06-21T18:40:23.968Z",
+          "sameTimeKmAtSegmentAlignment": 341719356.85838896,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 91100144.75674294,
+          "closestSameTimeDate": "1960-12-20T17:49:51.426Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 10698164.61907491,
+          "closestSegmentDate": "1960-02-01T04:11:12.269Z",
+          "sameTimeKmAtSegmentAlignment": 312319435.811575,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 217851053.69712237,
+          "closestSameTimeDate": "1959-11-22T09:58:55.932Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 12450431.898254441,
+          "closestSegmentDate": "1960-05-19T23:31:32.865Z",
+          "sameTimeKmAtSegmentAlignment": 484956103.3861335,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 2664763775.238664,
+          "closestSameTimeDate": "1960-12-20T17:49:51.426Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 3797824042.5747743,
+          "closestSameTimeDate": "1958-10-24T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 4973774710.020762,
+          "closestSameTimeDate": "1960-12-20T17:49:51.426Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "1988-09-25",
+      "referenceWaveCrest": "1990-06-30",
+      "earthRadialKmSec": 29.47931394847806,
+      "relativeSeparationRateKmSec": 28.57586064083339,
+      "distanceAU": 10.094103621616805,
+      "requiredSpeedToReferenceKmSec": 24.32315279555575,
+      "predictedArrival": "1990-07-02T07:27:27.092Z",
+      "travelDays": 645.3107302373053,
+      "residualDays": 2.3107302373052527,
+      "pathAU": 9.03792972230589,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 152087759.17020863,
+          "closestSameTimeDate": "1990-07-02T07:27:27.092Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 404359.01533645956,
+          "closestSameTimeDate": "1990-07-02T07:27:27.092Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 330755.95110328257,
+          "closestSegmentDate": "1990-07-02T07:27:27.092Z",
+          "sameTimeKmAtSegmentAlignment": 404359.01533645956,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 161602079.30009374,
+          "closestSameTimeDate": "1990-05-29T16:22:13.902Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 164853504.1131144,
+          "closestSameTimeDate": "1990-05-13T15:32:03.893Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 115486308.22880423,
+          "closestSameTimeDate": "1990-04-23T14:41:59.609Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6297052.730213771,
+          "closestSegmentDate": "1990-03-27T23:00:23.984Z",
+          "sameTimeKmAtSegmentAlignment": 138342942.18460572,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 930102936.7446791,
+          "closestSameTimeDate": "1990-07-02T07:27:27.092Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 1386712797.877074,
+          "closestSameTimeDate": "1988-09-25T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 3035971334.630272,
+          "closestSameTimeDate": "1988-09-25T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 3692748414.113532,
+          "closestSameTimeDate": "1988-09-25T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    },
+    {
+      "departure": "2017-10-16",
+      "referenceWaveCrest": "2019-12-29",
+      "earthRadialKmSec": 25.75416086757238,
+      "relativeSeparationRateKmSec": 25.009215890525837,
+      "distanceAU": 10.517854396242479,
+      "requiredSpeedToReferenceKmSec": 23.77041334168203,
+      "predictedArrival": "2019-12-13T09:52:51.726Z",
+      "travelDays": 788.4117098012458,
+      "residualDays": -15.588290198754205,
+      "pathAU": 11.042137208544949,
+      "interveningBodies": [
+        {
+          "body": "Sun",
+          "radiusKm": 695700,
+          "closestSameTimeKm": 16860841.371786,
+          "closestSameTimeDate": "2019-10-04T14:15:00.314Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 16071517.460885983,
+          "closestSegmentDate": "2017-10-16T00:00:00.000Z",
+          "sameTimeKmAtSegmentAlignment": 1505454491.542665,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Moon",
+          "radiusKm": 1738.1,
+          "closestSameTimeKm": 378548.185239602,
+          "closestSameTimeDate": "2019-12-13T09:52:51.726Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 6906.002990837093,
+          "closestSegmentDate": "2017-12-13T01:58:47.718Z",
+          "sameTimeKmAtSegmentAlignment": 1529898293.0476413,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mercury",
+          "radiusKm": 2440.53,
+          "closestSameTimeKm": 42571664.92559113,
+          "closestSameTimeDate": "2019-11-13T23:41:14.239Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 445.25185271372607,
+          "closestSegmentDate": "2019-02-23T14:55:55.424Z",
+          "sameTimeKmAtSegmentAlignment": 510244121.46675736,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Venus",
+          "radiusKm": 6051.8,
+          "closestSameTimeKm": 114750761.84389012,
+          "closestSameTimeDate": "2019-09-25T00:24:20.008Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 452392.76308907993,
+          "closestSegmentDate": "2018-04-13T12:12:41.381Z",
+          "sameTimeKmAtSegmentAlignment": 1235929452.1671183,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Mars",
+          "radiusKm": 3396.19,
+          "closestSameTimeKm": 264303310.81969854,
+          "closestSameTimeDate": "2019-10-08T14:41:09.246Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 10919872.991407037,
+          "closestSegmentDate": "2018-06-03T02:03:57.030Z",
+          "sameTimeKmAtSegmentAlignment": 807006663.0640819,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Jupiter",
+          "radiusKm": 71492,
+          "closestSameTimeKm": 343039482.1128931,
+          "closestSameTimeDate": "2018-12-17T06:23:53.656Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 12253584.336378494,
+          "closestSegmentDate": "2019-10-04T09:24:55.720Z",
+          "sameTimeKmAtSegmentAlignment": 786252419.681114,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Uranus",
+          "radiusKm": 25559,
+          "closestSameTimeKm": 2864693146.5004716,
+          "closestSameTimeDate": "2019-12-13T09:52:51.726Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Neptune",
+          "radiusKm": 24764,
+          "closestSameTimeKm": 4338323727.988869,
+          "closestSameTimeDate": "2017-12-10T10:47:00.714Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": 4322020419.244887,
+          "closestSegmentDate": "2017-10-16T00:00:00.000Z",
+          "sameTimeKmAtSegmentAlignment": 4339206095.447744,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        },
+        {
+          "body": "Pluto",
+          "radiusKm": 1188.3,
+          "closestSameTimeKm": 3628205446.7256165,
+          "closestSameTimeDate": "2017-10-16T00:00:00.000Z",
+          "sphereOverlapCandidate": false,
+          "closestSegmentKm": null,
+          "closestSegmentDate": null,
+          "sameTimeKmAtSegmentAlignment": null,
+          "interpretation": "Proximity and sphere-overlap geometry only; no blocking/delay effect assigned."
+        }
+      ]
+    }
+  ]
+}
