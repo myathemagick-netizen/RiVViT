@@ -6,6 +6,8 @@
 
 ## The map
 
+RiVViT seeks pataphysical patterns across one historical record, using astronomy as a common reference. Its approximately 200-year timeline emphasizes periods with richer collected data. Planned layers include conflicts, invention and art, religions, animal migration, weather, electromagnetic anomalies, and geology, with multiple MMS interpretations preserved. See [research purpose](doc/PATAPHYSICAL-RESEARCH.md).
+
 RiVViT visualizes the Myathe Magick System's pataphysical model of Earth: twelve primary vortex nodes connected by thirty icosahedral edges, with twenty triangular faces. The Atlas gives those edges their corridor names and describes their geographic, mythological, and practical meanings within the system. Secondary sacred sites and regional overlays add context to the globe.
 
 The displayed arcs are geometric connections between the primary nodes. They provide a framework for exploring the Atlas's corridors; the Atlas's descriptions include wider landscapes, sites, and branching paths beyond those arcs.

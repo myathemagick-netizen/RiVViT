@@ -2,6 +2,27 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Sirius timeline preview
+
+- Recorded the author’s pattern-seeking purpose, dextrogyre interpretation, historical-layer goals, and reason for the 200-year boundary.
+- Added an optional Sirius timeline on web and Quest: approximate catalogue distance/coordinates, Kepler A/B separation curve, and static travel-scale scenario at the fitted Saturn speed.
+- Intensity and a different Sirius force remain open; MMS calibration is unchanged. Quest validation pending.
+
+## 2026-10-13 — Moving-target research experiment
+
+- Added a barycentric straight-path, constant-speed arrival solver and Earth radial/separation-rate calculations.
+- Added time-resolved Sun/Moon/planet proximity scans, distinguishing segment alignments from same-time sphere-overlap candidates.
+- A single in-sample fitted speed yields 9.03-day RMS error against configured wave crests; constant-delay and stationary-distance baselines are documented separately.
+- No same-time sphere-overlap candidates found in the seven sampled fitted journeys. No physical propagation speed or obstruction effects are asserted.
+- Added reproducible report, assumptions, tests, and numerical limits. Runtime UI and stable app remain unchanged.
+
+## 2026-10-13 — Crest offset and distance research notes
+
+- Documented the user’s proposed chronon-pressure travel/response interpretation and the possible contribution of Earth–Saturn distance variation.
+- Recorded the current fixed-wave mean offset (728.23 days / 1.994 years), separate named-year midpoint result, and the seven-cycle distance table.
+- Included calibration/calendar limitations, descriptive correlations, and a proposed moving-target test.
+- Added the reproducible calculation script and full JSON record. No runtime or astronomical/MMS model changes.
+
 ## 2026-10-13 — Observatory validated for stable release
 
 - User confirmed the complete wave/Saturn comparison works on both web and Quest, and explicitly authorized merging PR #2 to stable.
