@@ -2,6 +2,15 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Three.js and Quest modernization (branch preview)
+
+- Upgraded r128 to pinned Three.js 0.186.1 ES modules, with explicit sRGB texture handling.
+- Awaited WebXR session initialization; added startup input-source discovery and session cleanup.
+- Made controller motion and globe inertia account for frame time; corrected Quest HTTPS guidance.
+- Implemented the two documented Crystal Grid comparison layers in the main app, off by default, with web/VR controls and counterpart distance descriptions.
+- Fixed selection of hidden primary and secondary layers.
+- Desktop in-app Chromium preview renders both layers without captured console errors; module syntax check passes. Physical phone and Quest 3 checks remain pending. Not deployed.
+
 ## 2026-10-12 — Crystal Grid (preview)
 
 - Added two Crystal Grid layers, both off by default: **Dodeca · Site-pinned** (20 face centres derived live from the vortex triangles, 30 dual riftlines) and **Russian Crystal · Ideal** (12 + 20 points, 60 lines, Giza-anchored).

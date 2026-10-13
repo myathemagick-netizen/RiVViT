@@ -30,6 +30,10 @@ Phases are in rough order. Dates are recorded once something ships; planned item
 | ✅ | Secondary nodes in `data/nodes/secondary_nodes.json` with inline fallback |
 | ✅ | 29 node images cropped to 600×600 |
 
+## Runtime modernization 🟡
+
+Three.js 0.186.1 and Quest session fixes are implemented on the modernization branch. Desktop browser smoke check passes; phone and physical Quest 3 validation remain pending before deployment.
+
 ## Phase 3 — Crystal Grid 🟡 (current priority)
 
 Adds the Russian (Goncharov / Morozov / Makarov) dodecahedral layer: 20 new vortices at the icosahedron's face centres and 30 new riftlines. Stops short of the full Becker-Hagens UVG set. See [CRYSTAL-GRID.md](CRYSTAL-GRID.md).
