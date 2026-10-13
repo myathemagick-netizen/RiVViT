@@ -2,6 +2,58 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Observatory validated for stable release
+
+- User confirmed the complete wave/Saturn comparison works on both web and Quest, and explicitly authorized merging PR #2 to stable.
+- Release includes the 1830–2026 Novelty Wave, movable Quest timeline, independent pole curve, epoch table, Saturn astronomy/visuals, and all 30 route images.
+- Phone validation has not been reported. The accepted route cards remain provisional schematic maps for later refinement.
+
+## 2026-10-13 — Wave/pole comparison (preview build 2026-10-13.4)
+
+- Added a cyan independent Saturn opening curve across 1830–2026, with separate degree and MMS scales.
+- Added a web epoch comparison table, clickable markers, and sampled within-year ranges; Quest shows the selected marker range.
+- Astronomy samples do not change when crest calibration changes. Tables only rebuild on reference changes, avoiding repeated DOM work during Quest scrubbing.
+- Model independence and sample provenance tests pass; desktop comparison and calibration checks pass without captured errors. Quest comparison readability check pending.
+
+## 2026-10-13 — Visual Saturn (preview build 2026-10-13.3)
+
+- Added a separate Saturn view toggle to web and Quest menus, off by default.
+- The visual planet, rings, and north-pole arrow use the selected date's Earth-facing tilt.
+- Added an Earth/Saturn heliocentric longitude diagram with explicit illustrative-scale labels.
+- Wide web layouts reserve room beside the timeline; the web model holds its apparent size during Earth zoom.
+- Geometry/mapping tests pass and desktop checks show north-facing and near-edge-on changes. Quest visual validation pending.
+
+## 2026-10-13 — Saturn tracking (preview build 2026-10-13.2)
+
+- Added local date-driven Saturn astronomy using pinned Astronomy Engine 2.1.19 with its MIT license.
+- Web and Quest show Earth-centered sky longitude/latitude, distance, apparent motion, Sun-centered orbital longitude, and signed Earth-facing pole/ring opening.
+- Enlarged the movable Quest panel with a calculated astronomy section and schematic ring-opening icon.
+- Astronomy remains separate from the MMS wave; no inferred pressure or corridor activation is displayed.
+- Tests pass against a JPL Horizons reference and opposite-pole/edge-on configurations. Desktop date updates verified without captured errors; Quest check pending.
+
+## 2026-10-13 — Riftline route images (preview build 2026-10-13.1)
+
+- Added an original schematic globe card for each of the 30 corridors, generated from the existing node coordinates and procedural coast outlines.
+- Riftline metadata now supplies image paths to the shared web and Quest panel/lightbox flow.
+- Cards show the corridor number/name, actual geometric arc, endpoint codes, and endpoint names. They are route diagrams, not site photographs or precise local corridor boundaries.
+- Verified all 30 images and metadata paths, inspected representative polar/Atlantic/Pacific cards, and checked desktop panel/lightbox loading without captured console errors. Quest image checks remain pending.
+
+## 2026-10-12 — Movable Quest timeline (preview build 2026-10-12.6)
+
+- User confirmed timeline scrubbing works on Quest and reported overlap with the globe and information panels.
+- Added trigger-grab header to reposition and rotate the timeline, release-to-place, and Reset position.
+- Overlapping VR panels now choose the nearest ray hit rather than giving the timeline priority over the information plaque.
+- Grabs release when the timeline hides, the controller disappears, or the session ends. Only one controller owns a grab.
+- Model and panel-priority tests pass. Physical Quest movement and overlap checks remain pending.
+
+## 2026-10-12 — Stable release and Novelty Wave preview
+
+- Merged PR #1 after the user confirmed the features work in Quest and explicitly authorized the stable release.
+- Added preview build 2026-10-12.5: a shared web/Quest Novelty Wave timeline, limited to 1830–2026, with date controls, historical year markers, and phase labels.
+- Defined a testable 29.5-year model with editable provisional crest reference. Year-only markers remain separate from the calculated curve.
+- Quest panel supports trigger scrubbing, yearly steps, Now, and previous/next epoch controls; the web adds date entry and calibration controls.
+- Model tests and desktop control/layout checks pass. Quest testing of the new slider remains pending. Saturn ephemerides are not connected yet.
+
 ## 2026-10-12 — Web legend (preview build 2026-10-12.4)
 
 - Added violet site-pinned and dashed coral Russian ideal line samples, plus the gold riftline hover sample.

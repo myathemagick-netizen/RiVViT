@@ -75,3 +75,19 @@ Serve the app over HTTP on localhost for desktop development. To test immersive 
 ## Named riftline selection
 
 `data/riftlines.json` contains all 30 corridor names, MMS-attributed summaries, endpoint codes, primary node IDs, and public Atlas chapter URLs. Metadata is matched by unordered endpoint pair rather than array order. Invisible narrow tube meshes provide pick targets; separate gold tubes supply hover feedback without bloom. Shared picking supports web/touch and Quest triggers, gives point markers priority, excludes hidden groups, and rejects far-side hits behind the globe. Web corridor panels offer an Atlas link; VR plaques present the same summary and endpoints. Long VR titles scale down to fit. If metadata cannot load, generic endpoint descriptions remain selectable.
+
+## Temporal model
+
+`lib/novelty-wave.mjs` supplies pure bounded date and phase calculations shared by HTML controls and a Quest canvas-texture panel. `data/novelty-events.json` holds independent year-only historical markers. `tests/novelty-wave.test.mjs` tests calculation invariants with Node built-ins. The main HTML still owns view state and interaction; this module is the first step toward separating astronomy, models, and rendering.
+
+## Corridor image cards
+
+`images/riftlines/route-01.jpg` through `route-30.jpg` are original 900×900 schematic route cards. `tools/build-riftline-images.py` regenerates them from the current primary node coordinates, the inline procedural coast outlines, and corridor endpoint metadata. Each JSON record stores its image path. These are deterministic geometric diagrams rather than illustrative photographs. They use the existing web/VR image and lightbox handlers.
+
+## Saturn astronomy
+
+`lib/saturn.mjs` wraps the local vendored Astronomy Engine 2.1.19 ephemeris and IAU pole model. The timeline calculates a Saturn state per selected UTC date, then shares it with web text and the Quest canvas panel. `tests/saturn.test.mjs` includes a JPL reference regression. No remote service is queried by the app while scrubbing.
+
+`lib/saturn-view.mjs` renders the illustrative Saturn model and orbit card from the shared astronomy state. It is a separate layer in both menus, independent from Earth geometry and the movable timeline.
+
+`data/saturn-pole-history.json` stores independently generated quarterly pole samples and per-marker monthly sampled year ranges. `lib/novelty-comparison.mjs` combines them with the selected MMS reference for reporting without refitting astronomy. `tests/novelty-comparison.test.mjs` checks bounds, direct-calculation agreement, coverage, and reference independence.

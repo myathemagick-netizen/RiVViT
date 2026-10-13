@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {nearestPanel} from '../lib/vr-panel-picking.mjs';
+const ray={intersectObject:mesh=>mesh.hit?[{distance:mesh.distance,uv:{x:.5,y:.5}}]:[]};
+const panels=[{kind:'wave',mesh:{hit:true,distance:1.35}},{kind:'info',mesh:{hit:true,distance:.9}}];
+assert.equal(nearestPanel(ray,panels).kind,'info');
+assert.equal(nearestPanel(ray,panels.slice().reverse()).kind,'info');
+panels[0].mesh.distance=.7;assert.equal(nearestPanel(ray,panels).kind,'wave');
+panels[0].mesh.hit=false;assert.equal(nearestPanel(ray,panels).kind,'info');
+panels[1].mesh.hit=false;assert.equal(nearestPanel(ray,panels),null);
+console.log('PASS: overlapping panel priority follows hit distance, independent of registration order; misses are excluded.');

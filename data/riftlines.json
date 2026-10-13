@@ -12,7 +12,8 @@
     "name": "The Sargasso Corridor",
     "summary": "Links the polar anchor and Bermuda. The MMS associates this corridor with the North Atlantic, the Sargasso Sea, and northern ice-and-mist traditions.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/01-group-1-north-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-01.jpg"
   },
   {
     "atlas_number": 2,
@@ -27,7 +28,8 @@
     "name": "The Hyperborean Corridor",
     "summary": "Links the polar anchor and Algerian node. The MMS reads northern European megalithic traditions, including Stonehenge and Orkney, through this corridor.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/01-group-1-north-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-02.jpg"
   },
   {
     "atlas_number": 3,
@@ -42,7 +44,8 @@
     "name": "The Shamanic Spine",
     "summary": "Links the polar anchor and Indus Valley. The MMS connects this corridor with Eurasian shamanic traditions, the Altai, drums, and world-tree cosmologies.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/01-group-1-north-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-03.jpg"
   },
   {
     "atlas_number": 4,
@@ -57,7 +60,8 @@
     "name": "The Dragon’s Spine",
     "summary": "Links the polar anchor and Devil’s Sea. The MMS associates this corridor with East Asian dragon traditions, geomancy, and sacred mountains.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/01-group-1-north-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-04.jpg"
   },
   {
     "atlas_number": 5,
@@ -72,7 +76,8 @@
     "name": "The Raven Road",
     "summary": "Links the polar anchor and Hawaii. The MMS reads Pacific Northwest Raven traditions, totem poles, and Hawaiian cultural practices through this corridor.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/01-group-1-north-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-05.jpg"
   },
   {
     "atlas_number": 6,
@@ -87,7 +92,8 @@
     "name": "The Antarctic Transmission",
     "summary": "Links the Antarctic anchor and South Atlantic node. The MMS associates this corridor with the Southern Ocean and southern polar mythology.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/02-group-2-south-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-06.jpg"
   },
   {
     "atlas_number": 7,
@@ -102,7 +108,8 @@
     "name": "The Bone Road",
     "summary": "Links the Antarctic anchor and Zimbabwe/Karoo. The MMS connects this corridor with the Karoo fossil record and Great Zimbabwe.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/02-group-2-south-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-07.jpg"
   },
   {
     "atlas_number": 8,
@@ -117,7 +124,8 @@
     "name": "The Southern Deep",
     "summary": "Links the Antarctic anchor and Wharton Basin. The MMS associates this corridor with the deep Southern and Indian Oceans.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/02-group-2-south-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-08.jpg"
   },
   {
     "atlas_number": 9,
@@ -132,7 +140,8 @@
     "name": "The Songline Root",
     "summary": "Links the Antarctic anchor and Loyalty Islands. The MMS interprets this corridor as a southern root of its Australian songline axis.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/02-group-2-south-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-09.jpg"
   },
   {
     "atlas_number": 10,
@@ -147,7 +156,8 @@
     "name": "The Navel Cord",
     "summary": "Links the Antarctic anchor and Easter Island. The MMS connects its interpretation with Rapa Nui’s Navel of the World name and the southern Pacific.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/02-group-2-south-polar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-10.jpg"
   },
   {
     "atlas_number": 11,
@@ -162,7 +172,8 @@
     "name": "The Atlantean Seam",
     "summary": "Links Bermuda and the Algerian node. The MMS associates this corridor with the Azores, Atlantic tectonic geography, and Atlantean narratives.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/03-group-3-northern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-11.jpg"
   },
   {
     "atlas_number": 12,
@@ -177,7 +188,8 @@
     "name": "The Cradle Road",
     "summary": "Links the Algerian node and Indus Valley. The MMS connects this corridor with Egypt, the Fertile Crescent, the Levant, and ancient civilizations.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/03-group-3-northern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-12.jpg"
   },
   {
     "atlas_number": 13,
@@ -192,7 +204,8 @@
     "name": "The Himalayan Bridge",
     "summary": "Links the Indus Valley and Devil’s Sea. The MMS associates this corridor with the Himalayas, Tibet, and contemplative mountain traditions.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/03-group-3-northern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-13.jpg"
   },
   {
     "atlas_number": 14,
@@ -207,7 +220,8 @@
     "name": "The Pacific River",
     "summary": "Links Devil’s Sea and Hawaii. The MMS connects this corridor with North Pacific circulation and the Kuroshio Current.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/03-group-3-northern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-14.jpg"
   },
   {
     "atlas_number": 15,
@@ -222,7 +236,8 @@
     "name": "The Turtle’s Back",
     "summary": "Links Hawaii and Bermuda. The MMS interprets North American Turtle Island narratives in relation to this connection.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/03-group-3-northern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-15.jpg"
   },
   {
     "atlas_number": 16,
@@ -237,7 +252,8 @@
     "name": "The Patagonian Gate",
     "summary": "Links the South Atlantic node and Easter Island. The MMS associates this corridor with Patagonia and the archaeological record of southern South America.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/04-group-4-southern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-16.jpg"
   },
   {
     "atlas_number": 17,
@@ -252,7 +268,8 @@
     "name": "The Polynesian Highway",
     "summary": "Links Easter Island and Loyalty Islands. The MMS connects this corridor with Polynesian wayfinding and Pacific settlement traditions.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/04-group-4-southern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-17.jpg"
   },
   {
     "atlas_number": 18,
@@ -267,7 +284,8 @@
     "name": "The Songline Spine",
     "summary": "Links Loyalty Islands and Wharton Basin. The MMS interprets this connection as the east–west axis of its Australian songline model.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/04-group-4-southern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-18.jpg"
   },
   {
     "atlas_number": 19,
@@ -282,7 +300,8 @@
     "name": "The Kerguelen Line",
     "summary": "Links Wharton Basin and Zimbabwe/Karoo. The MMS associates this corridor with the southern Indian Ocean and Kerguelen Plateau.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/04-group-4-southern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-19.jpg"
   },
   {
     "atlas_number": 20,
@@ -297,7 +316,8 @@
     "name": "The South Atlantic Anomaly Line",
     "summary": "Links Zimbabwe/Karoo and the South Atlantic node. The MMS discusses the South Atlantic magnetic anomaly in relation to this corridor.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/04-group-4-southern-circumpolar/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-20.jpg"
   },
   {
     "atlas_number": 21,
@@ -312,7 +332,8 @@
     "name": "The Middle Passage",
     "summary": "Links Bermuda and the South Atlantic node. The MMS connects this corridor with Caribbean and African diaspora traditions and the history of forced Atlantic crossings.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-21.jpg"
   },
   {
     "atlas_number": 22,
@@ -327,7 +348,8 @@
     "name": "The Drake Corridor",
     "summary": "Links Bermuda and Easter Island. The MMS associates this corridor with South American traditions, the Andes, and the Drake Passage.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-22.jpg"
   },
   {
     "atlas_number": 23,
@@ -342,7 +364,8 @@
     "name": "The Trade Wind Road",
     "summary": "Links the Algerian and South Atlantic nodes. The MMS connects this corridor with Atlantic trade winds, maritime routes, and African diaspora history.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-23.jpg"
   },
   {
     "atlas_number": 24,
@@ -357,7 +380,8 @@
     "name": "The Great Rift",
     "summary": "Links the Algerian node and Zimbabwe/Karoo. The MMS interprets the East African Rift and human origins in relation to this connection.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-24.jpg"
   },
   {
     "atlas_number": 25,
@@ -372,7 +396,8 @@
     "name": "The Dhow Road",
     "summary": "Links the Indus Valley and Zimbabwe/Karoo. The MMS associates this corridor with dhow routes, Indian Ocean exchange, and Swahili Coast cultures.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-25.jpg"
   },
   {
     "atlas_number": 26,
@@ -387,7 +412,8 @@
     "name": "The Monsoon Bridge",
     "summary": "Links the Indus Valley and Wharton Basin. The MMS connects this corridor with monsoon cycles and maritime exchange across the Indian Ocean.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-26.jpg"
   },
   {
     "atlas_number": 27,
@@ -402,7 +428,8 @@
     "name": "The Wallace Line",
     "summary": "Links Devil’s Sea and Wharton Basin. The MMS interprets Southeast Asian island geography and the Wallace biogeographic boundary in relation to this corridor.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-27.jpg"
   },
   {
     "atlas_number": 28,
@@ -417,7 +444,8 @@
     "name": "The Stick Chart Road",
     "summary": "Links Devil’s Sea and Loyalty Islands. The MMS associates this corridor with Micronesian wave piloting and Marshall Islands stick-chart navigation.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-28.jpg"
   },
   {
     "atlas_number": 29,
@@ -432,7 +460,8 @@
     "name": "The Polynesian Triangle’s Western Arm",
     "summary": "Links Hawaii and Loyalty Islands. The MMS interprets this connection as the western arm of its Polynesian navigation triangle.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-29.jpg"
   },
   {
     "atlas_number": 30,
@@ -447,6 +476,7 @@
     "name": "The Long Voyage",
     "summary": "Links Hawaii and Easter Island. The MMS connects this corridor with long-distance Polynesian navigation across the central Pacific.",
     "atlas_url": "https://myathemagick.com/system/atlas/book-two-geography/05-group-5-equatorial-zigzag/",
-    "source": "MMS v37 section 4.8; Myathe Magick Atlas"
+    "source": "MMS v37 section 4.8; Myathe Magick Atlas",
+    "img": "images/riftlines/route-30.jpg"
   }
 ]

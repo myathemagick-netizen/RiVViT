@@ -1,0 +1,13 @@
+[
+ {"year":1842,"name":"Romantic Epoch","kind":"crest","detail":"MMS provisional epoch associated with Transcendentalism, photography, and Romantic art."},
+ {"year":1871,"name":"Commune Epoch","kind":"crest","detail":"MMS provisional epoch associated with the Paris Commune and revolutionary art."},
+ {"year":1901,"name":"Tesla Epoch","kind":"crest","detail":"MMS epoch associated with Wardenclyffe and technological and creative innovation."},
+ {"year":1916,"name":"WWI trough","kind":"trough","detail":"MMS approximate trough year associated with the Somme and Verdun."},
+ {"year":1931,"name":"Surrealist Epoch","kind":"crest","detail":"The Persistence of Memory is the defining artwork in the MMS. Only its year is recorded here; no painting day or month is asserted."},
+ {"year":1946,"name":"Postwar trough","kind":"trough","detail":"MMS approximate trough year reflecting the preceding war and its aftermath; individual events retain their own dates."},
+ {"year":1961,"name":"Beat Epoch","kind":"crest","detail":"MMS epoch associated with Beat culture, music, civil rights, and the Space Race. This marker does not assign a formation date to the Beatles."},
+ {"year":1976,"name":"Tradition / Renewal","kind":"trough","detail":"MMS approximate trough year, with punk described as a renewal signal."},
+ {"year":1991,"name":"Grunge Epoch","kind":"crest","detail":"MMS epoch associated with Nevermind, the early internet, and cultural and political change."},
+ {"year":2006,"name":"Tradition trough","kind":"trough","detail":"MMS approximate trough year associated with surveillance, war, and institutional contraction."},
+ {"year":2021,"name":"Trans / Hyperpop Epoch","kind":"crest","detail":"MMS epoch associated with trans visibility, hyperpop, and distributed creative tools."}
+]
