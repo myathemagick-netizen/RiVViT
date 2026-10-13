@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Web legend (preview build 2026-10-12.4)
+
+- Added violet site-pinned and dashed coral Russian ideal line samples, plus the gold riftline hover sample.
+- Regional map overlays now add their names and map swatches to the legend when the manifest loads.
+- Improved legend text contrast.
+
 ## 2026-10-12 — Named riftlines (preview build 2026-10-12.3)
 
 - Added all 30 corridor records from MMS v37 section 4.8, with attributed summaries and Atlas chapter links.

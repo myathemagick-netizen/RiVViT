@@ -105,9 +105,11 @@ canvas { display:block; }
   position:absolute; top:18px; right:18px; pointer-events:none;
   display:flex; flex-direction:column; gap:7px;
 }
-.leg { display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:1px; color:#333; }
+.leg { display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:1px; color:#8b929e; }
 .lg-c { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
 .lg-d { width:7px; height:7px; flex-shrink:0; transform:rotate(45deg); }
+.lg-line { width:20px; height:0; border-top:2px solid; flex-shrink:0; }
+.lg-map { width:18px; height:9px; border:1px solid #c8a96e; background:rgba(200,169,110,.2); flex-shrink:0; }
 
 /* ── Info panel ── */
 #info {
@@ -323,7 +325,11 @@ canvas { display:block; }
     <div class="leg"><div class="lg-c" style="background:#50c890;box-shadow:0 0 5px #50c890;"></div>Vortex Node</div>
     <div class="leg"><div class="lg-d" style="background:#c8a96e;box-shadow:0 0 3px #c8a96e;"></div>Secondary Node</div>
     <div class="leg" style="margin-top:4px;"><div style="width:20px;height:1px;background:linear-gradient(90deg,#30a060,#80ffcc);"></div>Riftline</div>
-    <div class="leg"><div style="width:20px;height:1px;background:#0d2840;"></div>Interior Edge</div>
+    <div class="leg"><div style="width:20px;height:1px;background:#365b7a;"></div>Interior Edge</div>
+    <div class="leg"><div class="lg-line" style="border-color:#b58aff"></div>Dodeca · Site-pinned</div>
+    <div class="leg"><div class="lg-line" style="border-color:#ff927f;border-top-style:dashed"></div>Russian Crystal · Ideal</div>
+    <div class="leg"><div class="lg-line" style="border-color:#ffd080;box-shadow:0 0 5px #ffd08066"></div>Riftline hover</div>
+    <div id="overlay-legend"></div>
   </div>
 
   <!-- Info panel -->
@@ -373,7 +379,7 @@ import * as THREE from 'three';
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.3';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.4';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1061,6 +1067,12 @@ function buildImageDrape(overlay) {
 }
 
 function addOverlayMenuItem(overlay) {
+  const legendRow=document.createElement('div');
+  legendRow.className='leg';
+  legendRow.style.marginTop='7px';
+  const swatch=document.createElement('div'); swatch.className='lg-map';
+  legendRow.append(swatch,document.createTextNode(overlay.name+' · map'));
+  document.getElementById('overlay-legend').appendChild(legendRow);
   const body = document.getElementById('overlays-body');
 
   // Remove the "no overlays" placeholder if present
