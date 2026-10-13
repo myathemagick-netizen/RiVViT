@@ -37,7 +37,7 @@ The modernization branch upgrades Three.js from r128 to pinned **0.186.1**, impr
 - **Dodeca · Site-pinned:** twenty face centres derived from the existing primary nodes, connected by thirty dual edges.
 - **Russian Crystal · Ideal:** a regular icosahedron/dodecahedron comparison with twelve vertices, twenty face centres, and sixty lines.
 
-Crystal points show their distance to the corresponding point in the other model. The modernization was merged in [PR #1](https://github.com/myathemagick-netizen/RiVViT/pull/1) after user-confirmed Quest validation and is deployed to the stable site. The preview now develops the [Novelty Wave slider](doc/NOVELTY-WAVE.md), limited to 1830–2026. Open Events → Novelty Wave on web or TIME → Novelty Wave in VR. The provisional MMS wave is displayed alongside calculated [Saturn astronomy](doc/SATURN.md), both driven by the selected date. Astronomy does not determine a chronon-pressure score.
+Crystal points show their distance to the corresponding point in the other model. The modernization was merged in [PR #1](https://github.com/myathemagick-netizen/RiVViT/pull/1) after user-confirmed Quest validation and is deployed to the stable site. The temporal observatory includes the [Novelty Wave slider](doc/NOVELTY-WAVE.md), limited to 1830–2026, with independent Saturn comparison and visual views. The user validated this release on web and Quest; see [PR #2](https://github.com/myathemagick-netizen/RiVViT/pull/2). Open Events → Novelty Wave on web or TIME → Novelty Wave in VR. The provisional MMS wave is displayed alongside calculated [Saturn astronomy](doc/SATURN.md), both driven by the selected date. Astronomy does not determine a chronon-pressure score.
 
 ## Develop locally
 

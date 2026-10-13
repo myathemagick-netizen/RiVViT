@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Observatory validated for stable release
+
+- User confirmed the complete wave/Saturn comparison works on both web and Quest, and explicitly authorized merging PR #2 to stable.
+- Release includes the 1830–2026 Novelty Wave, movable Quest timeline, independent pole curve, epoch table, Saturn astronomy/visuals, and all 30 route images.
+- Phone validation has not been reported. The accepted route cards remain provisional schematic maps for later refinement.
+
 ## 2026-10-13 — Wave/pole comparison (preview build 2026-10-13.4)
 
 - Added a cyan independent Saturn opening curve across 1830–2026, with separate degree and MMS scales.

@@ -26,6 +26,6 @@ Enable Novelty Wave from the Y menu. Aim at the chart and hold the trigger to sc
 
 ## Validation and next work
 
-Pure model tests cover period, extrema, negative-time phase wrapping, quarters, hard bounds, slider mapping, and reference changes. Desktop preview checks cover historical selection, date limits, calibration edits, and rendered layout. Physical Quest testing of the new panel is pending.
+Pure model tests cover period, extrema, negative-time phase wrapping, quarters, hard bounds, slider mapping, and reference changes. Desktop preview checks cover historical selection, date limits, calibration edits, and rendered layout. The user confirmed the panel and subsequent movement/comparison features work on Quest.
 
 The globe's positions and corridors do not yet change with the selected date. Saturn position/orientation now appears alongside the wave; see SATURN.md. Temporal events on the globe, rules connecting astronomy to the MMS model, and saved calibration remain follow-up work. There is no calculated chronon-pressure measurement in this build.

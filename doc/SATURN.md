@@ -25,7 +25,7 @@ The Quest icon sketches ring opening; it does not show the sky position angle, t
 
 The regression test uses Horizons target 699 (Saturn), center 500@399 (Earth), 2017-06-21 at 00:00 UTC, observer quantities 31, 20, and 14, retrieved 2026-10-13. Position and distance agree within 0.01 degree and 0.001 AU respectively. Horizons planetographic subobserver latitude is converted using its equatorial/polar radii before comparing to the planetocentric ring-plane opening. Differences in ephemerides and coordinate conventions mean these displays are not navigation-grade or exact JPL replicas.
 
-Additional checks cover the opposite pole in 2000, the near-edge-on configuration in March 2025, and timeline range endpoints. Desktop date-driven UI checks pass; the expanded Quest panel needs device testing.
+Additional checks cover the opposite pole in 2000, the near-edge-on configuration in March 2025, and timeline range endpoints. Desktop date-driven UI checks pass; the user confirmed the expanded panel works on Quest.
 
 ## MMS relationship
 
@@ -35,7 +35,7 @@ Astronomy and the 29.5-year MMS wave remain separate calculations sharing a sele
 
 Enable Events → Saturn view on the web, or TIME → Saturn view in Quest. It defaults off and shares the selected Novelty Wave date. `lib/saturn-view.mjs` builds a low-complexity sphere, planar annular rings, a blue north-pole arrow, and a Sun-centered orbit diagram. The signed ring opening drives the pole orientation relative to the viewer. The diagram places Earth and Saturn at their calculated true-ecliptic-of-date heliocentric longitudes on illustrative circles; orbital distances and planet sizes are not to scale. Surface bands, ring subdivisions, sky roll, and lighting are illustrative. No hexagon imagery or chronon-pressure inference is shown.
 
-The web view stays at a consistent apparent size during Earth zoom and reserves a side column on wide screens. The Quest view sits beside the Earth and faces the viewer. Visual orientation tests and desktop north-facing/edge-on date checks pass; Quest layout and readability need device validation.
+The web view stays at a consistent apparent size during Earth zoom and reserves a side column on wide screens. The Quest view sits beside the Earth and faces the viewer. Visual orientation tests and desktop north-facing/edge-on date checks pass; The user confirmed Quest layout and readability, including the complete comparison, on 2026-10-13.
 
 ## Independent comparison curve
 
