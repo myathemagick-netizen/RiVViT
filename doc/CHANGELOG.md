@@ -2,6 +2,13 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Wave/pole comparison (preview build 2026-10-13.4)
+
+- Added a cyan independent Saturn opening curve across 1830–2026, with separate degree and MMS scales.
+- Added a web epoch comparison table, clickable markers, and sampled within-year ranges; Quest shows the selected marker range.
+- Astronomy samples do not change when crest calibration changes. Tables only rebuild on reference changes, avoiding repeated DOM work during Quest scrubbing.
+- Model independence and sample provenance tests pass; desktop comparison and calibration checks pass without captured errors. Quest comparison readability check pending.
+
 ## 2026-10-13 — Visual Saturn (preview build 2026-10-13.3)
 
 - Added a separate Saturn view toggle to web and Quest menus, off by default.

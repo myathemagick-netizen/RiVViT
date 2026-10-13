@@ -243,6 +243,7 @@ canvas { display:block; }
 #loadbar { width:200px; height:1px; background:#111; }
 #loadfill { height:100%; background:#c8a96e44; width:0%; transition:width .3s; }
 #wave-panel { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); width:min(960px,calc(100vw - 32px)); background:rgba(4,9,18,.97); border:1px solid #c8a96e66; padding:12px 16px; color:#cbd0d9; pointer-events:all; z-index:15; font-size:12px; }
+#wave-panel {max-height:calc(100vh - 36px);overflow-y:auto}
 #wave-panel[hidden] {display:none}
 .wave-head,.wave-controls {display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .wave-head strong {color:#e1bf83;letter-spacing:2px;font-size:12px}
@@ -257,6 +258,10 @@ canvas { display:block; }
 #wave-panel details span {display:block;margin-top:6px}
 @media(max-width:600px){#wave-panel {bottom:6px;padding:10px} #wave-plot{height:100px} .wave-controls{gap:6px} #wave-event{max-width:190px} #hint{display:none} }
 @media(min-width:1000px){body.saturn-visible #wave-panel{left:auto;right:18px;transform:none;width:calc(100vw - 440px);max-width:960px}}
+.wave-key{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:11px}
+#epoch-comparison{border-collapse:collapse;width:100%;font-size:11px;text-align:left}
+#epoch-comparison th,#epoch-comparison td{padding:6px;border-bottom:1px solid #283748;white-space:nowrap}
+#epoch-comparison th{color:#cdd5e1}
 </style>
 </head>
 <body>
@@ -389,7 +394,9 @@ canvas { display:block; }
     <input id="wave-range" type="range" min="0" step="1" aria-label="Selected timeline date">
     <div class="wave-controls"><label>Date <input id="wave-date" type="date"></label><button id="wave-now">Now</button><label>Epoch <select id="wave-event"><option value="">Choose historical marker</option></select></label></div>
     <div id="saturn-readout" aria-live="polite" style="margin-top:8px;color:#b9d9e7;font-size:12px;line-height:1.6"></div>
+    <div class="wave-key"><span style="color:#e3bd75">Gold/violet: MMS wave · −1 to +1</span><span style="color:#81d9ed">Cyan: Saturn opening · −30° to +30° · north positive</span></div>
     <div id="wave-event-detail">Historical markers are year-only; the curve is the MMS model.</div>
+    <details><summary>Epoch / Saturn comparison · year-only markers</summary><div style="max-height:190px;overflow:auto"><table id="epoch-comparison"><thead><tr><th>Marker</th><th>Kind</th><th>MMS at mid-year</th><th>Saturn at mid-year</th><th>Year sample range</th><th>Face</th></tr></thead><tbody></tbody></table></div><p>July 1 is a navigation sample, not an asserted event date. Ranges use monthly samples and December 31.</p></details>
     <details><summary>Model: 29.5 years · provisional crest reference</summary><label>Crest reference <input id="wave-anchor" type="date" value="1931-07-01"></label><span>Editable calibration, not an asserted painting date. Saturn astronomy is shown separately and does not determine MMS pressure.</span></details>
   </section>
   <div id="hint">DRAG — rotate<br>SCROLL — zoom<br>CLICK — select<br>VR — headset</div>
@@ -402,6 +409,8 @@ canvas { display:block; }
 <script type="module">
 import * as THREE from 'three';
 import {saturnAt} from './lib/saturn.mjs';
+import {compareEpoch} from './lib/novelty-comparison.mjs';
+const SATURN_HISTORY=await fetch('./data/saturn-pole-history.json').then(r=>{if(!r.ok) throw new Error('Saturn curve unavailable');return r.json();}).catch(error=>{console.warn(error);return {samples:[],epochs:[]};});
 import {createSaturnView} from './lib/saturn-view.mjs';
 import {nearestPanel} from './lib/vr-panel-picking.mjs';
 import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from './lib/novelty-wave.mjs';
@@ -409,7 +418,7 @@ const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.3';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.4';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2205,6 +2214,8 @@ const waveEvent=document.getElementById('wave-event');
 let selectedTime=dateMs(DEFAULT_ANCHOR);
 let crestReference=dateMs(DEFAULT_ANCHOR);
 let selectedEvent=null;
+let comparisonAnchor=null;
+const SATURN_CURVE=SATURN_HISTORY.samples.map(sample=>({fraction:fractionAtTime(dateMs(sample.date)),opening:sample.opening}));
 let saturnState=saturnAt(selectedTime);
 waveRange.max=Math.round((dateMs(MAX_DATE)-dateMs(MIN_DATE))/DAY_MS);
 waveDate.min=waveAnchor.min=MIN_DATE; waveDate.max=waveAnchor.max=MAX_DATE;
@@ -2258,6 +2269,14 @@ function drawWavePlot(ctx,width,height,top=0){
     ctx.strokeStyle=v>=0?'#e3bd75':'#b58aff';ctx.lineWidth=2;
     ctx.beginPath();ctx.moveTo(left+f*(right-left),mid-v*amp);ctx.lineTo(left+g*(right-left),mid-w*amp);ctx.stroke();
   }
+  ctx.strokeStyle='#81d9ed';ctx.lineWidth=2;ctx.beginPath();
+  SATURN_CURVE.forEach((sample,index)=>{
+    const x=left+sample.fraction*(right-left);
+    const y=mid-sample.opening/30*amp;
+    if(index===0) ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  });ctx.stroke();
+  ctx.fillStyle='#81d9ed';ctx.font='12px sans-serif';ctx.textAlign='right';
+  ctx.fillText('+30°',width-4,mid-amp+5);ctx.fillText('−30°',width-4,mid+amp);ctx.textAlign='left';
   NOVELTY_EVENTS.forEach(event=>{
     // A year-only marker sits at that year's midpoint, not an asserted event date.
     const x=left+fractionAtTime(dateMs(event.year+'-07-01'))*(right-left);
@@ -2267,6 +2286,7 @@ function drawWavePlot(ctx,width,height,top=0){
   const x=left+fractionAtTime(selectedTime)*(right-left);
   ctx.strokeStyle='#fff1cc';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,top+18);ctx.lineTo(x,top+height-28);ctx.stroke();
   ctx.fillStyle='#fff1cc';ctx.beginPath();ctx.arc(x,mid-waveAt(selectedTime,crestReference).value*amp,5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#81d9ed';ctx.beginPath();ctx.arc(x,mid-saturnState.ringOpening/30*amp,4,0,Math.PI*2);ctx.fill();
 }
 function drawVrWave(){
   const ctx=vrWaveCanvas.getContext('2d');const phase=waveAt(selectedTime,crestReference);
@@ -2279,9 +2299,10 @@ function drawVrWave(){
   ctx.fillStyle='#344158';ctx.fillRect(1040,8,140,42);ctx.fillStyle='#ead4a6';ctx.font='20px sans-serif';ctx.fillText('Reset position',1049,36,124);
   drawWavePlot(ctx,1200,185,55);
   ctx.font='20px sans-serif';ctx.fillStyle='#c5cedb';
-  const detail=selectedEvent?selectedEvent.year+' · '+selectedEvent.name+' · year only':'Aim at the wave; hold trigger to scrub.';
+  const comparison=selectedEvent?compareEpoch(selectedEvent,SATURN_HISTORY.epochs.find(row=>row.year===selectedEvent.year),crestReference):null;
+  const detail=selectedEvent?selectedEvent.year+' · '+selectedEvent.name+(comparison?' · year samples '+comparison.min.toFixed(1)+'°…'+comparison.max.toFixed(1)+'°':' · year only'):'Aim at the wave; hold trigger to scrub.';
   ctx.fillText(detail,28,273,1140);
-  ctx.fillStyle='#9caabb';ctx.font='18px sans-serif';ctx.fillText('Ascent → Waning → Collapse → Renewal · 29.5 years · MMS interpretation',28,302);
+  ctx.fillStyle='#9caabb';ctx.font='18px sans-serif';ctx.fillText('Gold/violet: MMS −1…+1  |  Cyan: Saturn −30°…+30° · north positive',28,302);
   const labels=['−1 year','+1 year','Now','Previous epoch','Next epoch'];
   labels.forEach((label,i)=>{ctx.fillStyle='#172537';ctx.fillRect(20+i*236,324,220,48);ctx.fillStyle='#ead4a6';ctx.font='20px sans-serif';ctx.fillText(label,34+i*236,355);});
   ctx.fillStyle='#9eacbf';ctx.font='17px sans-serif';ctx.fillText('MMS reference: '+isoDate(crestReference)+' · editable on web · astronomy does not set wave pressure',28,401);
@@ -2307,6 +2328,17 @@ function setWaveTime(time,event=null){
     event.year+' · '+event.name+' — '+event.detail+' Year-only marker; cursor placed at mid-year.':
     'Historical markers are year-only. Ascent → Waning → Collapse → Renewal. The curve is the MMS model.';
   waveEvent.value=event?String(NOVELTY_EVENTS.indexOf(event)):'';
+  if(comparisonAnchor!==crestReference){
+  comparisonAnchor=crestReference;
+  const table=document.querySelector('#epoch-comparison tbody');table.replaceChildren();
+  NOVELTY_EVENTS.forEach((marker,index)=>{
+    const rowData=compareEpoch(marker,SATURN_HISTORY.epochs.find(row=>row.year===marker.year),crestReference);if(!rowData) return;
+    const row=document.createElement('tr');
+    const cell=document.createElement('td'),button=document.createElement('button');button.textContent=marker.year+' · '+marker.name;button.addEventListener('click',()=>selectWaveEvent(index));cell.appendChild(button);row.appendChild(cell);
+    for(const text of [marker.kind,rowData.wave.toFixed(2),rowData.opening.toFixed(2)+'°',rowData.min.toFixed(2)+'°…'+rowData.max.toFixed(2)+'°',rowData.face]){const td=document.createElement('td');td.textContent=text;row.appendChild(td);}
+    table.appendChild(row);
+  });
+  }
   drawWavePlot(wavePlot.getContext('2d'),1200,160);drawVrWave();
 }
 function selectWaveEvent(index){

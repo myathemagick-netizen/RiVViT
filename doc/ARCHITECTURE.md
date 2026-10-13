@@ -89,3 +89,5 @@ Serve the app over HTTP on localhost for desktop development. To test immersive 
 `lib/saturn.mjs` wraps the local vendored Astronomy Engine 2.1.19 ephemeris and IAU pole model. The timeline calculates a Saturn state per selected UTC date, then shares it with web text and the Quest canvas panel. `tests/saturn.test.mjs` includes a JPL reference regression. No remote service is queried by the app while scrubbing.
 
 `lib/saturn-view.mjs` renders the illustrative Saturn model and orbit card from the shared astronomy state. It is a separate layer in both menus, independent from Earth geometry and the movable timeline.
+
+`data/saturn-pole-history.json` stores independently generated quarterly pole samples and per-marker monthly sampled year ranges. `lib/novelty-comparison.mjs` combines them with the selected MMS reference for reporting without refitting astronomy. `tests/novelty-comparison.test.mjs` checks bounds, direct-calculation agreement, coverage, and reference independence.

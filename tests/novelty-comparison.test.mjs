@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {compareEpoch} from '../lib/novelty-comparison.mjs';
+import {dateMs} from '../lib/novelty-wave.mjs';
+import {saturnAt} from '../lib/saturn.mjs';
+const history=JSON.parse(fs.readFileSync(new URL('../data/saturn-pole-history.json',import.meta.url),'utf8'));
+const events=JSON.parse(fs.readFileSync(new URL('../data/novelty-events.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
+assert.equal(history.samples[0].date,'1830-01-01');assert.equal(history.samples.at(-1).date,'2026-12-31');
+assert.equal(history.epochs.length,events.length);
+for(const sample of [history.samples[0],history.samples[400],history.samples.at(-1)]) assert.ok(Math.abs(sample.opening-saturnAt(dateMs(sample.date)).ringOpening)<1e-10);
+const event=events.find(e=>e.year===1931),record=history.epochs.find(e=>e.year===1931);
+const a=compareEpoch(event,record,dateMs('1931-07-01')),b=compareEpoch(event,record,dateMs('1938-07-01'));
+assert.notEqual(a.wave,b.wave);assert.equal(a.opening,b.opening);assert.equal(a.min,b.min);assert.equal(a.max,b.max);
+assert.ok(history.samples.every(s=>Math.abs(s.opening)<=30));
+assert.equal(compareEpoch(event,null,dateMs('1931-07-01')),null);
+console.log('PASS: independent sampled Saturn history, time bounds, ephemeris samples, marker coverage, and calibration isolation.');
