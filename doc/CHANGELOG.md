@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Hover feedback (preview build 2026-10-12.2)
+
+- User confirmed the previous preview works on Quest with no reported issues.
+- Added subtle color-matched hover glows for selectable vortices, sacred sites, crystal points, and annotations, on desktop and both Quest pointers.
+- Shared nearest-visible-target picking between hover and selection; the globe blocks far-side targets, and VR panels take pointer priority.
+- Glows clear when pointers leave, layers hide, or VR ends. No postprocessing pass is required.
+- Desktop node hover and selection checked with no captured console errors. Quest hover feedback awaits user testing; riftlines are still pending selectable metadata.
+
 ## 2026-10-12 — Project README (branch preview)
 
 - Expanded the root README with purpose, controls, Quest requirements, development instructions, current branch status, and documentation links.

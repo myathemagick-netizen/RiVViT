@@ -6,7 +6,9 @@ Stable site: https://myathemagick-netizen.github.io/RiVViT/
 
 The preview is deployed independently from the modernization branch to the `RiVViT-preview` repository's `main` branch. It does not deploy the stable repository's `main` branch. The header displays a preview build identifier; check it after reloading to confirm the version under test.
 
-## Current build 2026-10-12.1
+## Current build 2026-10-12.2
+
+The user confirmed build 2026-10-12.1 works on Quest with no reported issues. The new build adds hover feedback; point each controller at selectable nodes and verify the subtle glow appears and clears, including when layers are hidden. Riftlines are not selectable yet.
 
 - Three.js 0.186.1 ES modules and sRGB color textures.
 - Awaited Quest session startup, existing controller discovery, and exit cleanup.

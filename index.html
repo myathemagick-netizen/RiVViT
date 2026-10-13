@@ -372,7 +372,7 @@ import * as THREE from 'three';
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.1';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.2';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1145,13 +1145,6 @@ addCrystalPoints(russianGrp,idealVertices,pinnedVertices,0xff927f,'Russian Cryst
 addCrystalPoints(russianGrp,idealCentres,pinnedCentres,0xff927f,'Russian Crystal · Ideal',true);
 addCrystalLines(russianGrp,idealVertices,EDGES,0xff927f,true);
 addCrystalLines(russianGrp,idealCentres,dualEdges,0xff927f,true);
-function visibleCrystalDots(){ return crystalDots.filter(dot=>dot.userData.crystalGroup.visible); }
-function selectCrystal(raycaster){
-  const hits=raycaster.intersectObjects(visibleCrystalDots());
-  if(!hits.length) return false;
-  showInfo(hits[0].object.userData.crystalNode,'crystal');
-  return true;
-}
 
 const layerMap = {dodeca:dodecaGrp, russian:russianGrp, globe:globeGrp, ico:icoGrp, surface:surfaceGrp, faces:facesGrp, vortex:vortexGrp, secondary:secondaryGrp, ann:annGrp, overlays:overlayGrp};
 
@@ -1293,6 +1286,55 @@ setTimeout(() => {
 }, 0);
 const ray=new THREE.Raycaster(), mp=new THREE.Vector2();
 
+// Shared selection and hover feedback for mouse and both Quest pointers.
+function visibleInScene(object){
+  for(let parent=object;parent;parent=parent.parent) if(!parent.visible) return false;
+  return true;
+}
+function selectableObjects(){
+  return [...vortexDots,...secondaryDots,...crystalDots,
+    ...annGrp.children.filter(object=>object.userData.annotation)].filter(visibleInScene);
+}
+function selectableHit(raycaster){
+  // The globe blocks targets on the far side. Glow sprites are not pick targets.
+  const hits=raycaster.intersectObjects([...selectableObjects(),hitSphere],false);
+  return hits.length && hits[0].object!==hitSphere ? hits[0] : null;
+}
+function showSelectable(object){
+  if(object.userData.crystalNode) showInfo(object.userData.crystalNode,'crystal');
+  else if(vortexDots.includes(object)) showInfo(VORTEX_NODES[object.userData.nodeId],'vortex');
+  else if(secondaryDots.includes(object)) showInfo(SECONDARY_NODES[object.userData.nodeId],'secondary');
+  else if(object.userData.annotation) showInfo({name:'Annotation',region:'User-placed',desc:object.userData.text},'annotation');
+}
+const hoverCanvas=document.createElement('canvas'); hoverCanvas.width=hoverCanvas.height=64;
+const hoverContext=hoverCanvas.getContext('2d');
+const hoverGradient=hoverContext.createRadialGradient(32,32,3,32,32,32);
+hoverGradient.addColorStop(0,'rgba(255,255,255,0.75)');
+hoverGradient.addColorStop(.35,'rgba(255,255,255,0.35)');
+hoverGradient.addColorStop(1,'rgba(255,255,255,0)');
+hoverContext.fillStyle=hoverGradient; hoverContext.fillRect(0,0,64,64);
+const hoverTexture=new THREE.CanvasTexture(hoverCanvas);
+hoverTexture.colorSpace=THREE.SRGBColorSpace;
+const hoverGlows=new Map();
+const hoveredObjects=new Set();
+function updateHoverGlows(){
+  hoveredObjects.forEach(object=>{
+    if(!hoverGlows.has(object)){
+      const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:hoverTexture,
+        color:object.material.color,transparent:true,opacity:.8,
+        blending:THREE.AdditiveBlending,depthWrite:false}));
+      glow.scale.set(.10,.10,1); object.add(glow); hoverGlows.set(object,glow);
+    }
+  });
+  hoverGlows.forEach((glow,object)=>{glow.visible=hoveredObjects.has(object)&&visibleInScene(object);});
+}
+let mouseHover=null;
+renderer.domElement.addEventListener('pointermove',event=>{
+  if(event.pointerType==='touch') return;
+  mouseHover={x:event.clientX,y:event.clientY};
+});
+renderer.domElement.addEventListener('pointerleave',()=>{mouseHover=null;});
+
 function doClick(cx,cy){
   mp.x=(cx/window.innerWidth)*2-1; mp.y=-(cy/window.innerHeight)*2+1;
   ray.setFromCamera(mp,camera);
@@ -1308,14 +1350,8 @@ function doClick(cx,cy){
     }
     return;
   }
-  if(selectCrystal(ray)) return;
-  const vh=ray.intersectObjects(vortexGrp.visible ? vortexDots : []);
-  if(vh.length){showInfo(VORTEX_NODES[vh[0].object.userData.nodeId],'vortex');return;}
-  const sh=ray.intersectObjects(secondaryGrp.visible ? secondaryDots : []);
-  if(sh.length){showInfo(SECONDARY_NODES[sh[0].object.userData.nodeId],'secondary');return;}
-  const ah=ray.intersectObjects(annGrp.children);
-  if(ah.length&&ah[0].object.userData.annotation)
-    showInfo({name:'Annotation',region:'User-placed',lat:undefined,desc:ah[0].object.userData.text},'annotation');
+  const hit=selectableHit(ray);
+  if(hit) showSelectable(hit.object);
 }
 
 renderer.domElement.addEventListener('mousedown',e=>{
@@ -1522,15 +1558,8 @@ controllers.forEach(({ ctrl }) => {
       }
     }
 
-    // Raycast nodes
-    if(selectCrystal(vrRay)) return;
-    const vh = vrRay.intersectObjects(vortexGrp.visible ? vortexDots : []);
-    if (vh.length) { showInfo(VORTEX_NODES[vh[0].object.userData.nodeId], 'vortex'); return; }
-    const sh = vrRay.intersectObjects(secondaryGrp.visible ? secondaryDots : []);
-    if (sh.length) { showInfo(SECONDARY_NODES[sh[0].object.userData.nodeId], 'secondary'); return; }
-    const ah = vrRay.intersectObjects(annGrp.children);
-    if (ah.length && ah[0].object.userData.annotation)
-      showInfo({ name:'Annotation', region:'User-placed', lat:undefined, desc:ah[0].object.userData.text }, 'annotation');
+    const hit=selectableHit(vrRay);
+    if(hit) showSelectable(hit.object);
   });
 });
 
@@ -2084,6 +2113,8 @@ renderer.setAnimationLoop((time) => {
   const frameScale = previousFrame === undefined ? 1 : Math.min((time - previousFrame) / (1000 / 60), 3);
   previousFrame = time;
   const inVR = renderer.xr.isPresenting;
+  hoveredObjects.clear();
+  scene.updateMatrixWorld(true);
 
   // ── Thumbstick globe rotation (VR only) ──────────────────────────────
   if (inVR) {
@@ -2125,6 +2156,7 @@ renderer.setAnimationLoop((time) => {
   // ── Controller laser pointers ─────────────────────────────────────────
   if (inVR) {
     controllers.forEach(({ ctrl, ray, rayMat, cursor, cursorMat }) => {
+      if(!ctrl.visible){ cursor.visible=false; return; }
       ctrl.getWorldPosition(_vrOrigin);
       ctrl.getWorldDirection(_vrRaycasterDir).negate();
       vrRay.set(_vrOrigin, _vrRaycasterDir);
@@ -2132,7 +2164,11 @@ renderer.setAnimationLoop((time) => {
       // Check VR menu first
       const hitsMenu = updateVrMenuRaycast(_vrOrigin, _vrRaycasterDir);
 
-      const hits = vrRay.intersectObjects([...(vortexGrp.visible ? vortexDots : []), ...(secondaryGrp.visible ? secondaryDots : []), ...visibleCrystalDots(), hitSphere], true);
+      const blocked=hitsMenu || vrLbMesh.visible ||
+        (vrInfoMesh.visible && vrRay.intersectObject(vrInfoMesh).length>0);
+      const target=blocked ? null : selectableHit(vrRay);
+      if(target) hoveredObjects.add(target.object);
+      const hits = target ? [target] : (blocked ? [] : vrRay.intersectObject(hitSphere));
       if (hits.length) {
         const pt = hits[0].point;
         // Shorten ray to hit point
@@ -2191,6 +2227,14 @@ renderer.setAnimationLoop((time) => {
 
   annGrp.children.forEach(c => { if(c.userData.annotation) c.rotation.y = t*.8; });
 
+  if(!inVR && mouseHover && !annMode){
+    mp.set(mouseHover.x/window.innerWidth*2-1,1-mouseHover.y/window.innerHeight*2);
+    ray.setFromCamera(mp,camera);
+    const hit=selectableHit(ray);
+    if(hit) hoveredObjects.add(hit.object);
+  }
+  renderer.domElement.style.cursor = !inVR && hoveredObjects.size ? 'pointer' : '';
+  updateHoverGlows();
   renderer.render(scene, camera);
 });
 
