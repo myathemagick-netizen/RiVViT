@@ -370,6 +370,11 @@ canvas { display:block; }
 <script type="module">
 import * as THREE from 'three';
 
+if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
+  document.title = 'RiVViT Preview — Earth Pillar Network';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.1';
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // VORTEX NODES — Sanderson's 12 vile vortices, the true icosahedron vertices
 // All rendered identically (green). No type distinction needed.

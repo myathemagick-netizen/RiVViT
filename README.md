@@ -2,7 +2,7 @@
 
 **Riftline Virtual Visualization Tool** — an interactive Earth globe for exploring the Myathe Magick System's planetary geometry, sacred sites, and riftline network on the web and in immersive VR.
 
-[Open the live globe](https://myathemagick-netizen.github.io/RiVViT/) · [Explore the Atlas](https://myathemagick.com/system/atlas/) · [Project documentation](doc/README.md)
+[Open the Quest preview](https://myathemagick-netizen.github.io/RiVViT-preview/) · [Quest test checklist](doc/QUEST-PREVIEW.md) · [Open the live globe](https://myathemagick-netizen.github.io/RiVViT/) · [Explore the Atlas](https://myathemagick.com/system/atlas/) · [Project documentation](doc/README.md)
 
 ## The map
 
@@ -37,7 +37,7 @@ The modernization branch upgrades Three.js from r128 to pinned **0.186.1**, impr
 - **Dodeca · Site-pinned:** twenty face centres derived from the existing primary nodes, connected by thirty dual edges.
 - **Russian Crystal · Ideal:** a regular icosahedron/dodecahedron comparison with twelve vertices, twenty face centres, and sixty lines.
 
-Crystal points show their distance to the corresponding point in the other model. These changes are under review in [PR #1](https://github.com/myathemagick-netizen/RiVViT/pull/1); they are not yet deployed. Desktop preview checks pass; phone and physical Quest 3 validation remain pending.
+Crystal points show their distance to the corresponding point in the other model. These changes are under review in [PR #1](https://github.com/myathemagick-netizen/RiVViT/pull/1); they are available on the separate Quest preview site, but not yet deployed to the stable site. Desktop preview checks pass; phone and physical Quest 3 validation remain pending.
 
 ## Develop locally
 

@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [QUEST-PREVIEW.md](QUEST-PREVIEW.md) | Preview deployment and Quest test checklist |
 | [ROADMAP.md](ROADMAP.md) | Timeline of shipped, in-progress and planned features |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | How the single-file app is organised, data files, layers, VR |
 | [CRYSTAL-GRID.md](CRYSTAL-GRID.md) | The Russian dodecahedral layer: geometry, method, full coordinate tables |
