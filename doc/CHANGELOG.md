@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-13 — Saturn tracking (preview build 2026-10-13.2)
+
+- Added local date-driven Saturn astronomy using pinned Astronomy Engine 2.1.19 with its MIT license.
+- Web and Quest show Earth-centered sky longitude/latitude, distance, apparent motion, Sun-centered orbital longitude, and signed Earth-facing pole/ring opening.
+- Enlarged the movable Quest panel with a calculated astronomy section and schematic ring-opening icon.
+- Astronomy remains separate from the MMS wave; no inferred pressure or corridor activation is displayed.
+- Tests pass against a JPL Horizons reference and opposite-pole/edge-on configurations. Desktop date updates verified without captured errors; Quest check pending.
+
 ## 2026-10-13 — Riftline route images (preview build 2026-10-13.1)
 
 - Added an original schematic globe card for each of the 30 corridors, generated from the existing node coordinates and procedural coast outlines.

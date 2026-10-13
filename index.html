@@ -386,8 +386,9 @@ canvas { display:block; }
     <canvas id="wave-plot" width="1200" height="160" aria-label="Calculated novelty and tradition wave with historical year markers"></canvas>
     <input id="wave-range" type="range" min="0" step="1" aria-label="Selected timeline date">
     <div class="wave-controls"><label>Date <input id="wave-date" type="date"></label><button id="wave-now">Now</button><label>Epoch <select id="wave-event"><option value="">Choose historical marker</option></select></label></div>
+    <div id="saturn-readout" aria-live="polite" style="margin-top:8px;color:#b9d9e7;font-size:12px;line-height:1.6"></div>
     <div id="wave-event-detail">Historical markers are year-only; the curve is the MMS model.</div>
-    <details><summary>Model: 29.5 years · provisional crest reference</summary><label>Crest reference <input id="wave-anchor" type="date" value="1931-07-01"></label><span>Editable calibration, not an asserted painting date. Saturn ephemerides are not connected yet.</span></details>
+    <details><summary>Model: 29.5 years · provisional crest reference</summary><label>Crest reference <input id="wave-anchor" type="date" value="1931-07-01"></label><span>Editable calibration, not an asserted painting date. Saturn astronomy is shown separately and does not determine MMS pressure.</span></details>
   </section>
   <div id="hint">DRAG — rotate<br>SCROLL — zoom<br>CLICK — select<br>VR — headset</div>
   <button id="vrbtn">⬡ Enter VR</button>
@@ -398,13 +399,14 @@ canvas { display:block; }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import {saturnAt} from './lib/saturn.mjs';
 import {nearestPanel} from './lib/vr-panel-picking.mjs';
 import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from './lib/novelty-wave.mjs';
 const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok) throw new Error('Timeline data unavailable');return r.json();}).catch(error=>{console.warn(error);return [];});
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.1';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.2';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2198,15 +2200,16 @@ const waveEvent=document.getElementById('wave-event');
 let selectedTime=dateMs(DEFAULT_ANCHOR);
 let crestReference=dateMs(DEFAULT_ANCHOR);
 let selectedEvent=null;
+let saturnState=saturnAt(selectedTime);
 waveRange.max=Math.round((dateMs(MAX_DATE)-dateMs(MIN_DATE))/DAY_MS);
 waveDate.min=waveAnchor.min=MIN_DATE; waveDate.max=waveAnchor.max=MAX_DATE;
 NOVELTY_EVENTS.forEach((event,index)=>{
   const option=document.createElement('option');option.value=String(index);
   option.textContent=event.year+' · '+event.name;waveEvent.appendChild(option);
 });
-const vrWaveCanvas=document.createElement('canvas');vrWaveCanvas.width=1200;vrWaveCanvas.height=420;
+const vrWaveCanvas=document.createElement('canvas');vrWaveCanvas.width=1200;vrWaveCanvas.height=530;
 const vrWaveTexture=new THREE.CanvasTexture(vrWaveCanvas);vrWaveTexture.colorSpace=THREE.SRGBColorSpace;
-const vrWaveMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.35,.4725),
+const vrWaveMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.35,.59625),
   new THREE.MeshBasicMaterial({map:vrWaveTexture,side:THREE.DoubleSide,depthWrite:false}));
 vrWaveMesh.position.set(0,.72,-1.35);vrWaveMesh.rotation.x=-.3;waveGrp.add(vrWaveMesh);
 let waveGrabController=null;
@@ -2230,7 +2233,7 @@ function grabWave(ctrl){
   ctrl.userData.waveDragging=false;
   ctrl.attach(vrWaveMesh);waveGrabController=ctrl;drawVrWave();
 }
-const vrWaveHover=new THREE.Mesh(new THREE.PlaneGeometry(1.37,.49),
+const vrWaveHover=new THREE.Mesh(new THREE.PlaneGeometry(1.37,.61625),
   new THREE.MeshBasicMaterial({color:0xc8a96e,transparent:true,opacity:.18,depthWrite:false}));
 vrWaveHover.position.z=-.002;vrWaveMesh.add(vrWaveHover);vrWaveHover.visible=false;
 function drawWavePlot(ctx,width,height,top=0){
@@ -2262,8 +2265,8 @@ function drawWavePlot(ctx,width,height,top=0){
 }
 function drawVrWave(){
   const ctx=vrWaveCanvas.getContext('2d');const phase=waveAt(selectedTime,crestReference);
-  ctx.fillStyle='#050b14';ctx.fillRect(0,0,1200,420);
-  ctx.strokeStyle='#c8a96e';ctx.lineWidth=3;ctx.strokeRect(2,2,1196,416);
+  ctx.fillStyle='#050b14';ctx.fillRect(0,0,1200,530);
+  ctx.strokeStyle='#c8a96e';ctx.lineWidth=3;ctx.strokeRect(2,2,1196,526);
   ctx.fillStyle='#243144';ctx.fillRect(18,8,1010,42);
   ctx.fillStyle='#e3bd75';ctx.font='bold 23px sans-serif';
   ctx.fillText(waveGrabController?'RELEASE TRIGGER TO PLACE':'NOVELTY WAVE · GRAB HEADER TO MOVE',28,36,565);
@@ -2276,12 +2279,20 @@ function drawVrWave(){
   ctx.fillStyle='#9caabb';ctx.font='18px sans-serif';ctx.fillText('Ascent → Waning → Collapse → Renewal · 29.5 years · MMS interpretation',28,302);
   const labels=['−1 year','+1 year','Now','Previous epoch','Next epoch'];
   labels.forEach((label,i)=>{ctx.fillStyle='#172537';ctx.fillRect(20+i*236,324,220,48);ctx.fillStyle='#ead4a6';ctx.font='20px sans-serif';ctx.fillText(label,34+i*236,355);});
-  ctx.fillStyle='#9eacbf';ctx.font='17px sans-serif';ctx.fillText('Provisional crest reference: '+isoDate(crestReference)+' · editable on web · no Saturn ephemerides yet',28,401);
+  ctx.fillStyle='#9eacbf';ctx.font='17px sans-serif';ctx.fillText('MMS reference: '+isoDate(crestReference)+' · editable on web · astronomy does not set wave pressure',28,401);
+  ctx.fillStyle='#aed0e4';ctx.font='bold 22px sans-serif';ctx.fillText('SATURN · CALCULATED ASTRONOMY · 00:00 UTC',28,435);
+  ctx.font='20px sans-serif';ctx.fillText('Earth sky: '+saturnState.longitude.toFixed(2)+'° lon / '+saturnState.latitude.toFixed(2)+'° lat · '+saturnState.distanceAU.toFixed(3)+' AU · '+saturnState.motion,28,464,1000);
+  ctx.fillText('Ring opening '+saturnState.ringOpening.toFixed(2)+'° · '+saturnState.face,28,493,1000);
+  ctx.font='17px sans-serif';ctx.fillStyle='#9eacbf';ctx.fillText('Sun-centered orbital longitude '+saturnState.heliocentricLongitude.toFixed(2)+'° · pole model, not hexagon imagery',28,518);
+  ctx.strokeStyle='#e7c985';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(1100,477,64,Math.max(2,64*Math.abs(Math.sin(saturnState.ringOpening*Math.PI/180))),0,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#c3a879';ctx.beginPath();ctx.arc(1100,477,25,0,Math.PI*2);ctx.fill();
   vrWaveTexture.needsUpdate=true;
 }
 function setWaveTime(time,event=null){
   if(!Number.isFinite(time)) return;
   selectedTime=dateMs(isoDate(time));selectedEvent=event;
+  saturnState=saturnAt(selectedTime);
+  document.getElementById('saturn-readout').textContent='Saturn · calculated astronomy · 00:00 UTC | Earth sky longitude '+saturnState.longitude.toFixed(2)+'°, latitude '+saturnState.latitude.toFixed(2)+'° | '+saturnState.distanceAU.toFixed(3)+' AU · '+saturnState.motion+' | Ring opening '+saturnState.ringOpening.toFixed(2)+'° · '+saturnState.face+' | Sun-centered orbital longitude '+saturnState.heliocentricLongitude.toFixed(2)+'°';
   waveRange.value=String(Math.round((selectedTime-dateMs(MIN_DATE))/DAY_MS));
   waveDate.value=isoDate(selectedTime);
   const phase=waveAt(selectedTime,crestReference);
@@ -2317,7 +2328,7 @@ wavePlot.addEventListener('click',event=>{
 });
 function scrubWaveUv(uv){
   if(!uv) return;
-  const y=(1-uv.y)*420;if(y<55 || y>240) return;
+  const y=(1-uv.y)*530;if(y<55 || y>240) return;
   const next=dateMs(isoDate(timeAtFraction((uv.x*1200-64)/(1200-32-64))));
   if(next!==selectedTime || selectedEvent) setWaveTime(next);
 }
@@ -2325,7 +2336,7 @@ function triggerWave(ctrl,raycaster){
   if(!waveGrp.visible) return false;
   const hit=raycaster.intersectObject(vrWaveMesh,false)[0];if(!hit?.uv) return false;
   if(waveGrabController) return true;
-  const y=(1-hit.uv.y)*420;
+  const y=(1-hit.uv.y)*530;
   if(y<55){
     if(hit.uv.x*1200>=1040) resetWavePosition();else grabWave(ctrl);
   }

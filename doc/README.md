@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [SATURN.md](SATURN.md) | Calculated Saturn position, pole geometry, and model boundaries |
 | [NOVELTY-WAVE.md](NOVELTY-WAVE.md) | Timeline model, controls, precision, and calibration |
 | [QUEST-PREVIEW.md](QUEST-PREVIEW.md) | Preview deployment and Quest test checklist |
 | [ROADMAP.md](ROADMAP.md) | Timeline of shipped, in-progress and planned features |

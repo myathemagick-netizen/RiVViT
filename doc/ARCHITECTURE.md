@@ -83,3 +83,7 @@ Serve the app over HTTP on localhost for desktop development. To test immersive 
 ## Corridor image cards
 
 `images/riftlines/route-01.jpg` through `route-30.jpg` are original 900×900 schematic route cards. `tools/build-riftline-images.py` regenerates them from the current primary node coordinates, the inline procedural coast outlines, and corridor endpoint metadata. Each JSON record stores its image path. These are deterministic geometric diagrams rather than illustrative photographs. They use the existing web/VR image and lightbox handlers.
+
+## Saturn astronomy
+
+`lib/saturn.mjs` wraps the local vendored Astronomy Engine 2.1.19 ephemeris and IAU pole model. The timeline calculates a Saturn state per selected UTC date, then shares it with web text and the Quest canvas panel. `tests/saturn.test.mjs` includes a JPL reference regression. No remote service is queried by the app while scrubbing.

@@ -4,7 +4,7 @@ The first preview is limited to 1830–2026, approximately the last 200 years. O
 
 ## Model
 
-The shared calculation in `lib/novelty-wave.mjs` uses a cosine wave, equivalently a phase-shifted sine wave, with a 29.5-year period. One model year is 365.2425 days. A documented crest reference fixes its phase; this is not yet driven by live Saturn ephemerides.
+The shared calculation in `lib/novelty-wave.mjs` uses a cosine wave, equivalently a phase-shifted sine wave, with a 29.5-year period. One model year is 365.2425 days. A documented crest reference fixes its phase; this does not derive phase from the separately displayed Saturn astronomy.
 
 The default reference is **1931-07-01**, a provisional mid-year calibration for the 1931 Surrealist Epoch. It does not claim Dalí painted on that date. Change the crest reference in the web panel's Model section to inspect other calibrations. The web and VR views use the same reference in the current session.
 
@@ -28,4 +28,4 @@ Enable Novelty Wave from the Y menu. Aim at the chart and hold the trigger to sc
 
 Pure model tests cover period, extrema, negative-time phase wrapping, quarters, hard bounds, slider mapping, and reference changes. Desktop preview checks cover historical selection, date limits, calibration edits, and rendered layout. Physical Quest testing of the new panel is pending.
 
-The globe's positions and corridors do not yet change with the selected date. Saturn position/orientation, ephemeris comparison, temporal events on the globe, and saved calibration are follow-up work. There is no calculated chronon-pressure measurement in this build.
+The globe's positions and corridors do not yet change with the selected date. Saturn position/orientation now appears alongside the wave; see SATURN.md. Temporal events on the globe, rules connecting astronomy to the MMS model, and saved calibration remain follow-up work. There is no calculated chronon-pressure measurement in this build.
