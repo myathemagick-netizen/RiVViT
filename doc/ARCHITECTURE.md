@@ -71,3 +71,7 @@ The renderer uses WebGL2, explicit sRGB color textures, and a local-floor WebXR 
 Crystal Grid layers are built from the existing topology in `index.html`, default off, with web and VR toggles. The ideal orientation is constructed from the documented belt latitude and longitude offset. Primary geometry remains unchanged.
 
 Serve the app over HTTP on localhost for desktop development. To test immersive VR on Quest, use an HTTPS origin accessible from the headset; an HTTP computer LAN address is not a secure context.
+
+## Named riftline selection
+
+`data/riftlines.json` contains all 30 corridor names, MMS-attributed summaries, endpoint codes, primary node IDs, and public Atlas chapter URLs. Metadata is matched by unordered endpoint pair rather than array order. Invisible narrow tube meshes provide pick targets; separate gold tubes supply hover feedback without bloom. Shared picking supports web/touch and Quest triggers, gives point markers priority, excludes hidden groups, and rejects far-side hits behind the globe. Web corridor panels offer an Atlas link; VR plaques present the same summary and endpoints. Long VR titles scale down to fit. If metadata cannot load, generic endpoint descriptions remain selectable.

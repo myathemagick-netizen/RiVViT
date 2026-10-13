@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Named riftlines (preview build 2026-10-12.3)
+
+- Added all 30 corridor records from MMS v37 section 4.8, with attributed summaries and Atlas chapter links.
+- Added whole-arc hover highlights and wider pick targets for web, touch, and Quest.
+- Shared point-priority selection at corridor endpoints, with hidden-layer and globe occlusion checks.
+- Corridor information appears in web panels and VR plaques; web panels link to the Atlas. Long VR titles fit the available width.
+- Verified unique complete edge mapping, syntax, desktop selection, node priority, hidden-line behavior, and no captured console warnings/errors. Quest selection awaits testing.
+
 ## 2026-10-12 — Hover feedback (preview build 2026-10-12.2)
 
 - User confirmed the previous preview works on Quest with no reported issues.

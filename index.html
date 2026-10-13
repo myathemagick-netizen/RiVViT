@@ -341,6 +341,7 @@ canvas { display:block; }
     </div>
     <div id="info-desc-wrap">
       <p id="ip-desc">—</p>
+      <a id="ip-atlas" href="https://myathemagick.com/system/atlas/" target="_blank" rel="noopener noreferrer" hidden style="color:#c8a96e;font-size:12px;margin-top:10px">Read corridor in the Atlas ↗</a>
     </div>
     <div class="coords" id="ip-coords">—</div>
   </div>
@@ -372,7 +373,7 @@ import * as THREE from 'three';
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.2';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.3';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -819,6 +820,11 @@ const facesGrp = new THREE.Group(); G.add(facesGrp);
 // ═══════════════════════════════════════════════════════════════════════════
 // RIFTLINES — great-circle arcs on surface + animated glow
 // ═══════════════════════════════════════════════════════════════════════════
+const RIFTLINE_DATA = await fetch('./data/riftlines.json')
+  .then(response=>{if(!response.ok) throw new Error('Riftline data '+response.status); return response.json();})
+  .catch(error=>{console.warn(error); return [];});
+const riftlineByPair = new Map(RIFTLINE_DATA.map(record=>[record.app_node_ids.slice().sort((a,b)=>a-b).join('-'),record]));
+const riftlineTargets=[];
 const surfaceGrp = new THREE.Group(); G.add(surfaceGrp);
 const riftAnim=[];
 const SURF_R=R*1.003;
@@ -832,6 +838,25 @@ EDGES.forEach(([a,b])=>{
   const glowMat=new THREE.LineBasicMaterial({color:0x40c880,transparent:true,opacity:0});
   surfaceGrp.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),glowMat));
   riftAnim.push({mat:glowMat,phase:Math.random()*Math.PI*2});
+  const record=riftlineByPair.get([a,b].sort((x,y)=>x-y).join('-'));
+  const endpointText=VORTEX_NODES[a].name+' ↔ '+VORTEX_NODES[b].name;
+  const riftlineNode={name:record?.name || endpointText,
+    region:record ? 'Riftline '+record.atlas_number+' · '+record.endpoint_codes.join('–') : 'Riftline',
+    coordsText:endpointText,
+    desc:(record?.summary || 'Geometric connection between these primary nodes.')+
+      '\n\nEndpoints: '+endpointText+'. The displayed arc is the geometric corridor framework; the MMS reading describes a wider landscape.',
+    atlasUrl:record?.atlas_url};
+  const curve=new THREE.CatmullRomCurve3(pts);
+  // Invisible tube gives the thin visual line a comfortable picking width in VR.
+  const target=new THREE.Mesh(new THREE.TubeGeometry(curve,70,.010,6,false),
+    new THREE.MeshBasicMaterial({visible:false}));
+  target.userData.riftlineNode=riftlineNode;
+  const hover=new THREE.Mesh(new THREE.TubeGeometry(curve,70,.004,6,false),
+    new THREE.MeshBasicMaterial({color:0xffd080,transparent:true,opacity:.65,
+      blending:THREE.AdditiveBlending,depthWrite:false}));
+  hover.visible=false;
+  target.userData.hoverGlow=hover;
+  surfaceGrp.add(target,hover); riftlineTargets.push(target);
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1227,10 +1252,15 @@ function showInfo(node, set) {
   document.getElementById('ip-name').textContent = node.name   || '—';
   document.getElementById('ip-reg').textContent  = node.region || '—';
   document.getElementById('ip-desc').textContent = node.desc   || '—';
+  const atlasLink=document.getElementById('ip-atlas');
+  atlasLink.hidden=!node.atlasUrl;
+  if(node.atlasUrl) atlasLink.href=node.atlasUrl;
 
   const tag = document.getElementById('ip-tag');
   if (set === 'vortex') {
     tag.textContent = '⬡ VORTEX / EARTH PILLAR'; tag.className = 'tag vortex';
+  } else if (set === 'riftline') {
+    tag.textContent = '— RIFTLINE CORRIDOR'; tag.className = 'tag secondary';
   } else if (set === 'crystal') {
     tag.textContent = '◇ CRYSTAL GRID'; tag.className = 'tag secondary';
   } else if (set === 'secondary') {
@@ -1240,7 +1270,7 @@ function showInfo(node, set) {
   }
 
   document.getElementById('ip-coords').textContent =
-    node.lat !== undefined ? `LAT ${node.lat}°  /  LON ${node.lon}°` : '';
+    node.coordsText || (node.lat !== undefined ? `LAT ${node.lat}°  /  LON ${node.lon}°` : '');
 
   // Image — try jpg first, then png, hide gracefully if neither exists
   const imgBase = node.img ? node.img.replace(/\.(jpg|png|jpeg|webp)$/i, '') : null;
@@ -1292,16 +1322,21 @@ function visibleInScene(object){
   return true;
 }
 function selectableObjects(){
-  return [...vortexDots,...secondaryDots,...crystalDots,
+  return [...vortexDots,...secondaryDots,...crystalDots,...riftlineTargets,
     ...annGrp.children.filter(object=>object.userData.annotation)].filter(visibleInScene);
 }
 function selectableHit(raycaster){
-  // The globe blocks targets on the far side. Glow sprites are not pick targets.
-  const hits=raycaster.intersectObjects([...selectableObjects(),hitSphere],false);
-  return hits.length && hits[0].object!==hitSphere ? hits[0] : null;
+  const candidates=selectableObjects();
+  const globeHit=raycaster.intersectObject(hitSphere,false)[0];
+  const isUnblocked=hit=>!globeHit || hit.distance<=globeHit.distance+.006;
+  // Prefer point markers at intersections; broad corridor targets must not steal nodes.
+  const point=raycaster.intersectObjects(candidates.filter(object=>!object.userData.riftlineNode),false).find(isUnblocked);
+  if(point) return point;
+  return raycaster.intersectObjects(candidates.filter(object=>object.userData.riftlineNode),false).find(isUnblocked) || null;
 }
 function showSelectable(object){
-  if(object.userData.crystalNode) showInfo(object.userData.crystalNode,'crystal');
+  if(object.userData.riftlineNode) showInfo(object.userData.riftlineNode,'riftline');
+  else if(object.userData.crystalNode) showInfo(object.userData.crystalNode,'crystal');
   else if(vortexDots.includes(object)) showInfo(VORTEX_NODES[object.userData.nodeId],'vortex');
   else if(secondaryDots.includes(object)) showInfo(SECONDARY_NODES[object.userData.nodeId],'secondary');
   else if(object.userData.annotation) showInfo({name:'Annotation',region:'User-placed',desc:object.userData.text},'annotation');
@@ -1320,6 +1355,7 @@ const hoveredObjects=new Set();
 function updateHoverGlows(){
   hoveredObjects.forEach(object=>{
     if(!hoverGlows.has(object)){
+      if(object.userData.hoverGlow){ hoverGlows.set(object,object.userData.hoverGlow); return; }
       const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:hoverTexture,
         color:object.material.color,transparent:true,opacity:.8,
         blending:THREE.AdditiveBlending,depthWrite:false}));
@@ -1943,8 +1979,12 @@ function drawVrPanel(node, img) {
   // Right text column
   // Name
   c.fillStyle = '#f0d898';
-  c.font = 'bold 32px sans-serif';
-  c.fillText(node.name || '—', TEXT_X, 46);
+  let titleSize=32;
+  c.font = 'bold '+titleSize+'px sans-serif';
+  while(titleSize>18 && c.measureText(node.name || '—').width>TEXT_W){
+    titleSize--; c.font='bold '+titleSize+'px sans-serif';
+  }
+  c.fillText(node.name || '—', TEXT_X, 46, TEXT_W);
 
   // Region
   c.fillStyle = '#6a5a2a';
@@ -2180,7 +2220,7 @@ renderer.setAnimationLoop((time) => {
         cursor.visible = true;
 
         // Highlight if over a node
-        const isNode = hits[0].object.userData.nodeId !== undefined || hits[0].object.userData.crystalNode !== undefined;
+        const isNode = hits[0].object.userData.nodeId !== undefined || hits[0].object.userData.crystalNode !== undefined || hits[0].object.userData.riftlineNode !== undefined || hits[0].object.userData.annotation;
         rayMat.color.setHex(isNode ? 0xc8a96e : 0x80ffcc);
         rayMat.opacity = isNode ? 0.8 : 0.4;
         cursorMat.color.setHex(isNode ? 0xffd080 : 0xc8a96e);

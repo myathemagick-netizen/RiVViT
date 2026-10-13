@@ -17,7 +17,7 @@ The displayed arcs are geometric connections between the primary nodes. They pro
 - Open the layers menu to control the globe, interior geometry, faces, nodes, riftlines, and overlays.
 - Toggle Australian Songlines, place annotations, or pause automatic rotation.
 
-Riftlines are currently visible but do not yet have selectable corridor information. The next content step is to connect all thirty edges to their Atlas names, descriptions, and source links.
+The preview supports all thirty named riftline corridors: hover for a gold highlight, then select a line for its MMS summary and endpoint details. The web panel links to the matching Atlas chapter. Point markers take priority where corridors meet.
 
 ## Meta Quest VR
 
