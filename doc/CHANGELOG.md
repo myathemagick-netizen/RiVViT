@@ -2,6 +2,14 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-12 — Movable Quest timeline (preview build 2026-10-12.6)
+
+- User confirmed timeline scrubbing works on Quest and reported overlap with the globe and information panels.
+- Added trigger-grab header to reposition and rotate the timeline, release-to-place, and Reset position.
+- Overlapping VR panels now choose the nearest ray hit rather than giving the timeline priority over the information plaque.
+- Grabs release when the timeline hides, the controller disappears, or the session ends. Only one controller owns a grab.
+- Model and panel-priority tests pass. Physical Quest movement and overlap checks remain pending.
+
 ## 2026-10-12 — Stable release and Novelty Wave preview
 
 - Merged PR #1 after the user confirmed the features work in Quest and explicitly authorized the stable release.

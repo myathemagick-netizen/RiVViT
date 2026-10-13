@@ -22,7 +22,7 @@ Drag the range slider, enter a date, click the wave or a marker, choose an epoch
 
 ## Quest controls
 
-Enable Novelty Wave from the Y menu. Aim at the chart and hold the trigger to scrub. The panel has one-year backward/forward controls, Now, and previous/next historical markers. Release the trigger to stop scrubbing. The panel highlights when targeted and blocks selection of globe objects behind it. It is hidden outside immersive VR, where the HTML panel is used instead.
+Enable Novelty Wave from the Y menu. Aim at the chart and hold the trigger to scrub. The panel has one-year backward/forward controls, Now, and previous/next historical markers. Release the trigger to stop scrubbing. Hold trigger on the top grab bar to move and rotate the panel; release to place it. Reset position returns it to the starting pose. Placement lasts for the current page session. The panel highlights when targeted and blocks selection of globe objects behind it. When it overlaps another panel, the closest panel under the pointer receives input. It is hidden outside immersive VR, where the HTML panel is used instead.
 
 ## Validation and next work
 

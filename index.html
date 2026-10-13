@@ -398,12 +398,13 @@ canvas { display:block; }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import {nearestPanel} from './lib/vr-panel-picking.mjs';
 import {DAY_MS,PERIOD_DAYS,MIN_DATE,MAX_DATE,DEFAULT_ANCHOR,dateMs,clampTime,waveAt,timeAtFraction,fractionAtTime,isoDate} from './lib/novelty-wave.mjs';
 const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok) throw new Error('Timeline data unavailable');return r.json();}).catch(error=>{console.warn(error);return [];});
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.5';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-12.6';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1599,7 +1600,7 @@ const vrRay = new THREE.Raycaster();
 let lastSelectTime = 0;
 
 controllers.forEach(({ ctrl }) => {
-  ctrl.addEventListener('selectend',()=>{ctrl.userData.waveDragging=false;});
+  ctrl.addEventListener('selectend',()=>{ctrl.userData.waveDragging=false;releaseWaveGrab(ctrl);});
   ctrl.addEventListener('selectstart', () => {
     const now = performance.now();
     if (now - lastSelectTime < 300) return;
@@ -1614,13 +1615,15 @@ controllers.forEach(({ ctrl }) => {
     // Lightbox open — any trigger closes it
     if (vrLbMesh.visible) { vrLbMesh.visible = false; return; }
 
-    // VR menu open — trigger toggles hovered row
-    if (triggerVrMenuRow()) return;
-
-    if(triggerWave(ctrl,vrRay)) return;
+    // Resolve overlapping panels by distance, not a fixed timeline-first order.
+    const frontPanel=nearestVrPanel(vrRay);
+    if(frontPanel?.kind==='menu'){
+      updateVrMenuRaycast(origin,direction);triggerVrMenuRow();return;
+    }
+    if(frontPanel?.kind==='wave'){triggerWave(ctrl,vrRay);return;}
 
     // Plaque open — check if pointing at image or text area
-    if (vrInfoMesh.visible) {
+    if (frontPanel?.kind==='info') {
       const ph = vrRay.intersectObject(vrInfoMesh);
       if (ph.length) {
         const uv = ph[0].uv;
@@ -2206,6 +2209,27 @@ const vrWaveTexture=new THREE.CanvasTexture(vrWaveCanvas);vrWaveTexture.colorSpa
 const vrWaveMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.35,.4725),
   new THREE.MeshBasicMaterial({map:vrWaveTexture,side:THREE.DoubleSide,depthWrite:false}));
 vrWaveMesh.position.set(0,.72,-1.35);vrWaveMesh.rotation.x=-.3;waveGrp.add(vrWaveMesh);
+let waveGrabController=null;
+function nearestVrPanel(raycaster){
+  const panels=[];
+  if(vrMenuMesh.visible) panels.push({mesh:vrMenuMesh,kind:'menu'});
+  if(vrInfoMesh.visible) panels.push({mesh:vrInfoMesh,kind:'info'});
+  if(waveGrp.visible && vrWaveMesh.visible) panels.push({mesh:vrWaveMesh,kind:'wave'});
+  return nearestPanel(raycaster,panels);
+}
+function releaseWaveGrab(ctrl=waveGrabController){
+  if(!waveGrabController || ctrl!==waveGrabController) return;
+  waveGrp.attach(vrWaveMesh);waveGrabController=null;drawVrWave();
+}
+function resetWavePosition(){
+  releaseWaveGrab();
+  vrWaveMesh.position.set(0,.72,-1.35);vrWaveMesh.rotation.set(-.3,0,0);
+}
+function grabWave(ctrl){
+  if(waveGrabController && waveGrabController!==ctrl) return;
+  ctrl.userData.waveDragging=false;
+  ctrl.attach(vrWaveMesh);waveGrabController=ctrl;drawVrWave();
+}
 const vrWaveHover=new THREE.Mesh(new THREE.PlaneGeometry(1.37,.49),
   new THREE.MeshBasicMaterial({color:0xc8a96e,transparent:true,opacity:.18,depthWrite:false}));
 vrWaveHover.position.z=-.002;vrWaveMesh.add(vrWaveHover);vrWaveHover.visible=false;
@@ -2240,8 +2264,11 @@ function drawVrWave(){
   const ctx=vrWaveCanvas.getContext('2d');const phase=waveAt(selectedTime,crestReference);
   ctx.fillStyle='#050b14';ctx.fillRect(0,0,1200,420);
   ctx.strokeStyle='#c8a96e';ctx.lineWidth=3;ctx.strokeRect(2,2,1196,416);
-  ctx.fillStyle='#e3bd75';ctx.font='bold 28px sans-serif';ctx.fillText('NOVELTY WAVE · 1830–2026',28,40);
-  ctx.fillStyle='#dce1e9';ctx.font='24px sans-serif';ctx.fillText(isoDate(selectedTime)+'  ·  '+phase.name,760,40,410);
+  ctx.fillStyle='#243144';ctx.fillRect(18,8,1010,42);
+  ctx.fillStyle='#e3bd75';ctx.font='bold 23px sans-serif';
+  ctx.fillText(waveGrabController?'RELEASE TRIGGER TO PLACE':'NOVELTY WAVE · GRAB HEADER TO MOVE',28,36,565);
+  ctx.fillStyle='#dce1e9';ctx.font='22px sans-serif';ctx.fillText(isoDate(selectedTime)+' · '+phase.name,610,36,400);
+  ctx.fillStyle='#344158';ctx.fillRect(1040,8,140,42);ctx.fillStyle='#ead4a6';ctx.font='20px sans-serif';ctx.fillText('Reset position',1049,36,124);
   drawWavePlot(ctx,1200,185,55);
   ctx.font='20px sans-serif';ctx.fillStyle='#c5cedb';
   const detail=selectedEvent?selectedEvent.year+' · '+selectedEvent.name+' · year only':'Aim at the wave; hold trigger to scrub.';
@@ -2297,8 +2324,12 @@ function scrubWaveUv(uv){
 function triggerWave(ctrl,raycaster){
   if(!waveGrp.visible) return false;
   const hit=raycaster.intersectObject(vrWaveMesh,false)[0];if(!hit?.uv) return false;
+  if(waveGrabController) return true;
   const y=(1-hit.uv.y)*420;
-  if(y>=55 && y<=240){ctrl.userData.waveDragging=true;scrubWaveUv(hit.uv);}
+  if(y<55){
+    if(hit.uv.x*1200>=1040) resetWavePosition();else grabWave(ctrl);
+  }
+  else if(y>=55 && y<=240){ctrl.userData.waveDragging=true;scrubWaveUv(hit.uv);}
   else if(y>=324 && y<=372){
     const index=Math.floor((hit.uv.x*1200-20)/236);
     if(index===0 || index===1) setWaveTime(selectedTime+(index===0?-1:1)*365.2425*DAY_MS);
@@ -2306,7 +2337,7 @@ function triggerWave(ctrl,raycaster){
   }
   return true;
 }
-renderer.xr.addEventListener('sessionend',()=>{controllers.forEach(({ctrl})=>{ctrl.userData.waveDragging=false;});vrWaveHover.visible=false;});
+renderer.xr.addEventListener('sessionend',()=>{releaseWaveGrab();controllers.forEach(({ctrl})=>{ctrl.userData.waveDragging=false;});vrWaveHover.visible=false;});
 setWaveTime(selectedTime,NOVELTY_EVENTS.find(event=>event.year===1931));
 
 
@@ -2323,6 +2354,7 @@ renderer.setAnimationLoop((time) => {
   const inVR = renderer.xr.isPresenting;
   hoveredObjects.clear();
   vrWaveHover.visible=false;
+  if(waveGrabController && (!waveGrabController.visible || !waveGrp.visible || !inVR)) releaseWaveGrab();
   scene.updateMatrixWorld(true);
 
   // ── Thumbstick globe rotation (VR only) ──────────────────────────────
@@ -2371,11 +2403,12 @@ renderer.setAnimationLoop((time) => {
       vrRay.set(_vrOrigin, _vrRaycasterDir);
 
       // Check VR menu first
-      const hitsMenu = updateVrMenuRaycast(_vrOrigin, _vrRaycasterDir);
+      const frontPanel=nearestVrPanel(vrRay);
+      const hitsMenu = frontPanel?.kind==='menu' && updateVrMenuRaycast(_vrOrigin, _vrRaycasterDir);
 
-      const hitsWave=waveGrp.visible ? vrRay.intersectObject(vrWaveMesh,false) : [];
+      const hitsWave=frontPanel?.kind==='wave' ? [frontPanel.hit] : [];
       if(hitsWave.length && !hitsMenu && !vrLbMesh.visible) vrWaveHover.visible=true;
-      if(ctrl.userData.waveDragging && hitsWave.length && !hitsMenu && !vrLbMesh.visible) scrubWaveUv(hitsWave[0].uv);
+      if(!waveGrabController && ctrl.userData.waveDragging && hitsWave.length && !hitsMenu && !vrLbMesh.visible) scrubWaveUv(hitsWave[0].uv);
       const blocked=hitsMenu || hitsWave.length>0 || vrLbMesh.visible ||
         (vrInfoMesh.visible && vrRay.intersectObject(vrInfoMesh).length>0);
       const target=blocked ? null : selectableHit(vrRay);
@@ -2446,7 +2479,7 @@ renderer.setAnimationLoop((time) => {
     if(hit) hoveredObjects.add(hit.object);
   }
   renderer.domElement.style.cursor = !inVR && hoveredObjects.size ? 'pointer' : '';
-  vrWaveMesh.visible=inVR;
+  vrWaveMesh.visible=inVR && waveGrp.visible;
   wavePanel.hidden = !waveGrp.visible || inVR;
   updateHoverGlows();
   renderer.render(scene, camera);
