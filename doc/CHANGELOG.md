@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-26 — Collapsible web legend
+
+- Added a keyboard-accessible Legend disclosure with a 44px touch target in the upper-right corner.
+- Starts collapsed on screens 600px wide or narrower, expanded on larger screens. Users can open or close it at any width; resizing does not reset their choice.
+- All line/node symbols and dynamically loaded overlay legends remain inside the disclosure. Globe and Quest controls are unchanged.
+
 ## 2026-10-13 — Sirius timeline preview
 
 - Recorded the author’s pattern-seeking purpose, dextrogyre interpretation, historical-layer goals, and reason for the 200-year boundary.

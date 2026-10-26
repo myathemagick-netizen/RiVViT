@@ -104,7 +104,23 @@ canvas { display:block; }
 /* ── Legend ── */
 #legend {
   position:absolute; top:18px; right:18px; pointer-events:none;
-  display:flex; flex-direction:column; gap:7px;
+  max-width:calc(100vw - 36px);
+}
+#legend summary {
+  pointer-events:auto; cursor:pointer; list-style:none;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-width:74px; min-height:44px; width:max-content; margin-left:auto;
+  padding:0 10px; box-sizing:border-box; color:#c8a96e;
+  font-size:10px; letter-spacing:1px; background:rgba(4,6,14,.9);
+  border:1px solid #c8a96e44;
+}
+#legend summary::-webkit-details-marker {display:none}
+#legend summary::after {content:'+'; font-size:16px}
+#legend[open] summary::after {content:'−'}
+#legend summary:focus-visible {outline:2px solid #c8a96e; outline-offset:3px}
+#legend-items {
+  display:flex; flex-direction:column; gap:7px; margin-top:7px;
+  padding:10px; background:rgba(4,6,14,.9); border:1px solid #c8a96e22;
 }
 .leg { display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:1px; color:#8b929e; }
 .lg-c { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
@@ -344,7 +360,9 @@ canvas { display:block; }
   </div>
 
   <!-- Legend -->
-  <div id="legend">
+  <details id="legend" open>
+    <summary>Legend</summary>
+    <div id="legend-items">
     <div class="leg"><div class="lg-c" style="background:#50c890;box-shadow:0 0 5px #50c890;"></div>Vortex Node</div>
     <div class="leg"><div class="lg-d" style="background:#c8a96e;box-shadow:0 0 3px #c8a96e;"></div>Secondary Node</div>
     <div class="leg" style="margin-top:4px;"><div style="width:20px;height:1px;background:linear-gradient(90deg,#30a060,#80ffcc);"></div>Riftline</div>
@@ -353,7 +371,9 @@ canvas { display:block; }
     <div class="leg"><div class="lg-line" style="border-color:#ff927f;border-top-style:dashed"></div>Russian Crystal · Ideal</div>
     <div class="leg"><div class="lg-line" style="border-color:#ffd080;box-shadow:0 0 5px #ffd08066"></div>Riftline hover</div>
     <div id="overlay-legend"></div>
-  </div>
+    </div>
+  </details>
+  <script>document.getElementById('legend').open = !window.matchMedia('(max-width:600px)').matches;</script>
 
   <!-- Info panel -->
   <div id="info">
@@ -424,7 +444,7 @@ const NOVELTY_EVENTS=await fetch('./data/novelty-events.json').then(r=>{if(!r.ok
 
 if(location.pathname.startsWith('/RiVViT-preview/') || location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
   document.title = 'RiVViT Preview — Earth Pillar Network';
-  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-13.5';
+  document.querySelector('#header p').textContent = 'PREVIEW · Three.js r186 · Build 2026-10-26.1';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

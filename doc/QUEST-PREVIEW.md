@@ -4,6 +4,8 @@ Preview: https://myathemagick-netizen.github.io/RiVViT-preview/
 
 Stable site: https://myathemagick-netizen.github.io/RiVViT/
 
+Preview **2026-10-26.1** adds a collapsible upper-right Legend. It starts collapsed at mobile widths (600px or less) and expanded on desktop. Tap/click Legend to toggle; keyboard users can use Enter or Space. This web-only control does not change the Quest panels. Sirius remains available from the previous preview.
+
 The preview is deployed independently from the modernization branch to the `RiVViT-preview` repository's `main` branch. It does not deploy the stable repository's `main` branch. The header displays a preview build identifier; check it after reloading to confirm the version under test.
 
 ## Validated build 2026-10-13.4
