@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "researchedOn": "2026-10-27",
+  "status": "research-catalog-not-loaded-by-runtime",
+  "conventions": {
+    "dates": "Gregorian calendar. start/end are inclusive calendar dates, not UTC instants. Year envelopes and upper bounds are not asserted event days.",
+    "places": "Named historical locations checked against sources. geometry is null until independently geocoded; no present-day museum or headquarters is substituted for an event location.",
+    "interpretation": "MMS connections identify the supplied v37 narrative; they are separate from the historical claims and do not assign automatic wave scores.",
+    "selection": "Purposive research anchors expanding people, works, movements and events named in MMS v37. Not every dated occurrence is explicitly listed in MMS; this is not an exhaustive or representative sample."
+  },
+  "sources": {
+    "walden-nps": {"title":"Walden Pond in the Walden Pond State Reservation","publisher":"U.S. National Park Service","url":"https://www.nps.gov/places/walden-pond-in-the-walden-pond-state-reservation.htm","type":"heritage-institution"},
+    "walden-text": {"title":"4 July. Walden Pond. 1845.","publisher":"The Walden Woods Project","url":"https://www.walden.org/log-entry/4-july-walden-pond-1845/","type":"primary-text-reproduction"},
+    "commune-dispatch": {"title":"Mr. Washburne to Mr. Fish, Paris, March 30, 1871","publisher":"U.S. Department of State, Office of the Historian","url":"https://history.state.gov/historicaldocuments/frus1871/d135","type":"contemporary-diplomatic-dispatch"},
+    "commune-history": {"title":"Le fonctionnement de la Commune","publisher":"Les Amies et Amis de la Commune de Paris 1871","url":"https://parcours.commune1871.org/histoire-de-la-commune/le-fonctionnement-de-la-commune/","type":"historical-association"},
+    "wardenclyffe": {"title":"History of Wardenclyffe","publisher":"Tesla Science Center at Wardenclyffe","url":"https://teslasciencecenter.org/history/","type":"site-institution"},
+    "wardenclyffe-report": {"title":"2020 Annual Report","publisher":"Tesla Science Center at Wardenclyffe","url":"https://teslasciencecenter.org/wp-content/uploads/2021/03/TSCW2020_AnnualReport_R5.pdf","type":"site-institution"},
+    "wright": {"title":"Commemorating the Wright Brothers at Kitty Hawk","publisher":"U.S. National Park Service","url":"https://home.nps.gov/articles/commemoration.htm","type":"site-institution"},
+    "verdun": {"title":"Musée du Mémorial de Verdun","publisher":"Mémorial de Verdun","url":"https://memorial-verdun.fr/fr?nocookie=1&search=","type":"battlefield-institution"},
+    "somme": {"title":"Somme Offensive","publisher":"Australian War Memorial","url":"https://www.awm.gov.au/collection/E84738","type":"national-museum"},
+    "dali-catalogue": {"title":"The Persistence of Memory, catalogue P 265","publisher":"Fundació Gala-Salvador Dalí","url":"https://catalogues.salvador-dali.org/catalogues/en/heritageobject/478/","type":"artist-foundation-catalogue-raisonne"},
+    "hiroshima": {"title":"The Path from the Atomic Bombing to Reconstruction of Hiroshima","publisher":"Hiroshima Prefectural Office","url":"https://www.pref.hiroshima.lg.jp/site/hiroshimaforpeace-en/reconstruction-atomic-bombing.html","type":"government-history"},
+    "nagasaki": {"title":"1945.8.9 At 11:02 a.m. August 9, 1945","publisher":"Nagasaki City, Nagasaki Peace","url":"https://nagasakipeace.jp/en/search/record/photo/part_2_01.html","type":"municipal-history"},
+    "cavern": {"title":"1960s","publisher":"Cavern Club","url":"https://www.cavernclub.com/history/1960s/","type":"venue-history"},
+    "vostok": {"title":"The flight of Vostok 1","publisher":"European Space Agency","url":"https://www.esa.int/About_Us/50_years_of_ESA/50_years_of_humans_in_space/The_flight_of_Vostok_1","type":"space-agency-history"},
+    "perpignan": {"title":"Historique: Perpignan station","publisher":"Ville de Perpignan","url":"https://perpignan.fr/proximite-securite/transport-et-circulation/par-train/historique","type":"municipal-history-of-reported-experience"},
+    "nevermind-sessions": {"title":"May 2–28, 1991: Sound City and Devonshire sessions","publisher":"Live Nirvana","url":"https://www.livenirvana.com/sessions/studio/may-june-1991.php","type":"specialist-sessionography-secondary"},
+    "nirvana": {"title":"Timeline","publisher":"Nirvana / Universal Music Group","url":"https://www.nirvana.com/timelines/","type":"official-artist-timeline"}
+  },
+  "events": [
+    {
+      "id":"thoreau-walden-move-1845","title":"Thoreau begins living at Walden Pond","categories":["literature","social-movements"],
+      "time":{"start":"1845-07-04","end":"1845-07-04","precision":"day","note":"Move-in date, not publication of Walden or the start of Transcendentalism."},
+      "places":[{"name":"Thoreau's cabin site, Walden Pond, Concord, Massachusetts, USA","role":"residence","extent":"site","geometry":null}],
+      "historicalSummary":"Thoreau began occupying the house he built near Walden Pond.",
+      "evidence":[{"source":"walden-nps","supports":["time","place"]},{"source":"walden-text","supports":["time","event"]}],
+      "mms":{"epochYear":1842,"connection":"Concrete place/time anchor for the Romantic Epoch's Transcendentalist theme; the event is in 1845, not reassigned to the 1842 marker."},
+      "openQuestions":["Geocode the historical cabin site rather than the visitor-centre replica."]
+    },
+    {
+      "id":"paris-commune-proclamation-1871","title":"Proclamation of the Paris Commune","categories":["political-change"],
+      "time":{"start":"1871-03-28","end":"1871-03-28","precision":"day","note":"Proclamation after the elections; distinct from the March 18 uprising."},
+      "places":[{"name":"Hôtel de Ville and its square, Paris, France","role":"proclamation","extent":"site-and-square","geometry":null}],
+      "historicalSummary":"The elected Commune was publicly proclaimed at the Hôtel de Ville.",
+      "evidence":[{"source":"commune-dispatch","supports":["place","event","relative-date"]},{"source":"commune-history","supports":["time","place"]}],
+      "mms":{"epochYear":1871,"connection":"Commune Epoch: civic experimentation. Suppression should be a separate event or interval, not merged with the proclamation."},
+      "openQuestions":["Add the uprising and Bloody Week as distinct records; geocode the square."]
+    },
+    {
+      "id":"wardenclyffe-construction-start-1901","title":"Construction begins at Wardenclyffe","categories":["technology"],
+      "time":{"start":"1901-01-01","end":"1901-12-31","precision":"year","note":"Envelope for a year-only start date. The institutional history does not establish an exact groundbreaking day."},
+      "places":[{"name":"Wardenclyffe laboratory and tower site, Shoreham, Long Island, New York, USA","role":"construction-and-research","extent":"site","geometry":null}],
+      "historicalSummary":"Construction began on Tesla's planned wireless communication and power-transfer facility.",
+      "evidence":[{"source":"wardenclyffe","supports":["time","event"]},{"source":"wardenclyffe-report","supports":["year","place"]}],
+      "mms":{"epochYear":1901,"connection":"Tesla Epoch's principal geographic technology anchor."},
+      "openQuestions":["Resolve any more precise start date using construction records; distinguish laboratory construction, tower construction, experiments and later demolition."]
+    },
+    {
+      "id":"wright-powered-flights-1903","title":"Wright brothers' successful powered flights","categories":["technology","aviation"],
+      "time":{"start":"1903-12-17","end":"1903-12-17","precision":"day","note":"Four flights that day; a time-of-day is not asserted here."},
+      "places":[{"name":"1903 flight grounds, Kill Devil Hills, North Carolina, USA","role":"flight-test","extent":"flight-ground","geometry":null}],
+      "historicalSummary":"Orville and Wilbur Wright made successful controlled, powered flights at Kill Devil Hills.",
+      "evidence":[{"source":"wright","supports":["time","place","event"]}],
+      "mms":{"epochYear":1901,"connection":"Innovation surrounding the Tesla Epoch; retains the actual 1903 date."},
+      "openQuestions":["Geocode the flight grounds/launch marker, not the hilltop monument or the town centre of Kitty Hawk."]
+    },
+    {
+      "id":"verdun-battle-1916","title":"Battle of Verdun","categories":["war"],
+      "time":{"start":"1916-02-21","end":"1916-12-18","precision":"interval","note":"Conventional battle interval, not a single event day."},
+      "places":[{"name":"Battlefield north of Verdun, Meuse, France","role":"battlefield","extent":"region","geometry":null}],
+      "historicalSummary":"A prolonged battle took place on the heights north of Verdun.",
+      "evidence":[{"source":"verdun","supports":["time","place"]}],
+      "mms":{"epochYear":1916,"connection":"WWI trough example; destruction/institutional counter-pressure in the MMS reading."},
+      "openQuestions":["Use a battlefield footprint or named sub-battles; a museum pin would not represent the whole battle."]
+    },
+    {
+      "id":"somme-offensive-1916","title":"Somme offensive","categories":["war"],
+      "time":{"start":"1916-07-01","end":"1916-11-18","precision":"interval","note":"Series of battles; preserve the duration rather than substituting July 1 for the whole offensive."},
+      "places":[{"name":"Somme Valley battlefront, northern France","role":"battlefield","extent":"region","geometry":null}],
+      "historicalSummary":"The Somme offensive comprised a series of battles along the Somme Valley.",
+      "evidence":[{"source":"somme","supports":["time","place","event"]}],
+      "mms":{"epochYear":1916,"connection":"A second geographically distinct WWI trough example."},
+      "openQuestions":["Source an appropriate battlefield footprint and distinguish opening-day actions from the wider campaign."]
+    },
+    {
+      "id":"persistence-memory-creation-1931","title":"Creation of The Persistence of Memory","categories":["art"],
+      "time":{"start":"1931-01-01","end":"1931-06-15","precision":"bounded","note":"Catalogue dates the work 1931 and lists it in the June 3–15 exhibition. June 15 is a conservative inferred upper bound from that exhibition, not an asserted painting day; the individual display start is not established."},
+      "places":[],
+      "historicalSummary":"Dalí's painting is dated 1931. The checked catalogue does not establish its creation site or exact creation day.",
+      "evidence":[{"source":"dali-catalogue","supports":["year","exhibition-upper-bound"]}],
+      "mms":{"epochYear":1931,"connection":"Defining Surrealist Epoch artwork. Do not move the wave's provisional July 1 calibration automatically on the basis of an exhibition date."},
+      "openQuestions":["Locate a reliable primary account of where it was painted and when. MoMA's current custody is not its creation location; a depicted landscape is not proof of studio location."]
+    },
+    {
+      "id":"persistence-memory-paris-exhibition-1931","title":"The Persistence of Memory in Dalí's Pierre Colle exhibition","categories":["art","exhibition"],
+      "time":{"start":"1931-06-03","end":"1931-06-15","precision":"interval","note":"Exhibition dates in the Foundation catalogue, entry 23; not creation dates."},
+      "places":[{"name":"Galerie Pierre Colle, Paris, France","role":"exhibition","extent":"venue","geometry":null}],
+      "historicalSummary":"The Foundation lists the painting in the June 1931 Dalí exhibition at Pierre Colle in Paris.",
+      "evidence":[{"source":"dali-catalogue","supports":["time","place","event"]}],
+      "mms":{"epochYear":1931,"connection":"A public-presentation anchor associated with the defining artwork, separate from the act of painting."},
+      "openQuestions":["Verify the gallery's 1931 street address before placing a precise map pin."]
+    },
+    {
+      "id":"hiroshima-bombing-1945","title":"Atomic bombing of Hiroshima","categories":["war"],
+      "time":{"start":"1945-08-06","end":"1945-08-06","precision":"minute","localTime":"08:15","timeZone":"Asia/Tokyo","note":"Minute-level historical time, not a second-accurate timestamp."},
+      "places":[{"name":"Hiroshima, Japan","role":"affected-city","extent":"city","geometry":null}],
+      "historicalSummary":"An atomic bomb devastated Hiroshima on August 6, 1945, at about 08:15 local time.",
+      "evidence":[{"source":"hiroshima","supports":["time","place","event"]}],
+      "mms":{"epochYear":1946,"connection":"Event discussed in the postwar trough narrative; it occurred in 1945, not 1946."},
+      "openQuestions":["If a hypocentre pin is needed, source it separately and distinguish it from the affected area."]
+    },
+    {
+      "id":"nagasaki-bombing-1945","title":"Atomic bombing of Nagasaki","categories":["war"],
+      "time":{"start":"1945-08-09","end":"1945-08-09","precision":"minute","localTime":"11:02","timeZone":"Asia/Tokyo","note":"Minute-level historical time, not a second-accurate timestamp."},
+      "places":[{"name":"Nagasaki, Japan","role":"affected-city","extent":"city","geometry":null}],
+      "historicalSummary":"An atomic bomb exploded over Nagasaki on August 9, 1945, at about 11:02 local time.",
+      "evidence":[{"source":"nagasaki","supports":["time","place","event"]}],
+      "mms":{"epochYear":1946,"connection":"Separate place/time record within the postwar trough narrative; actual event year is 1945."},
+      "openQuestions":["Source the hypocentre and/or affected-area geometry separately from museum location."]
+    },
+    {
+      "id":"beatles-first-cavern-1961","title":"The Beatles' first Cavern Club performance","categories":["music","performance"],
+      "time":{"start":"1961-02-09","end":"1961-02-09","precision":"day","note":"A concrete early performance; not a universal date when the band became famous or ceased being underground."},
+      "places":[{"name":"Original Cavern Club, Liverpool, England, United Kingdom","role":"performance","extent":"historical-venue","geometry":null}],
+      "historicalSummary":"The Beatles first performed at the Cavern Club on February 9, 1961.",
+      "evidence":[{"source":"cavern","supports":["time","place","event"]}],
+      "mms":{"epochYear":1961,"connection":"Specific early-band activity for the Beat Epoch's music theme; does not equate the Beatles with the Beat literary movement."},
+      "openQuestions":["Check the original venue footprint rather than assuming the present reconstructed club is identical."]
+    },
+    {
+      "id":"gagarin-vostok-launch-1961","title":"Gagarin launches aboard Vostok 1","categories":["science","spaceflight"],
+      "time":{"start":"1961-04-12","end":"1961-04-12","precision":"minute","utcTime":"06:07","note":"Launch time; the full spaceflight occupies a longer interval and route."},
+      "places":[{"name":"Baikonur Cosmodrome, Site No. 1, Kazakhstan (then USSR)","role":"launch","extent":"launch-site","geometry":null}],
+      "historicalSummary":"Vostok 1 launched with Yuri Gagarin, who became the first human in space.",
+      "evidence":[{"source":"vostok","supports":["time","place","event"]}],
+      "mms":{"epochYear":1961,"connection":"Beat Epoch's space-exploration example."},
+      "openQuestions":["Geocode Site No. 1. A launch pin represents departure, not the entire orbital path or landing."]
+    },
+    {
+      "id":"dali-perpignan-experience-1963","title":"Dalí's reported cosmogonic experience at Perpignan station","categories":["art","reported-experience"],
+      "time":{"start":"1963-09-19","end":"1963-09-19","precision":"day","note":"Date attributed to Dalí's reported experience in the municipal account; not the date of the later painting or public reception."},
+      "places":[{"name":"Perpignan railway station, Perpignan, France","role":"reported-experience","extent":"station","geometry":null}],
+      "historicalSummary":"Perpignan's municipal history dates Dalí's account of a cosmogonic experience at the station to September 19, 1963.",
+      "evidence":[{"source":"perpignan","supports":["reported-date","reported-place","reported-experience"]}],
+      "mms":{"epochYear":1961,"connection":"Place-linked visionary experience discussed in the Hyperborean Corridor narrative."},
+      "openQuestions":["Consult the cited autobiographical account for a direct first-person source; distinguish this from his August 27, 1965 reception and the later painting."]
+    },
+    {
+      "id":"nevermind-sessions-1991","title":"Nevermind recording sessions in Southern California","categories":["music","recording"],
+      "time":{"start":"1991-05-02","end":"1991-05-28","precision":"interval","note":"Specialist sessionography's combined session interval; not a verified day-by-day allocation between the two studios or every track on the album."},
+      "places":[{"name":"Sound City Studios, Van Nuys, California, USA","role":"recording","extent":"studio","geometry":null},{"name":"Devonshire Studios, Burbank, California, USA","role":"recording-and-studio-work","extent":"studio","geometry":null}],
+      "historicalSummary":"The specialist sessionography groups Sound City and Devonshire work into a May 2–28, 1991 session period.",
+      "evidence":[{"source":"nevermind-sessions","supports":["time","places","event"]}],
+      "mms":{"epochYear":1991,"connection":"Grunge Epoch's defining album: creative production is geographically distinct from public release."},
+      "openQuestions":["Corroborate finer session dates with studio logs or participant accounts. Do not label all tracks as first conceived or fully recorded here."]
+    },
+    {
+      "id":"nevermind-release-1991","title":"Release of Nevermind","categories":["music","release"],
+      "time":{"start":"1991-09-24","end":"1991-09-24","precision":"day","note":"Official artist timeline's release date; regional release differences may require additional records."},
+      "places":[],
+      "historicalSummary":"Nirvana's official timeline dates Nevermind's release to September 24, 1991.",
+      "evidence":[{"source":"nirvana","supports":["time","event"]}],
+      "mms":{"epochYear":1991,"connection":"Public-release anchor for the Grunge Epoch. Chart impact and recording are distinct events."},
+      "openQuestions":["A distributed commercial release has no single verified event site here. Do not substitute Seattle, a studio, or a label headquarters without defining a separate local event."]
+    }
+  ]
+}

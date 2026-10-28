@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [HISTORICAL-EVENTS-RESEARCH.md](HISTORICAL-EVENTS-RESEARCH.md) | Fifteen sourced MMS-related events, historical dates/places, and mapping uncertainties |
 | [PATAPHYSICAL-RESEARCH.md](PATAPHYSICAL-RESEARCH.md) | Author's pattern-seeking purpose, historical layers, and 200-year data boundary |
 | [SIRIUS.md](SIRIUS.md) | Sirius catalogue track, binary cycle, and hypothetical travel-scale comparison |
 | [MOVING-TARGET-EXPERIMENT.md](MOVING-TARGET-EXPERIMENT.md) | Hypothetical moving-target fit and time-resolved intervening-body geometry |

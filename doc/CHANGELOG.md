@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-27 — First sourced historical event catalog
+
+- Researched fifteen MMS-related occurrences, separating event dates, periods, locations, source evidence, and MMS connections.
+- Distinguished creative production, exhibition/release, reported experiences, and regional conflicts. Recorded the June 1931 exhibition as an upper bound on The Persistence of Memory's completion.
+- Added a JSON research catalog and readable source table. Geocoding and historical footprints remain pending; no runtime overlay or wave calibration changes.
+
 ## 2026-10-26 — Collapsible web legend
 
 - Added a keyboard-accessible Legend disclosure with a 44px touch target in the upper-right corner.
