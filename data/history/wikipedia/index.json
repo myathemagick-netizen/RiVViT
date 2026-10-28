@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "license": {
+    "name": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": "Wikipedia contributors; per-page source and history links in manifest.",
+    "changes": "Dated list items extracted, reference markers removed, dates structured, exact duplicates merged, topic and interpretation candidate metadata added. No source text independently fact-checked."
+  },
+  "years": [
+    {
+      "year": 1961,
+      "file": "1961.json",
+      "completeRequestedPages": true,
+      "pagesRequested": 13,
+      "pagesParsed": 13,
+      "pageFailures": [],
+      "sourceMentions": 2456,
+      "exactTextDuplicatesMerged": 0,
+      "records": 2456,
+      "kinds": {
+        "award": 5,
+        "event": 1330,
+        "birth": 694,
+        "death": 427
+      },
+      "datePrecision": {
+        "year": 5,
+        "day": 2447,
+        "interval": 1,
+        "month": 3
+      },
+      "candidateSuggestions": {
+        "unreviewed": 2360,
+        "tradition": 18,
+        "novelty": 78
+      },
+      "recordsFlaggedForPossibleDuplicates": 150,
+      "daysRepresented": 365,
+      "locationsVerified": 0,
+      "limitations": [
+        "Not a complete record of world history; English Wikipedia has editorial, regional and temporal coverage biases.",
+        "Completeness means requested pages parsed, not that every event or bullet was extracted.",
+        "List-item parser excludes tables, prose-only sections, figures and navigation. Compound bullets may retain several occurrences.",
+        "Paraphrase duplicates remain pending review; mention counts are not independent event counts.",
+        "Birth/death location and event location are unresolved; linked entities are not map pins.",
+        "Candidate rules are lexical triage, not final MMS readings. No automatic neither/deletion."
+      ]
+    }
+  ]
+}

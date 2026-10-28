@@ -2,6 +2,13 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-27 — Bulk Wikipedia chronology pipeline
+
+- Replaced the small-catalog approach to collection with a reusable year/month HTML importer, cached requests, revision attribution, coverage reports, and JSON shards.
+- Imported the 1961 year page plus all twelve months: 2,456 entries across all 365 days, including events, births, deaths and awards. Entries can overlap; these are not unique-event counts.
+- Added editable topic/interpretation candidate rules, review overrides and non-destructive filtered export. Unreviewed and neither are distinct; reviewed decisions override suggestions.
+- Added parser/export tests and CC BY-SA attribution for imported text. Geographic enrichment, semantic deduplication and runtime density rendering remain separate work.
+
 ## 2026-10-27 — First sourced historical event catalog
 
 - Researched fifteen MMS-related occurrences, separating event dates, periods, locations, source evidence, and MMS connections.
