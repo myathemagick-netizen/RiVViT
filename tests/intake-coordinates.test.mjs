@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {parseCoordinates} from '../intake/coordinates.mjs';
+const stockholm=parseCoordinates('59°19′46″N 18°4′7″E');
+assert.ok(Math.abs(stockholm.latitude-59.3294444444)<1e-9);
+assert.ok(Math.abs(stockholm.longitude-18.0686111111)<1e-9);
+assert.deepEqual(stockholm.geometry.coordinates,[stockholm.longitude,stockholm.latitude]);
+assert.deepEqual(parseCoordinates('59.329444, 18.068611').geometry.coordinates,[18.068611,59.329444]);
+assert.ok(parseCoordinates('33°51′31″S 151°12′51″E').latitude<0);
+assert.ok(parseCoordinates('37.4 N 122.1 W').longitude<0);
+assert.deepEqual(parseCoordinates('https://geohack.toolforge.org/geohack.php?pagename=Stockholm&params=59_19_46_N_18_4_7_E_region:SE-AB_type:city(1000000)').geometry,stockholm.geometry);
+assert.deepEqual(parseCoordinates('{"type":"Point","coordinates":[18,59]}').geometry.coordinates,[18,59]);
+for(const invalid of ['','59°65′0″N 18°4′7″E','59°19′75″N 18°4′7″E','91,18','59,181','Stockholm','-59 N 18 E','59.5 12 N 18 E','{"type":"Point","coordinates":["18",59]}'])assert.throws(()=>parseCoordinates(invalid));
+console.log('PASS: Wikipedia DMS, decimal coordinates, GeoHack URLs, hemispheres, GeoJSON order and invalid input.');

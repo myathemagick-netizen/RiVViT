@@ -11,8 +11,10 @@ from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 LABELS = {'novelty','tradition','mixed','neither','unreviewed'}
+EVENT_ROLES = {'unspecified','recognition','ceremony','research','discovery','publication','experience','other'}
 SCHEMA = 1
 
 
@@ -345,19 +347,25 @@ class IntakeStore:
                 raise ValidationError('Record not found')
             saved=db.execute('SELECT body,version,status FROM reviews WHERE collection_id=? AND record_id=?',(collection,identity)).fetchone()
             raw=json.loads(row['raw'])
-            review=json.loads(saved['body']) if saved else self.initial_review(raw)
+            review={**self.initial_review(raw),**json.loads(saved['body'])} if saved else self.initial_review(raw)
             version=saved['version'] if saved else 0
             return {'record':raw,'review':review,'version':version,'issues':self.approval_issues(raw,review)}
 
     @staticmethod
     def initial_review(raw):
         return {'title':raw['title'],'time':raw['time'],'location':raw['location'],'label':'unreviewed','reason':'',
+                'eventRole':'recognition' if raw['kind']=='award' else 'unspecified',
+                'researchStatus':'needs-research' if raw['kind']=='award' else 'not-assessed',
+                'researchQuestions':'Separate the award/ceremony from each recipient’s underlying work. Find research dates and locations; award-time affiliation is only a lead.' if raw['kind']=='award' else '',
+                'researchSources':[],
                 'sourceChecked':False,'dateChecked':False,'placeChecked':False,'duplicatesChecked':False,
                 'duplicateOf':'','publicAllowed':raw['permission']['allowed'],'permissionNote':raw['permission']['note'],'status':'reviewed'}
 
     @staticmethod
     def approval_issues(raw, review):
         issues=[]
+        if review.get('researchStatus','needs-research' if raw['kind']=='award' else 'not-assessed')=='needs-research':
+            issues.append('Resolve the research questions before approving this event for the dataset.')
         if review.get('label') not in {'novelty','tradition','mixed'}:
             issues.append('Choose novelty, tradition or mixed for an included dataset record; neither is excluded.')
         for key,message in [('sourceChecked','Check the source.'),('dateChecked','Check the date or interval.'),('placeChecked','Check the location and its geometry.'),('duplicatesChecked','Complete the duplicate check.')]:
@@ -388,6 +396,24 @@ class IntakeStore:
                  'label':body['label'],'reason':text(body.get('reason'),12000),'duplicateOf':text(body.get('duplicateOf'),200),
                  'publicAllowed':body.get('publicAllowed') is True,'permissionNote':text(body.get('permissionNote'),4000),
                  'status':status,'savedAt':now()}
+        prior={**self.initial_review(raw),**current['review']}
+        checked['eventRole']=body.get('eventRole',prior['eventRole'])
+        checked['researchStatus']=body.get('researchStatus',prior['researchStatus'])
+        checked['researchQuestions']=text(body.get('researchQuestions',prior['researchQuestions']),12000)
+        if checked['eventRole'] not in EVENT_ROLES or checked['researchStatus'] not in {'not-assessed','needs-research','ready'}:
+            raise ValidationError('Unknown event role or research status')
+        sources=body.get('researchSources',prior['researchSources'])
+        if not isinstance(sources,list) or len(sources)>100:
+            raise ValidationError('Supply a list of up to 100 supporting sources')
+        checked['researchSources']=[]
+        for source in sources:
+            if not isinstance(source,dict):
+                raise ValidationError('A supporting source needs a URL')
+            url=text(source.get('url'),4000)
+            parsed=urlparse(url)
+            if parsed.scheme not in {'http','https'} or not parsed.hostname:
+                raise ValidationError('Supporting sources need complete http/https URLs')
+            checked['researchSources'].append({'url':url,'title':text(source.get('title'),1000)})
         if not checked['title']:
             raise ValidationError('A reviewed title is required')
         for key in ('sourceChecked','dateChecked','placeChecked','duplicatesChecked'):
@@ -429,6 +455,9 @@ class IntakeStore:
                 continue
             if status=='needs-place':
                 if (review or raw).get('location',{}).get('geometry'):
+                    continue
+            elif status=='needs-research':
+                if (review or {}).get('researchStatus','needs-research' if raw['kind']=='award' else 'not-assessed')!='needs-research':
                     continue
             elif status and state!=status:
                 continue
@@ -528,9 +557,10 @@ class IntakeStore:
             if not moment(review['time']['start']).year<=year<=moment(review['time']['end']).year:
                 continue
             events.append({'id':raw['id'],'kind':raw['kind'],'title':review['title'],'text':raw['text'],
+                           'eventRole':review.get('eventRole','unspecified'),
                            'time':review['time'],'location':review['location'],'topics':raw.get('topics',[]),
                            'interpretation':{'label':review['label'],'reason':review['reason']},
-                           'sources':source_urls(raw),'evidenceType':raw['evidenceType'],
+                           'sources':source_urls(raw)+review.get('researchSources',[]),'evidenceType':raw['evidenceType'],
                            **({'measurements':raw['measurements']} if 'measurements' in raw else {})})
         if not events:
             raise ValidationError('No approved, export-permitted records with suitable geometry overlap this year.')

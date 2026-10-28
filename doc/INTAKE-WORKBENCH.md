@@ -21,7 +21,7 @@ This is an in-house single-user tool. It is not a GitHub Pages application or a 
 
 The default workspace is `.cache/intake/`, explicitly ignored by Git. SQLite stores imported originals, review overlays and review revision history. This default is a private ignored directory inside the checkout, **not** a directory physically outside the checkout. Use `--workspace` to choose a location outside it, and back it up before moving or archiving the checkout.
 
-The local service serves only its three UI assets and explicit API routes; it does not expose a general file server for the repository or private workspace. Writes require a per-run token and matching local Origin/Host. These are safeguards for a local tool, not a replacement for authentication if hosted remotely.
+The local service serves only its UI assets and explicit API routes; it does not expose a general file server for the repository or private workspace. Writes require a per-run token and matching local Origin/Host. These are safeguards for a local tool, not a replacement for authentication if hosted remotely.
 
 The UI's workspace footer shows the active data directory. **Download private backup** includes original source records, current reviews, source manifests and saved review history. It can contain private accounts. It is not an approved public dataset.
 
@@ -38,6 +38,8 @@ Choose **Restore backup**. Existing collections/reviews are not overwritten. Sou
 - Search source text and topics; filter kind, review status, candidate reading or missing geometry. Queue pages contain 25 entries.
 - Read the original text, revision links, citations and available full source record. All imported text is displayed as text, never executed markup.
 - Edit the reviewed title, date/interval and precision, place label and geometry. The original is immutable. Month/year precision uses a full envelope; timestamps require a timezone. Year-only entries are labeled as year-only in the queue.
+- Record whether an entry concerns recognition, ceremony, research, discovery or publication. Awards default to recognition and **Needs research**. Research progress/questions and supporting URLs are available in a collapsible panel; unresolved research blocks approval. Supporting links and event role survive backup and approved export. The role does not automatically assign an MMS reading or manufacture a ceremony/discovery date.
+- Place entry accepts Wikipedia DMS text (`59°19′46″N 18°4′7″E`), a GeoHack link, or decimal **latitude, longitude**. **Use pasted coordinates** converts it into the internal GeoJSON order without marking the location checked. Numeric controls and region polygons are under Advanced. City coordinates are not automatically venue/laboratory coordinates.
 - Point geometry uses **longitude, latitude**, in degrees. Regions can use a closed GeoJSON Polygon. This version validates coordinate bounds and closed rings; it does not certify polygon topology or independently verify places.
 - Set a reading: novelty, tradition, mixed, neither or unreviewed; record a reason. Candidate rules are only suggestions. Check source/date/place/duplicates separately.
 - Compare flagged possible overlaps and, if appropriate, record another entry's ID under “Duplicate of.” Records remain in the collection. Cross-collection entity/event reconciliation and automatic semantic merging remain future work.
@@ -79,6 +81,8 @@ Record firsthand/retold status, actual date or uncertainty interval, a named pla
 The monthly coverage chart includes exact-day/instant entries only. Coarse dates/intervals are counted separately; year-only records are not manufactured January events. Duplicate mentions remain possible. Collection coverage is not an intensity measurement.
 
 The export type is `rivvit-reviewed-year`. Wiring these files into globe layers is the next application step; the current public globe is unchanged.
+
+The first physics Nobel entry has an expandable, manually researched brief with primary/institutional sources. It illustrates separating Hofstadter's Stanford work, a 1953 publication, Mössbauer's Heidelberg work and award recognition. It is not an automatic biography-research service and does not create linked child events yet. See [the worked research case](NOBEL-RESEARCH-CASE.md). Original records and the user's saved edits are preserved.
 
 ## Validation and limits
 

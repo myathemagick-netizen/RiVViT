@@ -2,6 +2,12 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-28 — Research context and simpler place entry
+
+- Added pasted Wikipedia DMS / GeoHack coordinate conversion and moved numeric geometry controls under Advanced. Conversion leaves place accuracy unchecked.
+- Added event role, research progress/questions, supporting source links and a Needs research queue filter. Imported awards default to recognition records requiring further research before export.
+- Documented Hofstadter's Stanford research and a specific 1953 publication separately from 1961 recognition, with primary sources and venue/date limits. Existing original records and saved user edits are preserved.
+
 ## 2026-10-28 — Working local intake workbench
 
 - Built a standalone local review desk around the complete 1961 chronology, with search, filters, pagination, candidate readings, batch review, date/location corrections and duplicate comparisons.

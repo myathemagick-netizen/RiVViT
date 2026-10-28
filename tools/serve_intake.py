@@ -72,19 +72,23 @@ class Handler(BaseHTTPRequestHandler):
         query=dict(urllib.parse.parse_qsl(parsed.query))
         store=self.server.store
         try:
-            assets={'/':'index.html','/index.html':'index.html','/app.mjs':'app.mjs','/styles.css':'styles.css'}
+            assets={'/':'index.html','/index.html':'index.html','/app.mjs':'app.mjs','/coordinates.mjs':'coordinates.mjs','/styles.css':'styles.css'}
             if parsed.path in assets:
                 filename=assets[parsed.path]
                 mime='text/html; charset=utf-8' if filename.endswith('.html') else 'text/javascript; charset=utf-8' if filename.endswith('.mjs') else 'text/css; charset=utf-8'
                 return self.reply(200,(ROOT/'intake'/filename).read_bytes(),mime)
             if parsed.path=='/api/session':
-                return self.reply(200,{'app':'rivvit-intake','token':self.server.token,'collections':store.collections(),'workspace':str(store.workspace),'version':'2026-10-28.1'})
+                return self.reply(200,{'app':'rivvit-intake','token':self.server.token,'collections':store.collections(),'workspace':str(store.workspace),'version':'2026-10-28.2'})
             if parsed.path=='/api/collections':
                 return self.reply(200,store.collections())
             if parsed.path=='/api/records':
                 return self.reply(200,store.list_records(query.get('collection',''),query.get('q',''),query.get('kind',''),query.get('status',''),query.get('suggestion',''),max(0,int(query.get('offset',0))),min(100,max(1,int(query.get('limit',25))))))
             if parsed.path=='/api/record':
-                return self.reply(200,store.get_record(query.get('collection',''),query.get('id','')))
+                record=store.get_record(query.get('collection',''),query.get('id',''))
+                brief_file=ROOT/'data/history/research-briefs.json'
+                if brief_file.exists():
+                    record['researchBrief']=json.loads(brief_file.read_text(encoding='utf-8')).get('briefs',{}).get(record['record']['id'])
+                return self.reply(200,record)
             if parsed.path=='/api/summary':
                 return self.reply(200,store.summary(query.get('collection','')))
             if parsed.path=='/api/history':

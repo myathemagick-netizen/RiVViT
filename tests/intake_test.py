@@ -79,6 +79,23 @@ class StoreTests(unittest.TestCase):
         self.assertEqual(sum(summary['months']),1)
         self.assertEqual(summary['coarseDatesExcludedFromMonths'],1)
 
+    def test_award_requires_research_and_preserves_role_and_supporting_evidence(self):
+        payload=wiki();payload['events'][0]['kind']='award'
+        collection=self.store.import_payload('wikipedia',payload,'Awards')['id']
+        initial=self.store.get_record(collection,'a')['review']
+        self.assertEqual(initial['eventRole'],'recognition')
+        self.assertEqual(initial['researchStatus'],'needs-research')
+        self.assertEqual(self.store.list_records(collection,status='needs-research')['total'],1)
+        review={**self.approved(),**{key:initial[key] for key in ('eventRole','researchStatus','researchQuestions')}}
+        with self.assertRaises(ValidationError):self.store.save_review(collection,'a',review,0,'approved')
+        review.update(eventRole='publication',researchStatus='ready',researchSources=[{'url':'https://journals.aps.org/pr/abstract/10.1103/PhysRev.92.978','title':'Primary research paper'}])
+        self.store.save_review(collection,'a',review,0,'approved')
+        exported=self.store.export_year(collection,1961)['events'][0]
+        self.assertEqual(exported['eventRole'],'publication')
+        self.assertEqual(exported['sources'][-1]['title'],'Primary research paper')
+        review['researchSources']=[{'url':'javascript:alert(1)'}]
+        with self.assertRaises(ValidationError):self.store.save_review(collection,'a',review,1)
+
     def test_private_account_not_exportable_until_permission(self):
         result=self.store.add_manual({'title':'Private account','account':'Firsthand narrative.','relationship':'firsthand','observerPseudonym':'Private name',
               'time':{'start':'1961-04-12','end':'1961-04-12','precision':'day'}},'account')
