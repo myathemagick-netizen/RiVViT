@@ -1,0 +1,154 @@
+{
+  "reference": "1931-07-01",
+  "periodYears": 29.5,
+  "yearDays": 365.2425,
+  "engine": "Astronomy Engine 2.1.19",
+  "interval": [
+    "1830-01-01",
+    "2026-12-31"
+  ],
+  "method": "Maximum positive apparent Earth-facing ring opening within ±6 years of each reference; 5-day grid then 45 ternary refinements in ±5-day bracket. Dates shown to calendar-day precision; computations retain sub-day timestamps.",
+  "lagConvention": "Positive means the MMS crest follows the Saturn maximum.",
+  "distanceConvention": "Light-time-corrected geocentric vector length; distances at observation dates, not a solved chronon departure/arrival path.",
+  "calculated": [
+    {
+      "saturnPeak": "1840-11-05",
+      "waveCrest": "1842-12-30",
+      "lagDays": 784.8779614809729,
+      "distanceAtPeakAU": 10.846067393979489,
+      "distanceAtWaveAU": 11.026639297157688
+    },
+    {
+      "saturnPeak": "1870-10-01",
+      "waveCrest": "1872-06-29",
+      "lagDays": 636.7574593018709,
+      "distanceAtPeakAU": 10.272969968998124,
+      "distanceAtWaveAU": 9.02746108498848
+    },
+    {
+      "saturnPeak": "1899-10-30",
+      "waveCrest": "1901-12-30",
+      "lagDays": 790.9125187179905,
+      "distanceAtPeakAU": 10.75603879550672,
+      "distanceAtWaveAU": 11.013775742868312
+    },
+    {
+      "saturnPeak": "1929-09-28",
+      "waveCrest": "1931-07-01",
+      "lagDays": 640.3044863365004,
+      "distanceAtPeakAU": 10.179424975122325,
+      "distanceAtWaveAU": 9.025098291014096
+    },
+    {
+      "saturnPeak": "1958-10-24",
+      "waveCrest": "1960-12-29",
+      "lagDays": 797.461571159841,
+      "distanceAtPeakAU": 10.6493192447535,
+      "distanceAtWaveAU": 11.001290423904495
+    },
+    {
+      "saturnPeak": "1988-09-25",
+      "waveCrest": "1990-06-30",
+      "lagDays": 643.1358909443029,
+      "distanceAtPeakAU": 10.09696610949219,
+      "distanceAtWaveAU": 9.025353398004071
+    },
+    {
+      "saturnPeak": "2017-10-16",
+      "waveCrest": "2019-12-29",
+      "lagDays": 804.1547541005622,
+      "distanceAtPeakAU": 10.529486299560066,
+      "distanceAtWaveAU": 10.9897578124972
+    }
+  ],
+  "calculatedStats": {
+    "count": 7,
+    "meanDays": 728.2292345774343,
+    "meanMonths": 23.925887088521222,
+    "meanYears": 1.993823924043435,
+    "minYears": 1.7433827095747918,
+    "maxYears": 2.2017009359550497
+  },
+  "namedYearMidpoints": [
+    {
+      "markerYear": 1842,
+      "name": "Romantic Epoch",
+      "saturnPeak": "1840-11-05",
+      "waveCrest": "1842-07-01",
+      "lagDays": 602.8392227464238,
+      "distanceAtPeakAU": 10.846067282266883,
+      "distanceAtWaveAU": 9.050647678475467
+    },
+    {
+      "markerYear": 1871,
+      "name": "Commune Epoch",
+      "saturnPeak": "1870-10-01",
+      "waveCrest": "1871-07-01",
+      "lagDays": 272.06494160931624,
+      "distanceAtPeakAU": 10.272970251798661,
+      "distanceAtWaveAU": 9.03310111009207
+    },
+    {
+      "markerYear": 1901,
+      "name": "Tesla Epoch",
+      "saturnPeak": "1899-10-30",
+      "waveCrest": "1901-07-01",
+      "lagDays": 608.566258717414,
+      "distanceAtPeakAU": 10.756038910662859,
+      "distanceAtWaveAU": 9.045987753971191
+    },
+    {
+      "markerYear": 1931,
+      "name": "Surrealist Epoch",
+      "saturnPeak": "1929-09-28",
+      "waveCrest": "1931-07-01",
+      "lagDays": 640.3044863365004,
+      "distanceAtPeakAU": 10.179424975122325,
+      "distanceAtWaveAU": 9.025098291014096
+    },
+    {
+      "markerYear": 1961,
+      "name": "Beat Epoch",
+      "saturnPeak": "1958-10-24",
+      "waveCrest": "1961-07-01",
+      "lagDays": 980.8078282998106,
+      "distanceAtPeakAU": 10.649319151813947,
+      "distanceAtWaveAU": 9.05183381598263
+    },
+    {
+      "markerYear": 1991,
+      "name": "Grunge Epoch",
+      "saturnPeak": "1988-09-25",
+      "waveCrest": "1991-07-01",
+      "lagDays": 1008.8283944969431,
+      "distanceAtPeakAU": 10.096966050866412,
+      "distanceAtWaveAU": 9.046797559676808
+    },
+    {
+      "markerYear": 2021,
+      "name": "Trans / Hyperpop Epoch",
+      "saturnPeak": "2017-10-16",
+      "waveCrest": "2021-07-01",
+      "lagDays": 1353.1935044239467,
+      "distanceAtPeakAU": 10.529486294913749,
+      "distanceAtWaveAU": 9.088254324469748
+    }
+  ],
+  "namedStats": {
+    "count": 7,
+    "meanDays": 780.9435195186221,
+    "meanMonths": 25.65780880982762,
+    "meanYears": 2.1381507341523016,
+    "minYears": 0.7448885099880661,
+    "maxYears": 3.7049179775736576
+  },
+  "distanceSummary": {
+    "peakMinAU": 10.09696610949219,
+    "peakMaxAU": 10.846067393979489,
+    "peakMaxOverMinPercent": 7.419072980576469,
+    "lagMaxOverMinPercent": 26.28901983845193,
+    "peakDistanceLagCorrelation": 0.8991098490554573,
+    "crestDistanceLagCorrelation": 0.996397337443224
+  },
+  "interpretation": "Descriptive, calibration-dependent observations and a proposed MMS mechanism; no signal transit time, speed, or causation has been measured."
+}

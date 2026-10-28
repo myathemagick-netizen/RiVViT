@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "briefs": {
+    "wp-2ec7ab8ace9f32514114": {
+      "title": "1961 Physics Nobel: follow the work, not just the award",
+      "researchedOn": "2026-10-28",
+      "summary": "The source lists two laureates under one recognition year. Their work needs separate research records; a ceremony is a third kind of occurrence.",
+      "findings": [
+        {"text":"Hofstadter's group published a Stanford electron-scattering experiment on 15 November 1953. That dates a publication, not the exact moment of discovery.","sourceTitle":"Original 1953 paper: Hofstadter, Fechter and McIntyre","url":"https://journals.aps.org/pr/abstract/10.1103/PhysRev.92.978"},
+        {"text":"Stanford's institutional account identifies the Mark III accelerator and High Energy Physics Laboratory as the setting for Hofstadter's research.","sourceTitle":"Stanford Physics: Robert Hofstadter","url":"https://physics.stanford.edu/people/robert-hofstadter"},
+        {"text":"TUM places Mössbauer's thesis research and the 1957 finding at the Max Planck institute in Heidelberg. His contribution should not inherit Hofstadter's Stanford location.","sourceTitle":"TUM: Rudolf Mössbauer","url":"https://av.ph.nat.tum.de/Bios/Moessbauer.php"},
+        {"text":"Stockholm's presentation ceremony belongs at the concert hall. Its recurring 10 December date is a recognition event; the Peace Prize has a separate Oslo venue history.","sourceTitle":"Konserthuset: Nobel ceremony history","url":"https://www.konserthuset.se/en/about-us/our-operation/a-venue-for-award-ceremonies/the-nobel-prize-award-ceremony"}
+      ],
+      "unresolved": [
+        "Determine which particular experiment, result or publication should represent each research thread; preserve a period where no exact breakthrough day is documented.",
+        "Verify historical laboratory/venue coordinates rather than substituting modern campus, city-centre or award-time affiliation coordinates.",
+        "Keep ceremony, announcement, publication and discovery distinct. The original annual listing does not itself resolve those dates."
+      ]
+    }
+  }
+}

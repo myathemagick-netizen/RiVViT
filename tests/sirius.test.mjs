@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {siriusAt,binaryAtYear,SIRIUS_ORBIT} from '../lib/sirius.mjs';
+const orbit=SIRIUS_ORBIT,axis=orbit.axisArcsec/.37921;
+assert.ok(Math.abs(binaryAtYear(orbit.periastronYear).separationAU-axis*(1-orbit.eccentricity))<1e-9);
+assert.ok(Math.abs(binaryAtYear(orbit.periastronYear+orbit.periodYears/2).separationAU-axis*(1+orbit.eccentricity))<1e-9);
+assert.ok(Math.abs(binaryAtYear(1900).separationAU-binaryAtYear(1900+orbit.periodYears).separationAU)<1e-9);
+const a=siriusAt(Date.parse('1830-01-01')),b=siriusAt(Date.parse('2026-12-31'));
+assert.ok(a.sunDistanceLY>b.sunDistanceLY);
+assert.ok(b.distanceLY>8.5 && b.distanceLY<8.7);
+assert.ok(b.assumedTravelYears>100000 && b.assumedTravelYears<110000);
+assert.ok(Math.abs(siriusAt(Date.parse('2000-01-01')).raDeg-101.287)<.01);
+assert.ok(Math.abs(siriusAt(Date.parse('2000-01-01')).decDeg+16.716)<.01);
+assert.equal(siriusAt(Date.parse('2000-01-01'),48.5).assumedTravelYears,siriusAt(Date.parse('2000-01-01')).assumedTravelYears/2);
+assert.throws(()=>siriusAt(NaN));assert.throws(()=>siriusAt(0,0));
+console.log('Sirius orbit extrema, periodicity, approach, coordinate and travel-scale checks pass.');

@@ -1,0 +1,18 @@
+{
+  "version": "0.1-exploratory",
+  "description": "Editable candidate triage. No rule establishes an MMS interpretation; unmatched is unreviewed, not neither. Births and deaths never get an automatic directional suggestion. No rules use wave phase or celestial positions.",
+  "interpretationRules": [
+    {"id":"creative-or-technical-opening","suggestion":"novelty","patterns":["\\bfirst (?:human|manned|crewed|flight|spaceflight|successful|public|performance|broadcast)","\\b(?:invented|invention|discovered|discovery|premiere|premiered)\\b","\\b(?:independence|decriminalized|desegregation)\\b"]},
+    {"id":"institutional-closure","suggestion":"tradition","patterns":["\\b(?:censorship|censored|banned|outlawed|martial law|suppression|suppressed)\\b","\\b(?:military coup|coup d['’]état|coup d['’]etat|massacre|massacred)\\b"]}
+  ],
+  "topicRules": [
+    {"topic":"arts-and-media","pattern":"\\b(?:film|cinema|album|music|novel|poet|poetry|painting|artist|Academy Awards?|television|broadcast)\\b"},
+    {"topic":"science-and-technology","pattern":"\\b(?:space|spacecraft|satellite|cosmonaut|astronaut|rocket|computer|scientist|physics|discovery|invented|nuclear)\\b"},
+    {"topic":"politics-and-law","pattern":"\\b(?:president|election|parliament|government|independence|minister|constitution|legislation|law|coup)\\b"},
+    {"topic":"conflict","pattern":"\\b(?:war|battle|military|troops|invasion|bombing|massacre|assassinat\\w*)\\b"},
+    {"topic":"environment-and-disaster","pattern":"\\b(?:earthquake|hurricane|typhoon|flood|volcan\\w*|tsunami|drought|storm)\\b"},
+    {"topic":"sport","pattern":"\\b(?:Olympic|championship|football|baseball|cricket|tennis|Rose Bowl|World Cup)\\b"},
+    {"topic":"economy-and-work","pattern":"\\b(?:bank|currency|strike|workers|trade|economic|stock market)\\b"},
+    {"topic":"religion","pattern":"\\b(?:church|pope|religio\\w*|Buddhis\\w*|Islam\\w*|Hindu\\w*)\\b"}
+  ]
+}

@@ -2,6 +2,59 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-28 — Research context and simpler place entry
+
+- Added pasted Wikipedia DMS / GeoHack coordinate conversion and moved numeric geometry controls under Advanced. Conversion leaves place accuracy unchecked.
+- Added event role, research progress/questions, supporting source links and a Needs research queue filter. Imported awards default to recognition records requiring further research before export.
+- Documented Hofstadter's Stanford research and a specific 1953 publication separately from 1961 recognition, with primary sources and venue/date limits. Existing original records and saved user edits are preserved.
+
+## 2026-10-28 — Working local intake workbench
+
+- Built a standalone local review desk around the complete 1961 chronology, with search, filters, pagination, candidate readings, batch review, date/location corrections and duplicate comparisons.
+- Added SQLite source/review separation, autosave, revision history, conflict protection, private backups/restore, and explicit approved-year export checks. Local workspace is excluded from Git.
+- Added USGS GeoJSON and bounded catalog-query intake, EM reading/CSV intake with supplied-baseline deviation checks, and firsthand/retold account forms defaulting to private.
+- Added a Windows launcher and documentation. The public globe/preview and published data remain unchanged; adapters do not automatically infer MMS readings or publish records.
+
+## 2026-10-27 — Bulk Wikipedia chronology pipeline
+
+- Replaced the small-catalog approach to collection with a reusable year/month HTML importer, cached requests, revision attribution, coverage reports, and JSON shards.
+- Imported the 1961 year page plus all twelve months: 2,456 entries across all 365 days, including events, births, deaths and awards. Entries can overlap; these are not unique-event counts.
+- Added editable topic/interpretation candidate rules, review overrides and non-destructive filtered export. Unreviewed and neither are distinct; reviewed decisions override suggestions.
+- Added parser/export tests and CC BY-SA attribution for imported text. Geographic enrichment, semantic deduplication and runtime density rendering remain separate work.
+
+## 2026-10-27 — First sourced historical event catalog
+
+- Researched fifteen MMS-related occurrences, separating event dates, periods, locations, source evidence, and MMS connections.
+- Distinguished creative production, exhibition/release, reported experiences, and regional conflicts. Recorded the June 1931 exhibition as an upper bound on The Persistence of Memory's completion.
+- Added a JSON research catalog and readable source table. Geocoding and historical footprints remain pending; no runtime overlay or wave calibration changes.
+
+## 2026-10-26 — Collapsible web legend
+
+- Added a keyboard-accessible Legend disclosure with a 44px touch target in the upper-right corner.
+- Starts collapsed on screens 600px wide or narrower, expanded on larger screens. Users can open or close it at any width; resizing does not reset their choice.
+- All line/node symbols and dynamically loaded overlay legends remain inside the disclosure. Globe and Quest controls are unchanged.
+
+## 2026-10-13 — Sirius timeline preview
+
+- Recorded the author’s pattern-seeking purpose, dextrogyre interpretation, historical-layer goals, and reason for the 200-year boundary.
+- Added an optional Sirius timeline on web and Quest: approximate catalogue distance/coordinates, Kepler A/B separation curve, and static travel-scale scenario at the fitted Saturn speed.
+- Intensity and a different Sirius force remain open; MMS calibration is unchanged. Quest validation pending.
+
+## 2026-10-13 — Moving-target research experiment
+
+- Added a barycentric straight-path, constant-speed arrival solver and Earth radial/separation-rate calculations.
+- Added time-resolved Sun/Moon/planet proximity scans, distinguishing segment alignments from same-time sphere-overlap candidates.
+- A single in-sample fitted speed yields 9.03-day RMS error against configured wave crests; constant-delay and stationary-distance baselines are documented separately.
+- No same-time sphere-overlap candidates found in the seven sampled fitted journeys. No physical propagation speed or obstruction effects are asserted.
+- Added reproducible report, assumptions, tests, and numerical limits. Runtime UI and stable app remain unchanged.
+
+## 2026-10-13 — Crest offset and distance research notes
+
+- Documented the user’s proposed chronon-pressure travel/response interpretation and the possible contribution of Earth–Saturn distance variation.
+- Recorded the current fixed-wave mean offset (728.23 days / 1.994 years), separate named-year midpoint result, and the seven-cycle distance table.
+- Included calibration/calendar limitations, descriptive correlations, and a proposed moving-target test.
+- Added the reproducible calculation script and full JSON record. No runtime or astronomical/MMS model changes.
+
 ## 2026-10-13 — Observatory validated for stable release
 
 - User confirmed the complete wave/Saturn comparison works on both web and Quest, and explicitly authorized merging PR #2 to stable.

@@ -29,3 +29,7 @@ Enable Novelty Wave from the Y menu. Aim at the chart and hold the trigger to sc
 Pure model tests cover period, extrema, negative-time phase wrapping, quarters, hard bounds, slider mapping, and reference changes. Desktop preview checks cover historical selection, date limits, calibration edits, and rendered layout. The user confirmed the panel and subsequent movement/comparison features work on Quest.
 
 The globe's positions and corridors do not yet change with the selected date. Saturn position/orientation now appears alongside the wave; see SATURN.md. Temporal events on the globe, rules connecting astronomy to the MMS model, and saved calibration remain follow-up work. There is no calculated chronon-pressure measurement in this build.
+
+## Research observations
+
+See [Saturn and Novelty Wave observations](SATURN-WAVE-OBSERVATIONS.md) for the calculated phase offset, the role of the provisional crest reference, and the Earth–Saturn distance comparison. These notes do not change the wave calculation or establish a measured propagation delay.

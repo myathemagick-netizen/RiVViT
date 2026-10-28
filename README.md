@@ -6,6 +6,8 @@
 
 ## The map
 
+RiVViT seeks pataphysical patterns across one historical record, using astronomy as a common reference. Its approximately 200-year timeline emphasizes periods with richer collected data. Planned layers include conflicts, invention and art, religions, animal migration, weather, electromagnetic anomalies, and geology, with multiple MMS interpretations preserved. See [research purpose](doc/PATAPHYSICAL-RESEARCH.md).
+
 RiVViT visualizes the Myathe Magick System's pataphysical model of Earth: twelve primary vortex nodes connected by thirty icosahedral edges, with twenty triangular faces. The Atlas gives those edges their corridor names and describes their geographic, mythological, and practical meanings within the system. Secondary sacred sites and regional overlays add context to the globe.
 
 The displayed arcs are geometric connections between the primary nodes. They provide a framework for exploring the Atlas's corridors; the Atlas's descriptions include wider landscapes, sites, and branching paths beyond those arcs.
@@ -40,6 +42,8 @@ The modernization branch upgrades Three.js from r128 to pinned **0.186.1**, impr
 Crystal points show their distance to the corresponding point in the other model. The modernization was merged in [PR #1](https://github.com/myathemagick-netizen/RiVViT/pull/1) after user-confirmed Quest validation and is deployed to the stable site. The temporal observatory includes the [Novelty Wave slider](doc/NOVELTY-WAVE.md), limited to 1830–2026, with independent Saturn comparison and visual views. The user validated this release on web and Quest; see [PR #2](https://github.com/myathemagick-netizen/RiVViT/pull/2). Open Events → Novelty Wave on web or TIME → Novelty Wave in VR. The provisional MMS wave is displayed alongside calculated [Saturn astronomy](doc/SATURN.md), both driven by the selected date. Astronomy does not determine a chronon-pressure score.
 
 ## Develop locally
+
+For in-house data preparation, launch **Start RiVViT Intake.cmd** on Windows or run `python tools/serve_intake.py`, then open `http://127.0.0.1:8765/`. The [Intake workbench](doc/INTAKE-WORKBENCH.md) reviews the real chronology collection and accepts USGS, electromagnetic and anecdotal intakes. New records/reviews save to an ignored local workspace; publishing approved year files remains a separate action.
 
 The app is a static site: `index.html` contains the UI, Three.js scene, and WebXR interactions. `data/` contains secondary nodes and overlay metadata; `images/` contains node photographs. There is no build step. Serve the repository with a static HTTP server and open its localhost URL for desktop development. For Quest testing, use an HTTPS origin accessible from the headset.
 

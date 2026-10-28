@@ -4,9 +4,13 @@ Preview: https://myathemagick-netizen.github.io/RiVViT-preview/
 
 Stable site: https://myathemagick-netizen.github.io/RiVViT/
 
+Preview **2026-10-26.1** adds a collapsible upper-right Legend. It starts collapsed at mobile widths (600px or less) and expanded on desktop. Tap/click Legend to toggle; keyboard users can use Enter or Space. This web-only control does not change the Quest panels. Sirius remains available from the previous preview.
+
 The preview is deployed independently from the modernization branch to the `RiVViT-preview` repository's `main` branch. It does not deploy the stable repository's `main` branch. The header displays a preview build identifier; check it after reloading to confirm the version under test.
 
 ## Validated build 2026-10-13.4
+
+Upcoming preview **2026-10-13.5**: enable **Sirius timeline** under TIME / Events. It opens the wave panel and adds a lavender A/B separation strip, approximate distance/coordinates, and a distance/speed scenario. Check epoch/date updates, toggle off/on, enlarged panel readability, grab/reset, and scrubbing. The Sirius curve has its own AU scale. Quest and phone checks for this build are pending; 2026-10-13.4 remains the validated stable build.
 
 The user confirmed the complete build works on web and Quest on 2026-10-13 and authorized stable release. This checklist remains available for regression testing and future previews.
 
