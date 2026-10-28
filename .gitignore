@@ -1,3 +1,4 @@
 .cache/wikipedia/
+.cache/intake/
 tools/__pycache__/
 tests/__pycache__/

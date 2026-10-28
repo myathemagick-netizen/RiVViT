@@ -9,6 +9,7 @@ Live: https://myathemagick-netizen.github.io/RiVViT/
 
 | File | What's in it |
 |---|---|
+| [INTAKE-WORKBENCH.md](INTAKE-WORKBENCH.md) | Working private intake dashboard, local persistence, source adapters and approved-year exports |
 | [WIKIPEDIA-HISTORY.md](WIKIPEDIA-HISTORY.md) | Bulk year/month chronology import, full 1961 JSON, attribution, classification and coverage |
 | [HISTORICAL-EVENTS-RESEARCH.md](HISTORICAL-EVENTS-RESEARCH.md) | Fifteen sourced MMS-related events, historical dates/places, and mapping uncertainties |
 | [PATAPHYSICAL-RESEARCH.md](PATAPHYSICAL-RESEARCH.md) | Author's pattern-seeking purpose, historical layers, and 200-year data boundary |

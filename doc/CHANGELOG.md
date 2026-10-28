@@ -2,6 +2,13 @@
 
 Newest first. Dates are recorded when known; earlier entries are summarised by milestone.
 
+## 2026-10-28 — Working local intake workbench
+
+- Built a standalone local review desk around the complete 1961 chronology, with search, filters, pagination, candidate readings, batch review, date/location corrections and duplicate comparisons.
+- Added SQLite source/review separation, autosave, revision history, conflict protection, private backups/restore, and explicit approved-year export checks. Local workspace is excluded from Git.
+- Added USGS GeoJSON and bounded catalog-query intake, EM reading/CSV intake with supplied-baseline deviation checks, and firsthand/retold account forms defaulting to private.
+- Added a Windows launcher and documentation. The public globe/preview and published data remain unchanged; adapters do not automatically infer MMS readings or publish records.
+
 ## 2026-10-27 — Bulk Wikipedia chronology pipeline
 
 - Replaced the small-catalog approach to collection with a reusable year/month HTML importer, cached requests, revision attribution, coverage reports, and JSON shards.

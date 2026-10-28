@@ -43,6 +43,8 @@ Crystal points show their distance to the corresponding point in the other model
 
 ## Develop locally
 
+For in-house data preparation, launch **Start RiVViT Intake.cmd** on Windows or run `python tools/serve_intake.py`, then open `http://127.0.0.1:8765/`. The [Intake workbench](doc/INTAKE-WORKBENCH.md) reviews the real chronology collection and accepts USGS, electromagnetic and anecdotal intakes. New records/reviews save to an ignored local workspace; publishing approved year files remains a separate action.
+
 The app is a static site: `index.html` contains the UI, Three.js scene, and WebXR interactions. `data/` contains secondary nodes and overlay metadata; `images/` contains node photographs. There is no build step. Serve the repository with a static HTTP server and open its localhost URL for desktop development. For Quest testing, use an HTTPS origin accessible from the headset.
 
 Keep changes targeted, preserve the primary coordinates and thirty-edge topology, and test desktop Chrome, a phone browser, and Meta Quest 3 before declaring a feature complete. New layers should default off and have controls in both web and VR menus.
